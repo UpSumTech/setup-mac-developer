@@ -16,6 +16,10 @@ main() {
   ./src/setup-jenv.sh
   ./src/setup-utils.sh
   ./src/copy-config-files.sh
+
+  echo ">>>>>> Things still need to be done <<<<<<<
+  1. Open iTerm2. Goto Preferences > Profile > Default > Color > Load presets
+  2. Choose the Dark Solarized theme or upload it if not present"
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

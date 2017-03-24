@@ -78,7 +78,6 @@ enable_bash_it_aliases() {
     ag \
     ansible \
     bundler \
-    docker-compose \
     docker \
     git \
     heroku \
@@ -102,6 +101,7 @@ update_bash_profile() {
   echo '[ -f ~/.bashrc ] && . ~/.bashrc' >> ~/.bash_profile
   echo 'export VISUAL=vim' >> ~/.bash_profile
   echo 'export EDITOR=$VISUAL' >> ~/.bash_profile
+  echo 'export GIT_EDITOR=$EDITOR' >> ~/.bash_profile
 }
 
 main() {
