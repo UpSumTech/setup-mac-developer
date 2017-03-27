@@ -42,6 +42,7 @@ install_apps_from_cask() {
 install_packages_from_brew() {
   brew install \
     gcc \
+    curl \
     zeromq \
     coreutils \
     findutils \
@@ -124,7 +125,7 @@ install_packages_from_brew() {
 
 post_brew_package_installation() {
   echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bash_profile
-  echo 'export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/opt/sqlite/bin:/usr/local/bin:$PATH"' >> $HOME/.bash_profile
+  echo 'export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/opt/sqlite/bin:/usr/local/opt/curl/bin:/usr/local/bin:$PATH"' >> $HOME/.bash_profile
   echo 'export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:/usr/local/opt/findutils/libexec/gnuman:/usr/local/opt/gnu-tar/libexec/gnuman:/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"' >> $HOME/.bash_profile
   echo 'export PATH="/usr/local/opt/go/libexec/bin:$PATH"' >> $HOME/.bash_profile
   echo '. /usr/local/opt/autoenv/activate.sh' >> $HOME/.bash_profile
