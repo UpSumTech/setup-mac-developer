@@ -15,6 +15,7 @@ main() {
   ./src/setup-nvm.sh
   ./src/setup-jenv.sh
   ./src/setup-utils.sh
+  ./src/setup-go.sh
   ./src/copy-config-files.sh
 
   echo ">>>>>> Things still need to be done <<<<<<<

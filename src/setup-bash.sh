@@ -109,7 +109,6 @@ main() {
   install_bashit
   add_composure
   create_custom_files
-  # exec $SHELL -l
   setup_bashit
   update_bash_profile
 }
