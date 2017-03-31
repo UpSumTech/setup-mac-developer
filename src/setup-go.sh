@@ -21,6 +21,12 @@ install_go_versions() {
   done
 }
 
+setup_workspace() {
+  mkdir -p $HOME/go/{pkg,bin,src}
+  echo 'export PATH="$(go env GOPATH)/bin:$PATH"' >> $HOME/.bash_profile
+  echo 'export GOPATH="$(go env GOPATH)"' >> $HOME/.bash_profile
+}
+
 main() {
   install_gvm
   install_go1_4

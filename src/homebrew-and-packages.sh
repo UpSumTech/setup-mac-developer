@@ -36,7 +36,8 @@ install_apps_from_cask() {
     vagrant \
     tcl \
     iterm2 \
-    font-inconsolata
+    font-inconsolata \
+    kindle
 }
 
 install_packages_from_brew() {
