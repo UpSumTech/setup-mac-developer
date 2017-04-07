@@ -88,6 +88,7 @@ install_packages_from_brew() {
     iftop \
     imagemagick \
     ag \
+    ack \
     diff-so-fancy \
     colordiff \
     homebrew\/dupes\/diffutils \
@@ -130,7 +131,7 @@ post_brew_package_installation() {
   echo 'export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:/usr/local/opt/findutils/libexec/gnuman:/usr/local/opt/gnu-tar/libexec/gnuman:/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"' >> $HOME/.bash_profile
   echo 'export PATH="/usr/local/opt/go/libexec/bin:$PATH"' >> $HOME/.bash_profile
   echo '. /usr/local/opt/autoenv/activate.sh' >> $HOME/.bash_profile
-  echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi' >> $HOME/.bash_profile
+  echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"; fi' >> $HOME/.bash_profile
   [[ -x /usr/local/bin/nvm ]] || ln -s "/usr/local/opt/nvm" "/usr/local/bin/nvm"
   mkdir $HOME/.nvm
   echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bash_profile
