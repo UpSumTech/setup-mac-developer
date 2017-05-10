@@ -8,7 +8,7 @@ main() {
   ./src/setup-ssh-keys-for-github.sh
   ./src/setup-git.sh
   ./src/setup-bash.sh
-  ./src/homebrew-and-packages.sh
+  ./src/setup-homebrew-and-packages.sh
   ./src/setup-vim.sh
   ./src/setup-tmux.sh
   ./src/setup-rbenv.sh
@@ -16,7 +16,8 @@ main() {
   ./src/setup-jenv.sh
   ./src/setup-utils.sh
   ./src/setup-go.sh
-  ./src/copy-config-files.sh
+  ./src/setup-docker.sh
+  ./src/setup-config-files.sh
 
   echo ">>>>>> Things still need to be done <<<<<<<
   1. Open iTerm2. Goto Preferences > Profile > Default > Color > Load presets

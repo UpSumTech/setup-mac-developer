@@ -118,7 +118,10 @@ install_packages_from_brew() {
     pgcli \
     homebrew\/dupes\/krb5 \
     ansible \
-    fio
+    fio \
+    docker \
+    docker-compose \
+    docker-machine
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
@@ -140,6 +143,7 @@ post_brew_package_installation() {
   echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
   echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> $HOME/.bash_profile
   echo 'eval "$(jenv init -)"' >> $HOME/.bash_profile
+  echo 'eval "$(docker-machine env default)"' >> $HOME/.bash_profile
   pip install --upgrade pip setuptools
   pip3 install --upgrade pip setuptools wheel
 }
