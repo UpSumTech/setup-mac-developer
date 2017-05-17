@@ -143,6 +143,7 @@ post_brew_package_installation() {
   echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
   echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> $HOME/.bash_profile
   echo 'eval "$(jenv init -)"' >> $HOME/.bash_profile
+  echo "docker-machine ls | awk '{if(NR>1) print \$1,\$4,\$5}' | cut -d' ' -f2 | grep 'Running' || docker-machine start" >> $HOME/.bash_profile
   echo 'eval "$(docker-machine env default)"' >> $HOME/.bash_profile
   pip install --upgrade pip setuptools
   pip3 install --upgrade pip setuptools wheel

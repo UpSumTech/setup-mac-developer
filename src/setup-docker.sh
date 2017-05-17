@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 prep_docker_machine() {
-  docker-machine create --driver virtualbox default
+  docker-machine ls -q | grep '^default$' \
+    || docker-machine create --driver virtualbox default
   eval $(docker-machine env)
   docker-machine env
 }
