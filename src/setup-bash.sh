@@ -51,7 +51,8 @@ enable_bash_it_completions() {
     vagrant \
     virtualbox \
     rake \
-    docker
+    docker \
+    kubectl
 }
 
 enable_bash_it_plugins() {

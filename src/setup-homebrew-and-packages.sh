@@ -37,7 +37,8 @@ install_apps_from_cask() {
     tcl \
     iterm2 \
     font-inconsolata \
-    kindle
+    kindle \
+    minikube
 }
 
 install_packages_from_brew() {
@@ -121,7 +122,8 @@ install_packages_from_brew() {
     fio \
     docker \
     docker-compose \
-    docker-machine
+    docker-machine \
+    kubectl
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
