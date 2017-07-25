@@ -123,7 +123,8 @@ install_packages_from_brew() {
     docker \
     docker-compose \
     docker-machine \
-    kubectl
+    kubectl \
+    spark
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
