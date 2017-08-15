@@ -146,6 +146,9 @@ post_brew_package_installation() {
   echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
   echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> $HOME/.bash_profile
   echo 'eval "$(jenv init -)"' >> $HOME/.bash_profile
+  mkdir -p $HOME/go/{pkg,bin,src}
+  echo 'export GOPATH="$(go env GOPATH)"' >> $HOME/.bash_profile
+  echo 'export PATH="$GOPATH/bin:$PATH"' >> $HOME/.bash_profile
   pip install --upgrade pip setuptools
   pip3 install --upgrade pip setuptools wheel
 }
