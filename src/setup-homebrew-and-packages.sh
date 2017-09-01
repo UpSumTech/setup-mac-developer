@@ -15,6 +15,8 @@ setup_brew_taps() {
   brew tap caskroom\/versions
   brew tap homebrew\/services
   brew tap caskroom\/fonts
+  brew tap brona\/iproute2mac
+  brew tap universal-ctags\/universal-ctags
 }
 
 install_apps_from_cask() {
@@ -59,6 +61,7 @@ install_packages_from_brew() {
     sgrep \
     tree \
     pstree \
+    moreutils \
     cmake \
     tmux \
     readline \
@@ -111,6 +114,7 @@ install_packages_from_brew() {
     nvm \
     awscli \
     tcptrace \
+    iproute2mac \
     sysdig \
     mtr \
     jq \
@@ -124,11 +128,14 @@ install_packages_from_brew() {
     docker-compose \
     docker-machine \
     kubectl \
-    spark
+    spark \
+    bash-completion \
+    ctags
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
   brew install reattach-to-user-namespace --with-wrap-pbcopy-and-pbpaste
+  brew install --HEAD universal-ctags
 }
 
 post_brew_package_installation() {
