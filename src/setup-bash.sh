@@ -104,7 +104,7 @@ update_bash_profile() {
   echo 'export VISUAL=vim' >> ~/.bash_profile
   echo 'export EDITOR=$VISUAL' >> ~/.bash_profile
   echo 'export GIT_EDITOR=$EDITOR' >> ~/.bash_profile
-  echo 'if [[ -f ~/.bash_utils.sh ]]; then source ~/.bash_utils.sh; load_docker_env; fi' >> ~/.bash_profile
+  echo 'if [[ -f ~/.bash_utils.sh ]]; then source ~/.bash_utils.sh; fi' >> ~/.bash_profile
 }
 
 main() {
