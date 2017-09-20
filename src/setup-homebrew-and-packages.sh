@@ -130,7 +130,8 @@ install_packages_from_brew() {
     kubectl \
     spark \
     bash-completion \
-    ctags
+    ctags \
+    git-quick-stats
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
