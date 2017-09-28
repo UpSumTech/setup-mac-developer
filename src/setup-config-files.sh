@@ -6,6 +6,7 @@ main() {
   cp "$ROOT_DIR/templates/agignore" "$HOME/.agignore"
   cp "$ROOT_DIR/templates/inputrc" "$HOME/.inputrc"
   cp "$ROOT_DIR/templates/ctags" "$HOME/.ctags"
+  cp "$ROOT_DIR/templates/tigrc" "$HOME/.tigrc"
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"
