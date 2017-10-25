@@ -17,6 +17,7 @@ setup_brew_taps() {
   brew tap caskroom\/fonts
   brew tap brona\/iproute2mac
   brew tap universal-ctags\/universal-ctags
+  brew tap discoteq\/discoteq
 }
 
 install_apps_from_cask() {
@@ -131,7 +132,9 @@ install_packages_from_brew() {
     spark \
     bash-completion \
     ctags \
-    git-quick-stats
+    git-quick-stats \
+    flock \
+    ipcalc
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
@@ -140,6 +143,7 @@ install_packages_from_brew() {
 }
 
 post_brew_package_installation() {
+  mkdir -p "$HOME/lib"
   echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bash_profile
   echo 'export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/opt/sqlite/bin:/usr/local/opt/curl/bin:/usr/local/bin:$PATH"' >> $HOME/.bash_profile
   echo 'export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:/usr/local/opt/findutils/libexec/gnuman:/usr/local/opt/gnu-tar/libexec/gnuman:/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"' >> $HOME/.bash_profile
@@ -159,6 +163,7 @@ post_brew_package_installation() {
   echo 'export PATH="$GOPATH/bin:$PATH"' >> $HOME/.bash_profile
   pip install --upgrade pip setuptools
   pip3 install --upgrade pip setuptools wheel
+  git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
 }
 
 main() {
