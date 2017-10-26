@@ -134,7 +134,11 @@ install_packages_from_brew() {
     ctags \
     git-quick-stats \
     flock \
-    ipcalc
+    ipcalc \
+    nmap \
+    iftop \
+    nethogs \
+    vnstat
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
