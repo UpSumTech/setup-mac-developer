@@ -138,7 +138,8 @@ install_packages_from_brew() {
     nmap \
     iftop \
     nethogs \
-    vnstat
+    vnstat \
+    multitail
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
