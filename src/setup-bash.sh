@@ -43,17 +43,18 @@ enable_bash_it_completions() {
     npm \
     packer \
     pip \
+    pip3 \
     packer \
     ssh \
     terraform \
+    vault \
     test_kitchen \
     salt \
     tmux \
     vagrant \
     virtualbox \
     rake \
-    docker \
-    kubectl
+    docker
 }
 
 enable_bash_it_plugins() {
@@ -105,6 +106,8 @@ update_bash_profile() {
   echo 'export EDITOR=$VISUAL' >> ~/.bash_profile
   echo 'export GIT_EDITOR=$EDITOR' >> ~/.bash_profile
   echo 'if [[ -f ~/.bash_utils.sh ]]; then source ~/.bash_utils.sh; fi' >> ~/.bash_profile
+  # echo 'type -t __ltrim_colon_completions || __ltrim_colon_completions() { :; }' >> ~/.bash_profile
+  # echo '. $HOME/.kubectl_completion.sh' >> ~/.bash_profile
 }
 
 main() {
