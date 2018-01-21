@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+THIS_DIR="$(cd "$(dirname $BASH_SOURCE[0])" && pwd)"
+ROOT_DIR="$THIS_DIR/.."
 VIM_SRC_DIR="$(mktemp -d "${TMPDIR}vim_src.XXXX")"
-VIM_VERSION="8.0.0000"
 PYTHON_VERSION="2.7.14"
 PYTHON3_VERSION="3.4.4"
 trap "rm -rf "$VIM_SRC_DIR"" EXIT
@@ -29,16 +30,8 @@ verify_required_python_versions() {
 }
 
 get_vim() {
-  wget "https://github.com/vim/vim/archive/v8.0.0000.tar.gz" -O "$VIM_SRC_DIR/vim.tar.gz"
   cd "$VIM_SRC_DIR"
-  tar xvzf vim.tar.gz && rm vim.tar.gz
-}
-
-uninstall_existing_vim() {
-  cd "$VIM_SRC_DIR/vim-$VIM_VERSION"
-  [[ -f $(command -v vim) ]] && (make && make uninstall) &
-  wait
-  echo ">>>>>>>>>>>> UNINSTALLED EXISTING VIM <<<<<<<<<<<<<<<"
+  git clone https://github.com/vim/vim.git
 }
 
 build_vim_from_src() {
@@ -46,7 +39,7 @@ build_vim_from_src() {
   local py_config="$(pyenv prefix 2.7.14/lib/python2.7/config)"
   local py3_prefix="$(pyenv prefix 3.4.4)"
   local py3_config="$(${py3_prefix}/bin/python-config --configdir)"
-  cd "$VIM_SRC_DIR/vim-$VIM_VERSION"
+  cd "$VIM_SRC_DIR/vim"
   make distclean
   ./configure \
     --with-features=huge \
@@ -65,8 +58,9 @@ build_vim_from_src() {
     --enable-gui=auto \
     --enable-fail-if-missing \
     --with-tlib=ncurses \
+    --prefix=$HOME
     --enable-cscope
-  make && sudo make install
+  make && make install
   pyenv local --unset
 }
 
@@ -84,7 +78,6 @@ customize_vim() {
 main() {
   verify_required_python_versions
   get_vim
-  wrap_around_dir_change uninstall_existing_vim
   wrap_around_dir_change build_vim_from_src
   customize_vim
 }

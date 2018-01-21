@@ -1,0 +1,7 @@
+{
+  "disk-size": "25GB",
+  "iso-url": "https://github.com/minishift/minishift-centos-iso/releases/download/v1.4.0/minishift-centos7.iso",
+  "memory": "2GB",
+  "openshift-version": "v3.6.1",
+  "vm-driver": "virtualbox"
+}

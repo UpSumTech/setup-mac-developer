@@ -2,6 +2,12 @@
 
 change_shell() {
   chsh -s usr/local/bin/bash
+  [[ -f /bin/old_bash ]] || sudo mv /bin/bash /bin/old_bash
+  sudo ln -f /usr/local/bin/bash /bin/bash
+}
+
+preserve_bash_profile() {
+  mv $HOME/.bash_profile $HOME/.bash_profile.bak
 }
 
 install_bashit() {
@@ -60,15 +66,12 @@ enable_bash_it_completions() {
 enable_bash_it_plugins() {
   . $HOME/.bash_profile && bash-it enable plugin \
     aws \
-    battery \
     dirs \
     extract \
     java \
     javascript \
-    jenv \
     nginx \
     node \
-    nvm \
     osx \
     projects \
     python \
@@ -85,13 +88,17 @@ enable_bash_it_aliases() {
     git \
     heroku \
     homebrew \
+    homebrew-cask \
     maven \
     npm \
     osx \
     rails \
     tmux \
     vagrant \
-    vim
+    vim \
+    emacs \
+    docker \
+    docker-compose
 }
 
 setup_bashit() {
@@ -105,13 +112,12 @@ update_bash_profile() {
   echo 'export VISUAL=vim' >> ~/.bash_profile
   echo 'export EDITOR=$VISUAL' >> ~/.bash_profile
   echo 'export GIT_EDITOR=$EDITOR' >> ~/.bash_profile
-  echo 'if [[ -f ~/.bash_utils.sh ]]; then source ~/.bash_utils.sh; fi' >> ~/.bash_profile
-  # echo 'type -t __ltrim_colon_completions || __ltrim_colon_completions() { :; }' >> ~/.bash_profile
-  # echo '. $HOME/.kubectl_completion.sh' >> ~/.bash_profile
+  cat $HOME/.bash_profile.bak >> $HOME/.bash_profile
 }
 
 main() {
   change_shell
+  preserve_bash_profile
   install_bashit
   add_composure
   create_custom_files

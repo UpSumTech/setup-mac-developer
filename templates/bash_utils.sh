@@ -1,3 +1,41 @@
+###################### PRIVATE HELPER FNS ######################
+
+function __err() {
+  echo "ERROR >> $1" 2>&1
+  exit 1
+}
+
+function __echo_in_dev_mode() {
+  echo "$(tput setaf 4)$1$(tput sgr 0)"
+}
+
+###################### PUBLIC HELPER FNS #######################
+
+function add_ssh_key_to_agent() {
+  local num_of_keys_on_agent
+  ps -ef | grep -i "ssh-agen[t]" \
+    || eval $(ssh-agent) >/dev/null
+  num_of_keys_on_agent="$(ssh-add -l | wc -l | awk '{print $1}')"
+  if [[ $num_of_keys_on_agent -eq 0 ]]; then
+    ssh-add -K $HOME/.ssh/id_rsa
+  elif [[ $num_of_keys_on_agent -eq 1 ]]; then
+    return 0
+  else
+    __err "Too many ssh keys added"
+  fi
+}
+
+function gen_ssh_key() {
+  local file="$1"
+  [[ ! -z "$file" ]] || file="$HOME/.ssh/id_rsa"
+  [[ "$file" =~ "pub" ]] && __err "Please provide a private key to add"
+  if [[ -f "$file" ]]; then
+    mv "$file" "${file}.bak"
+    mv "${file}.pub" "${file}.pub.bak"
+  fi
+  ssh-keygen -t rsa -b 4096 -C "$USER_EMAIL" -f "$file" -N ""
+}
+
 function start_ssh_agent_and_add_key() {
   eval `ssh-agent -s`
   ssh-add -K ~/.ssh/id_rsa

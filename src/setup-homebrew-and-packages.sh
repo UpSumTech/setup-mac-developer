@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
+[[ ! -z "$BREW_APP_INSTALL_DIR" ]] || export BREW_APP_INSTALL_DIR="$HOME/Applications"
+mkdir -p "$BREW_APP_INSTALL_DIR"
+
 install_homebrew() {
-  /usr/bin/env ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  command -v brew || /usr/bin/env ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
 prep_homebrew() {
+  echo 'export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/opt:$PATH' >> $HOME/.bash_profile
   brew update
   brew cleanup
   brew cask cleanup
@@ -18,30 +22,24 @@ setup_brew_taps() {
   brew tap brona\/iproute2mac
   brew tap universal-ctags\/universal-ctags
   brew tap discoteq\/discoteq
+  brew tap msoap\/tools
 }
 
 install_apps_from_cask() {
-  brew cask install \
-    java \
-    java7 \
-    google-drive \
-    skype \
-    viber \
-    dropbox \
-    slack \
+  brew cask install --appdir="$BREW_APP_INSTALL_DIR" \
+    java8 \
     firefox \
     sublime \
     atom \
     google-chrome \
     google-chrome-canary \
-    ngrok \
     virtualbox \
     vagrant \
     tcl \
-    iterm2 \
     font-inconsolata \
     kindle \
-    minikube
+    minikube \
+    minishift
 }
 
 install_packages_from_brew() {
@@ -76,10 +74,8 @@ install_packages_from_brew() {
     golang \
     mysql \
     postgres \
-    mongo \
     redis \
     rabbitmq \
-    heroku-toolbelt \
     homebrew\/dupes\/ncurses \
     autoconf \
     automake \
@@ -97,7 +93,6 @@ install_packages_from_brew() {
     diff-so-fancy \
     colordiff \
     homebrew\/dupes\/diffutils \
-    pyqt5 \
     maven \
     maven-shell \
     maven-completion \
@@ -105,32 +100,29 @@ install_packages_from_brew() {
     python3 \
     lua@5.1 \
     luajit \
-    perl \
     bash \
     autoenv \
     rbenv \
     jenv \
+    goenv \
     pyenv \
     pyenv-virtualenv \
     nvm \
     awscli \
     tcptrace \
     iproute2mac \
-    sysdig \
     mtr \
     jq \
-    wireshark \
     mycli \
     pgcli \
     homebrew\/dupes\/krb5 \
     ansible \
     fio \
-    docker \
-    docker-compose \
+    docker@1.11 \
     docker-machine \
     kubectl \
     spark \
-    bash-completion \
+    bash-completion@2 \
     ctags \
     git-quick-stats \
     flock \
@@ -139,7 +131,12 @@ install_packages_from_brew() {
     iftop \
     nethogs \
     vnstat \
-    multitail
+    multitail \
+    modd \
+    shell2http \
+    vegeta \
+    springboot \
+    dep
 
   brew install homebrew\/dupes\/grep --with-default-names
   brew install nginx --with-passenger
@@ -147,28 +144,34 @@ install_packages_from_brew() {
   brew install --HEAD universal-ctags
 }
 
+install_extras_from_brew() {
+  brew cask install --appdir="$BREW_APP_INSTALL_DIR" iterm2
+}
+
 post_brew_package_installation() {
   mkdir -p "$HOME/lib"
+  echo "alias bci='brew cask install --appdir=$BREW_APP_INSTALL_DIR'" >> $HOME/.bash_profile
   echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bash_profile
-  echo 'export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/opt/sqlite/bin:/usr/local/opt/curl/bin:/usr/local/bin:$PATH"' >> $HOME/.bash_profile
-  echo 'export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:/usr/local/opt/findutils/libexec/gnuman:/usr/local/opt/gnu-tar/libexec/gnuman:/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"' >> $HOME/.bash_profile
-  echo 'export PATH="/usr/local/opt/go/libexec/bin:$PATH"' >> $HOME/.bash_profile
-  echo '. /usr/local/opt/autoenv/activate.sh' >> $HOME/.bash_profile
+  echo 'export PATH="$(brew --prefix)/opt/docker@1.11/bin:$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"' >> $HOME/.bash_profile
+  echo 'export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH"' >> $HOME/.bash_profile
+  echo '. $(brew --prefix)/opt/autoenv/activate.sh' >> $HOME/.bash_profile
   echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"; fi' >> $HOME/.bash_profile
-  [[ -x /usr/local/bin/nvm ]] || ln -s "/usr/local/opt/nvm" "/usr/local/bin/nvm"
-  mkdir $HOME/.nvm
+  [[ -x $(brew --prefix)/bin/nvm ]] || ln -s "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
+  mkdir -p $HOME/.nvm
   echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bash_profile
-  echo '. "/usr/local/opt/nvm/nvm.sh"' >> $HOME/.bash_profile
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bash_profile
+  echo '. "$(brew --prefix)/opt/nvm/nvm.sh"' >> $HOME/.bash_profile
   echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
   echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> $HOME/.bash_profile
   echo 'eval "$(jenv init -)"' >> $HOME/.bash_profile
-  mkdir -p $HOME/go/{pkg,bin,src}
-  echo 'export GOPATH="$(go env GOPATH)"' >> $HOME/.bash_profile
-  echo 'export PATH="$GOPATH/bin:$PATH"' >> $HOME/.bash_profile
-  pip install --upgrade pip setuptools
-  pip3 install --upgrade pip setuptools wheel
-  git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
+  echo 'eval "$(goenv init -)"' >> $HOME/.bash_profile
+  echo 'for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do . "$completion_file"; done' >> $HOME/.bash_profile
+  . $HOME/.bash_profile && kubectl completion bash > $HOME/.kubectl-completion
+  echo '. "$HOME/.kubectl-completion"' >> $HOME/.bash_profile
+  echo 'type -t __ltrim_colon_completions | grep -i function || __ltrim_colon_completions() { :; }' >> $HOME/.bash_profile
+  echo 'eval $(minishift oc-env)' >> $HOME/.bash_profile
+  [[ -d $HOME/.pyenv/plugins/pyenv-implict ]] \
+    || git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
+  echo 'if [[ -f ~/.bash_utils.sh ]]; then . ~/.bash_utils.sh; fi' >> ~/.bash_profile
 }
 
 main() {
@@ -177,6 +180,7 @@ main() {
   setup_brew_taps
   install_apps_from_cask
   install_packages_from_brew
+  install_extras_from_brew
   post_brew_package_installation
 }
 

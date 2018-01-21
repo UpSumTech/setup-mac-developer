@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 install_solarized_theme() {
-  cd ~/lib
+  mkdir -p $HOME/lib
+  cd $HOME/lib
   git clone https://github.com/altercation/solarized.git
 }
 

@@ -16,6 +16,7 @@ install_rubies() {
 
 main() {
   install_rubies
+  . $HOME/.bash_profile && rbenv global 2.4.0
   # fix_openssl
 }
 

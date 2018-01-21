@@ -5,18 +5,21 @@ main() {
   export USER_FULLNAME="$2"
 
   ./src/xcode-and-essentials.sh
-  ./src/setup-ssh-keys-for-github.sh
-  ./src/setup-git.sh
   ./src/setup-bash.sh
   ./src/setup-homebrew-and-packages.sh
-  ./src/setup-vim.sh
-  ./src/setup-tmux.sh
+  ./src/setup-git.sh
+  ./src/setup-iterm2.sh
+  ./src/setup-mysql.sh
+  ./src/setup-pyenv.sh
   ./src/setup-rbenv.sh
   ./src/setup-nvm.sh
   ./src/setup-jenv.sh
-  ./src/setup-utils.sh
   ./src/setup-go.sh
+  ./src/setup-vim.sh
+  ./src/setup-tmux.sh
+  ./src/setup-utils.sh
   ./src/setup-docker.sh
+  ./src/setup-minishift.sh
   ./src/setup-config-files.sh
 
   echo ">>>>>> Things still need to be done <<<<<<<
