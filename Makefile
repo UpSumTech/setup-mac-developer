@@ -13,25 +13,24 @@ AT_off := @
 AT_on :=
 AT = $(AT_$(DEBUG))
 
-SRC_FILES := $(call rfind,src/,[^.]*.sh)
+SRC_FILES := $(call rfind,src/,[^.]*.sh) \
+	$(call rfind,templates/,*)
 
 DEPS_STATEFILE = .make/done_deps
 
 OS := $(call get_os)
 
-HOST_IP :=
-
 ##########################################################################################
 ## Public targets
 
-.DEFAULT_GOAL := build
-.PHONY : deps build clean help
+.DEFAULT_GOAL := install
+.PHONY : deps install clean help
 
 deps : $(DEPS_STATEFILE)
 
-build : $(SRC_FILES)
+install : $(SRC_FILES)
 ifeq ($(OS),'MAC')
-	$(AT)./bin/provision.py
+	$(AT)./src/main.sh "$$@"
 else
 	$(error You are only allowed to run this on mac osx)
 endif
@@ -41,8 +40,8 @@ clean:
 
 help :
 	echo make deps # install dependancies
-	echo make build HOST_IP=<172.20.16.8> # This is a dry run to build the workstation on a host ip or on localhost
-	echo make clean # remove cache and temp dirs
+	echo make install # This sets up a mac for development work
+	echo make clean # This removes cache and temp dirs
 	echo make help # help menu
 
 ##########################################################################################
