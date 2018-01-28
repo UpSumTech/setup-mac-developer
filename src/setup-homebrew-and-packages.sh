@@ -27,11 +27,10 @@ setup_brew_taps() {
 }
 
 install_apps_from_cask() {
+  command -v virtualbox || brew cask install --appdir="$BREW_APP_INSTALL_DIR" virtualbox
   brew cask install --appdir="$BREW_APP_INSTALL_DIR" \
     java \
-    sublime \
     atom \
-    virtualbox \
     vagrant \
     tcl \
     font-inconsolata \
