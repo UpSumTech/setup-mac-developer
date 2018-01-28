@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 main() {
-  # TODO : Get user input for author name and email for git
+  local name="$1"
+  local email="$2"
   curl -H "Cache-Control: no-cache" \
     -s \
     -S \
     -L \
     https://raw.githubusercontent.com/sumanmukherjee03/git-setup/master/bootstrap.sh \
-    | bash /dev/stdin "$USER_FULLNAME" "$USER_EMAIL"
+    | bash /dev/stdin "$name" "$email"
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"
