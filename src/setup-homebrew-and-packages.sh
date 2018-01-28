@@ -78,7 +78,6 @@ install_packages_from_brew() {
     autoconf \
     automake \
     libtool \
-    wget \
     htop \
     mytop \
     pg_top \
