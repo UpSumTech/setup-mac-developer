@@ -115,7 +115,7 @@ install_packages_from_brew() {
     homebrew\/dupes\/krb5 \
     ansible \
     fio \
-    docker@1.11 \
+    docker \
     docker-machine \
     kubectl \
     spark \
