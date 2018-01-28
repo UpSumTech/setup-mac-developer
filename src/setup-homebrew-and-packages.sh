@@ -23,6 +23,7 @@ setup_brew_taps() {
   brew tap universal-ctags\/universal-ctags
   brew tap discoteq\/discoteq
   brew tap msoap\/tools
+  brew tap pivotal\/tap
 }
 
 install_apps_from_cask() {
