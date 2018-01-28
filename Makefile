@@ -29,7 +29,7 @@ OS := $(call get_os)
 deps : $(DEPS_STATEFILE)
 
 install : $(SRC_FILES)
-ifeq ($(OS),'MAC')
+ifeq ($(OS), MAC)
 	$(AT)./src/main.sh "$$@"
 else
 	$(error You are only allowed to run this on mac osx)
