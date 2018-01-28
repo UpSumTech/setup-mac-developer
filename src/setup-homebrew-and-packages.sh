@@ -27,7 +27,7 @@ setup_brew_taps() {
 
 install_apps_from_cask() {
   brew cask install --appdir="$BREW_APP_INSTALL_DIR" \
-    java8 \
+    java \
     sublime \
     atom \
     virtualbox \
