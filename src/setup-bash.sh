@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 change_shell() {
+  grep '/usr/local/bin/bash' /etc/shells \
+    || sudo echo '/usr/local/bin/bash' >> /etc/shells
   chsh -s usr/local/bin/bash
-  [[ -f /bin/old_bash ]] || sudo mv /bin/bash /bin/old_bash
-  sudo ln -f /usr/local/bin/bash /bin/bash
 }
 
 preserve_bash_profile() {
