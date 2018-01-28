@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e -o pipefail
+
 main() {
   export USER_EMAIL="$1"
   export USER_FULLNAME="$2"
