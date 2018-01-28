@@ -78,7 +78,6 @@ install_packages_from_brew() {
     autoconf \
     automake \
     libtool \
-    htop \
     mytop \
     pg_top \
     dnstop \
