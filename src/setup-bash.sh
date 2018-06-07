@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 change_shell() {
-  grep '/usr/local/bin/bash' /etc/shells \
+  sudo grep '/usr/local/bin/bash' /etc/shells \
     || sudo echo '/usr/local/bin/bash' >> /etc/shells
   chsh -s usr/local/bin/bash
 }
