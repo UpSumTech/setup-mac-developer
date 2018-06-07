@@ -3,7 +3,7 @@
 change_shell() {
   sudo grep '/usr/local/bin/bash' /etc/shells \
     || sudo echo '/usr/local/bin/bash' >> /etc/shells
-  chsh -s usr/local/bin/bash
+  chsh -s /usr/local/bin/bash
 }
 
 preserve_bash_profile() {
