@@ -5,8 +5,8 @@ main() {
   export name="$2"
 
   ./src/xcode-and-essentials.sh
-  ./src/setup-bash.sh
   ./src/setup-homebrew-and-packages.sh
+  ./src/setup-bash.sh
   ./src/setup-git.sh "$name" "email"
   ./src/setup-iterm2.sh
   ./src/setup-mysql.sh
