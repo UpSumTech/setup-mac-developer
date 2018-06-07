@@ -29,6 +29,7 @@ create_custom_files() {
   touch $HOME/.bash_it/custom/aliases.bash
   touch $HOME/.bash_it/custom/utils.bash
   cp templates/bash_utils.sh $HOME/.bash_utils.sh
+  cp templates/activate_profile.sh $HOME/.activate_profile.sh
 }
 
 enable_bash_it_completions() {
@@ -112,6 +113,8 @@ update_bash_profile() {
   echo 'export VISUAL=vim' >> ~/.bash_profile
   echo 'export EDITOR=$VISUAL' >> ~/.bash_profile
   echo 'export GIT_EDITOR=$EDITOR' >> ~/.bash_profile
+  echo '[[ -d "$HOME/.secrets" ]] && for file in $(find "$HOME/.secrets" -type f -name \'*.sh\'); do . "$file"; done' >> ~/.bash_profile
+  echo '[[ -f "$HOME/.activate_profile.sh" ]] && . "$HOME/.activate_profile.sh"' >> ~/.bash_profile
   cat $HOME/.bash_profile.bak >> $HOME/.bash_profile
 }
 
