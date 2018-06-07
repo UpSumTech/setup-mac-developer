@@ -113,7 +113,7 @@ update_bash_profile() {
   echo 'export VISUAL=vim' >> ~/.bash_profile
   echo 'export EDITOR=$VISUAL' >> ~/.bash_profile
   echo 'export GIT_EDITOR=$EDITOR' >> ~/.bash_profile
-  echo '[[ -d "$HOME/.secrets" ]] && for file in $(find "$HOME/.secrets" -type f -name \'*.sh\'); do . "$file"; done' >> ~/.bash_profile
+  echo '[[ -d "$HOME/.secrets" ]] && for file in $(find "$HOME/.secrets" -type f -name "*.sh"); do . "$file"; done' >> ~/.bash_profile
   echo '[[ -f "$HOME/.activate_profile.sh" ]] && . "$HOME/.activate_profile.sh"' >> ~/.bash_profile
   cat $HOME/.bash_profile.bak >> $HOME/.bash_profile
 }
