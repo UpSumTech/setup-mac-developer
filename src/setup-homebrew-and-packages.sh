@@ -77,7 +77,7 @@ install_packages_from_brew() {
     postgres \
     redis \
     rabbitmq \
-    homebrew\/dupes\/ncurses \
+    ncurses \
     autoconf \
     automake \
     libtool \
@@ -91,7 +91,7 @@ install_packages_from_brew() {
     ack \
     diff-so-fancy \
     colordiff \
-    homebrew\/dupes\/diffutils \
+    diffutils \
     maven \
     maven-shell \
     maven-completion \
@@ -114,7 +114,7 @@ install_packages_from_brew() {
     jq \
     mycli \
     pgcli \
-    homebrew\/dupes\/krb5 \
+    krb5 \
     ansible \
     fio \
     docker \
