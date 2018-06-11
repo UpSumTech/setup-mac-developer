@@ -137,7 +137,7 @@ install_packages_from_brew() {
     springboot \
     dep
 
-  brew install homebrew\/dupes\/grep --with-default-names
+  brew install grep --with-default-names
   brew install nginx --with-passenger
   brew install reattach-to-user-namespace --with-wrap-pbcopy-and-pbpaste
   brew install --HEAD universal-ctags
@@ -153,7 +153,7 @@ post_brew_package_installation() {
   echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bash_profile
   echo 'export PATH="$(brew --prefix)/opt/docker@1.11/bin:$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"' >> $HOME/.bash_profile
   echo 'export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH"' >> $HOME/.bash_profile
-  echo '. $(brew --prefix)/opt/autoenv/activate.sh' >> $HOME/.bash_profile
+  # echo '. $(brew --prefix)/opt/autoenv/activate.sh' >> $HOME/.bash_profile
   echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"; fi' >> $HOME/.bash_profile
   [[ -x $(brew --prefix)/bin/nvm ]] || ln -s "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
   mkdir -p $HOME/.nvm
