@@ -19,9 +19,9 @@ create_essential_dirs_and_files() {
   mkdir ~/lib
   mkdir -p ~/var/run
   mkdir -p ~/var/log
-  mkdir ~/bin
-  mkdir ~/etc
-  mkdir ~/tmp
+  mkdir -p ~/bin
+  mkdir -p ~/etc
+  mkdir -p ~/tmp
 }
 
 main() {
