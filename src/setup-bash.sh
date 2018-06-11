@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
+
 change_shell() {
   sudo grep '/usr/local/bin/bash' /etc/shells \
     || sudo echo '/usr/local/bin/bash' >> /etc/shells
@@ -28,8 +31,8 @@ add_composure() {
 create_custom_files() {
   touch $HOME/.bash_it/custom/aliases.bash
   touch $HOME/.bash_it/custom/utils.bash
-  cp templates/bash_utils.sh $HOME/.bash_utils.sh
-  cp templates/activate_profile.sh $HOME/.activate_profile.sh
+  cp $ROOT_DIR/templates/bash_utils.sh $HOME/.bash_utils.sh
+  cp $ROOT_DIR/templates/activate_profile.sh $HOME/.activate_profile.sh
 }
 
 enable_bash_it_completions() {

@@ -5,6 +5,7 @@ install_nodes() {
   local arr=('5.0.0' \
     '6.0.0' \
     '8.9.3' \
+    '10.0.0' \
   )
   for node_version in "${arr[@]}"; do
     . $HOME/.bash_profile && nvm install "$node_version"
@@ -13,7 +14,7 @@ install_nodes() {
 
 main() {
   install_nodes
-  . $HOME/.bash_profile && nvm alias default 8.9.3 && { nvm use --delete-prefix v8.9.3 --silent; }
+  . $HOME/.bash_profile && nvm alias default 10.0.0 && { nvm use --delete-prefix v10.0.0 --silent; }
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

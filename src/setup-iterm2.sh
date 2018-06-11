@@ -13,7 +13,7 @@ configure_iterm() {
 main() {
   install_solarized_theme
   configure_iterm
-  # TODO: Import the solarized colour scheme into iterm2
+  # TODO: Import the solarized colour scheme into iterm2 or else if it already comes with it then activate it
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

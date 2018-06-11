@@ -3,10 +3,9 @@
 install_rubies() {
   local ruby_version
   local arr=('2.4.0' \
-    'jruby-9.1.7.0' \
   )
   for ruby_version in "${arr[@]}"; do
-    rbenv install "$ruby_version"
+    CONFIGURE_OPTS='--enable-shared' rbenv install "$ruby_version"
   done
 }
 
@@ -16,7 +15,7 @@ install_rubies() {
 
 main() {
   install_rubies
-  . $HOME/.bash_profile && rbenv global 2.4.0
+  . $HOME/.bash_profile && rbenv global 2.4.0 && rbenv rehash
   # fix_openssl
 }
 

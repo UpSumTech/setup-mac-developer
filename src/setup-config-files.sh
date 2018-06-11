@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-ROOT_DIR="${THIS_DIR}/.."
+
+THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
 main() {
   cp "$ROOT_DIR/templates/agignore" "$HOME/.agignore"

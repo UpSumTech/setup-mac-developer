@@ -65,12 +65,7 @@ build_vim_from_src() {
 }
 
 customize_vim() {
-  curl -H "Cache-Control: no-cache" \
-    -s \
-    -S \
-    -L \
-    https://raw.githubusercontent.com/sumanmukherjee03/vim_setup/master/bootstrap.sh \
-    | bash
+  curl -H "Cache-Control: no-cache" -sSL https://raw.githubusercontent.com/sumanmukherjee03/vim_setup/master/bootstrap.sh | bash
   cd $HOME/.vim
   make
 }
