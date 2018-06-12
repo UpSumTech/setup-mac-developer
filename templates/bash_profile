@@ -23,7 +23,7 @@ export PATH="$HOME/go/bin:$PATH"
 for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do . "$completion_file"; done
 
 # kubectl completion functionality
-if [[ ! -f "$HOME/.kubectl-completion" && command -v kubectl ]]; then
+if command -v kubectl && test ! -f "$HOME/.kubectl-completion"; then
   kubectl completion bash > $HOME/.kubectl-completion
 fi
 if [[ -f "$HOME/.kubectl-completion" ]]; then
@@ -32,7 +32,7 @@ if [[ -f "$HOME/.kubectl-completion" ]]; then
 fi
 
 # oc completion functionality
-if [[ ! -f "$HOME/.oc-completion" && command -v oc ]]; then
+if command -v oc && test ! -f "$HOME/.oc-completion"; then
   oc completion bash > $HOME/.oc-completion
 fi
 if [[ -f "$HOME/.oc-completion" ]]; then
