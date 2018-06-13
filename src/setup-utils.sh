@@ -40,7 +40,8 @@ install_node_utils() {
 install_go_utils() {
   go get -u github.com/jteeuwen/go-bindata/... \
     github.com/tylertreat/comcast \
-    github.com/derekparker/delve/cmd/dlv
+    github.com/derekparker/delve/cmd/dlv \
+    github.com/fatih/hclfmt
 }
 
 main() {

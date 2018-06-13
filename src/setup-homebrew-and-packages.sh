@@ -140,7 +140,8 @@ install_packages_from_brew() {
     springboot \
     dep \
     magic-wormhole \
-    scala
+    scala \
+    terraform
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
