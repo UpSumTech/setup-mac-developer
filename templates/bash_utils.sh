@@ -8,11 +8,20 @@ __ok() {
 
 __err() {
   echo "ERROR >> $1" >/dev/stderr
-  exit 1
 }
 
 __check_kubectl() {
   command -v kubectl >/dev/null 2>&1 || __err "You dont have kubectl installed"
+}
+
+__chdir_and_exec() {
+  local result
+  local fn="$1"
+  shift 1
+  pushd .
+  result=$(eval "$(declare -F "$fn")" "$@")
+  popd
+  echo "$result"
 }
 
 start_ssh_agent_and_add_key() {
@@ -21,12 +30,45 @@ start_ssh_agent_and_add_key() {
   __ok
 }
 
-install_go_deps_for_project() {
-  pushd .
+mv_2_go_project_root() {
   while [[ ! $(find . -maxdepth 1 -type d | grep '.git') =~ './.git' && ! $(basename $(cd $PWD/../.. && pwd)) =~ (github.com|golang.org|google.golang.org|gopkg.in) ]]; do
     cd ..
   done
-  go get -u $(find . -maxdepth 1 ! -path . ! -path '*/\.*' -type d | grep -v vendor | xargs -n 1 -I % echo %/...)
+}
+
+install_go_deps_for_project() {
+  pushd .
+  mv_2_go_project_root
+  if [[ ! -f "$PWD/Gopkg.toml" && ! -f "$PWD/Gopkg.lock" ]]; then
+    go get -u $(find . -maxdepth 1 ! -path . ! -path '*/\.*' -type d | grep -v vendor | xargs -n 1 -I % echo %/...)
+  else
+    dep ensure -vendor-only
+  fi
+  popd
+  __ok
+}
+
+build_static_go_bin() {
+  pushd .
+  mv_2_go_project_root
+
+  local arch="$(uname -m | tr '[:upper:]' '[:lower:]')"
+  local osname="$(uname -s | tr '[:upper:]' '[:lower:]')"
+  local archname
+
+  case "$arch" in
+    x86_64)
+      archname='amd64'
+      ;;
+    i386)
+      archname='386'
+      ;;
+    *)
+      __err "ERROR >> Arch not supported for go build process"
+      ;;
+  esac
+  echo "Building static binary for $osname/$archname"
+  CGO_ENABLED=0 gox -osarch="$osname/$archname" -rebuild -tags='netgo' -ldflags='-w -extldflags "-static"'
   popd
   __ok
 }
