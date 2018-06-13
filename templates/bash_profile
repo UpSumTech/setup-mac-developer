@@ -49,8 +49,5 @@ if [[ -f "$HOME/.openshift/bash_autocomplete" ]]; then
   . "$HOME/.openshift/bash_autocomplete"
 fi
 
-# minishift env setup
-eval $(minishift oc-env)
-
 # source bash_utils
 if [[ -f ~/.bash_utils.sh ]]; then . ~/.bash_utils.sh; fi
