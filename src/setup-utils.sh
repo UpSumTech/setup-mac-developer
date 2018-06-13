@@ -41,7 +41,8 @@ install_go_utils() {
   go get -u github.com/jteeuwen/go-bindata/... \
     github.com/tylertreat/comcast \
     github.com/derekparker/delve/cmd/dlv \
-    github.com/fatih/hclfmt
+    github.com/fatih/hclfmt \
+    github.com/mitchellh/gox
 }
 
 main() {
