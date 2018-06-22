@@ -290,3 +290,30 @@ kube_get_clusters() {
   __check_kubectl
   kubectl config get-clusters
 }
+
+start_mysql() {
+  ps -ef | grep mysql[d] \
+    || mysql.server start
+  __ok
+}
+
+stop_mysql() {
+  ps -ef | grep mysql[d] \
+    || mysql.server stop
+  __ok
+}
+
+start_psql() {
+  [[ ! -z $PGDATA ]] || export PGDATA="$HOME/var/data/postgres"
+  local pg_log_dir="$HOME/var/log/postgres"
+  ps -ef | grep postgre[s] \
+    || pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" start
+  __ok
+}
+
+stop_psql() {
+  local pg_log_dir="$HOME/var/log/postgres"
+  ps -ef | grep postgre[s] \
+    && pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" stop
+  __ok
+}
