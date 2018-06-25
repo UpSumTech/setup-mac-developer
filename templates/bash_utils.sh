@@ -291,6 +291,18 @@ kube_get_clusters() {
   kubectl config get-clusters
 }
 
+ssh_port_forward() {
+  local local_port="$1"
+  local remote_server="$2"
+  local remote_port="$3"
+  if [[ ! -z "$JUMP_HOST" ]]; then
+    ssh -o ExitOnForwardFailure yes -N -L $local_port:$remote_server:$remote_port $JUMP_HOST
+  else
+    ssh -o ExitOnForwardFailure yes -N -L $local_port:$remote_server:$remote_port
+  fi
+  __ok
+}
+
 start_mysql() {
   ps -ef | grep mysql[d] \
     || mysql.server start
