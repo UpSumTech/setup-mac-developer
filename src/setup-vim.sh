@@ -36,8 +36,8 @@ get_vim() {
 
 build_vim_from_src() {
   pyenv local "$PYTHON_VERSION" "$PYTHON3_VERSION"
-  local py_config="$(pyenv prefix 2.7.14/lib/python2.7/config)"
-  local py3_prefix="$(pyenv prefix 3.4.4)"
+  local py_config="$(pyenv prefix $PYTHON_VERSION/lib/python2.7/config)"
+  local py3_prefix="$(pyenv prefix $PYTHON3_VERSION)"
   local py3_config="$(${py3_prefix}/bin/python-config --configdir)"
   echo ">>>> PYTHON_CONFIG : $py_config"
   echo ">>>> PYTHON3_CONFIG : $py3_config"
