@@ -34,7 +34,8 @@ install_node_utils() {
     localtunnel \
     json2csv \
     xml2json-command \
-    json2yaml
+    json2yaml \
+    js-beautify
 }
 
 install_go_utils() {

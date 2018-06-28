@@ -142,7 +142,8 @@ install_packages_from_brew() {
     magic-wormhole \
     scala \
     terraform \
-    flyway
+    flyway \
+    pipenv
 
   brew install grep --with-default-names
   brew install nginx --with-passenger

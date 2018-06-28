@@ -43,6 +43,8 @@ setup_root() {
   psql -h localhost postgres -c "ALTER USER root WITH PASSWORD 'welcome2psql';"
   psql -h localhost postgres -c "CREATE DATABASE root OWNER root;"
   psql -h localhost postgres -c "ALTER DATABASE postgres OWNER TO root;"
+  psql -h localhost postgres -c "ALTER DATABASE template0 OWNER TO root;"
+  psql -h localhost postgres -c "ALTER DATABASE template1 OWNER TO root;"
   __ok
 }
 

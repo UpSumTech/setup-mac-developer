@@ -26,6 +26,7 @@ eval "$(jenv init -)"
 eval "$(goenv init -)"
 export PATH="$HOME/go/bin:$PATH"
 export PGDATA="$HOME/var/data/postgres"
+command -v pipenv >/dev/null 2>&1 && eval "$(pipenv --completion)"
 
 # Load bash completions for homebrew packages
 for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do . "$completion_file"; done
