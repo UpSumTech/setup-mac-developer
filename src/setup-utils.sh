@@ -35,7 +35,9 @@ install_node_utils() {
     json2csv \
     xml2json-command \
     json2yaml \
-    js-beautify
+    js-beautify \
+    jsonlint \
+    jshint
 }
 
 install_go_utils() {

@@ -27,6 +27,7 @@ setup_brew_taps() {
   brew tap discoteq\/discoteq
   brew tap msoap\/tools
   brew tap pivotal\/tap
+  brew tap wata727\/tflint
 }
 
 install_apps_from_cask() {
@@ -143,7 +144,9 @@ install_packages_from_brew() {
     scala \
     terraform \
     flyway \
-    pipenv
+    pipenv \
+    shellcheck \
+    tflint
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
