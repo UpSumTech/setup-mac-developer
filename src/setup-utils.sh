@@ -16,7 +16,8 @@ install_ruby_utils() {
     fpm \
     pleaserun \
     sqlint \
-    mdl
+    mdl \
+    rubocop
 }
 
 install_node_utils() {

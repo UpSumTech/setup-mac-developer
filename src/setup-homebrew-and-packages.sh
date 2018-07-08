@@ -146,7 +146,8 @@ install_packages_from_brew() {
     flyway \
     pipenv \
     shellcheck \
-    tflint
+    tflint \
+    checkbashisms
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
