@@ -13,7 +13,8 @@ install_pip_utils() {
     pycodestyle \
     pylama \
     pyflakes \
-    yamllint
+    yamllint \
+    neovim
 }
 
 install_ruby_utils() {
