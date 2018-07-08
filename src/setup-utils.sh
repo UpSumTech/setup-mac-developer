@@ -6,7 +6,13 @@ install_pip_utils() {
     supervisor \
     csvkit \
     shyaml \
-    cheat
+    cheat \
+    pylint \
+    yq \
+    pep8 \
+    pycodestyle \
+    pylama \
+    pyflakes
 }
 
 install_ruby_utils() {
@@ -17,7 +23,9 @@ install_ruby_utils() {
     pleaserun \
     sqlint \
     mdl \
-    rubocop
+    rubocop \
+    rubocop-rails \
+    ruby-lint
 }
 
 install_node_utils() {
