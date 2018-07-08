@@ -12,7 +12,8 @@ install_pip_utils() {
     pep8 \
     pycodestyle \
     pylama \
-    pyflakes
+    pyflakes \
+    yamllint
 }
 
 install_ruby_utils() {
