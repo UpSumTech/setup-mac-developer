@@ -14,7 +14,9 @@ install_ruby_utils() {
     rake \
     thor \
     fpm \
-    pleaserun
+    pleaserun \
+    sqlint \
+    mdl
 }
 
 install_node_utils() {
@@ -37,7 +39,8 @@ install_node_utils() {
     json2yaml \
     js-beautify \
     jsonlint \
-    jshint
+    jshint \
+    js-yaml
 }
 
 install_go_utils() {
@@ -45,7 +48,18 @@ install_go_utils() {
     github.com/tylertreat/comcast \
     github.com/derekparker/delve/cmd/dlv \
     github.com/fatih/hclfmt \
-    github.com/mitchellh/gox
+    github.com/mitchellh/gox \
+    mvdan.cc/interfacer \
+    github.com/jgautheron/goconst/cmd/goconst \
+    github.com/opennota/check/cmd/aligncheck \
+    github.com/opennota/check/cmd/structcheck \
+    github.com/opennota/check/cmd/varcheck \
+    github.com/mdempsky/maligned \
+    mvdan.cc/unparam \
+    github.com/stripe/safesql \
+    github.com/alexkohler/nakedret \
+    honnef.co/go/tools/cmd/unused \
+    github.com/alecthomas/gometalinter
 }
 
 main() {
