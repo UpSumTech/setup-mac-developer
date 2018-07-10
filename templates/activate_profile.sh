@@ -112,6 +112,8 @@ deactivate_profile_helper() {
   unset CURRENT_PROFILE
   unset AWS_ACCESS_KEY_ID
   unset AWS_SECRET_ACCESS_KEY
+  unset AWS_ACCESS_KEY
+  unset AWS_SECRET_KEY
   unset AWS_ACCOUNT_ID
   unset AWS_DEFAULT_REGION
   unset DEPLOY_GITHUB_TOKEN
