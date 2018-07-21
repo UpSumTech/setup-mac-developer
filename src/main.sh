@@ -4,6 +4,7 @@ main() {
   export email="$1"
   export name="$2"
 
+  [[ -f ~/.bash_profile ]] && mv ~/.bash_profile ~/.bash_profile.bak
   ./src/xcode-and-essentials.sh
   ./src/setup-homebrew-and-packages.sh
   ./src/setup-bash.sh
