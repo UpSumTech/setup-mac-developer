@@ -81,6 +81,7 @@ start_docker_machine() {
     (env | grep DOCKER | grep DOCKER_HOST | cut -d '=' -f2 | sed -e 's#tcp://##g;s#:# #g' | xargs nc -v \
       || (docker-machine stop default 2>&1 >/dev/null; eval "$(docker-machine env -u)"; docker-machine start default; eval "$(docker-machine env default)")) &
     wait
+    eval "$(docker-machine env default)"
   else
     echo "You are on linux. You dont need docker machine. Defaulting to docker native."
   fi
