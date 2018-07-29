@@ -32,12 +32,12 @@ command -v pipenv >/dev/null 2>&1 && eval "$(pipenv --completion)"
 for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done
 
 # kubectl completion functionality
-if command -v kubectl && test ! -f "$HOME/.kubectl-completion"; then
+if command -v kubectl >/dev/null 2>&1 && test ! -f "$HOME/.kubectl-completion"; then
   kubectl completion bash > $HOME/.kubectl-completion
 fi
 if [[ -f "$HOME/.kubectl-completion" ]]; then
   . "$HOME/.kubectl-completion"
-  type -t __ltrim_colon_completions | grep -i function || __ltrim_colon_completions() { :; }
+  type -t __ltrim_colon_completions | grep -i function >/dev/null 2>&1 || __ltrim_colon_completions() { :; }
 fi
 
 # oc completion functionality
