@@ -41,7 +41,7 @@ if [[ -f "$HOME/.kubectl-completion" ]]; then
 fi
 
 # oc completion functionality
-if command -v oc && test ! -f "$HOME/.oc-completion"; then
+if command -v oc >/dev/null 2>&1 && test ! -f "$HOME/.oc-completion"; then
   oc completion bash > $HOME/.oc-completion
 fi
 if [[ -f "$HOME/.oc-completion" ]]; then
