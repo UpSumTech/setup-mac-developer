@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-[[ -z "$MYSQL_PASSWORD" ]] || MYSQL_PASSWORD='welcome2mysql'
-
 __ok() {
   echo -n ''
 }
@@ -19,12 +17,12 @@ start_mysql() {
 }
 
 setup_root() {
-  mysqladmin -u root password "$MYSQL_PASSWORD"
+  mysqladmin -u root password welcome2mysql
   __ok
 }
 
 post_setup_mod() {
-  mysql -h localhost --user=root --password="$MYSQL_PASSWORD" --execute="SET @@global.sql_mode='';"
+  mysql -h localhost --user=root --password=welcome2mysql --execute="SET @@global.sql_mode='';"
   __ok
 }
 
