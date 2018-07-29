@@ -29,7 +29,7 @@ export PGDATA="$HOME/var/data/postgres"
 command -v pipenv >/dev/null 2>&1 && eval "$(pipenv --completion)"
 
 # Load bash completions for homebrew packages
-for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do . "$completion_file"; done
+for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done
 
 # kubectl completion functionality
 if command -v kubectl && test ! -f "$HOME/.kubectl-completion"; then
