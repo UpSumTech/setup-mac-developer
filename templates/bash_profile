@@ -51,5 +51,21 @@ if [[ -f "$HOME/.openshift/bash_autocomplete" ]]; then
   . "$HOME/.openshift/bash_autocomplete"
 fi
 
+# ark completion functionality
+if command -v ark >/dev/null 2>&1 && test ! -f "$HOME/.ark-completion"; then
+  ark completion bash > $HOME/.ark-completion
+fi
+if [[ -f "$HOME/.ark-completion" ]]; then
+  . "$HOME/.ark-completion"
+fi
+
+# kops completion functionality
+if command -v kops >/dev/null 2>&1 && test ! -f "$HOME/.kops-completion"; then
+  kops completion bash > $HOME/.kops-completion
+fi
+if [[ -f "$HOME/.kops-completion" ]]; then
+  . "$HOME/.kops-completion"
+fi
+
 # source bash_utils
 if [[ -f ~/.bash_utils.sh ]]; then . ~/.bash_utils.sh; fi

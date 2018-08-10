@@ -148,7 +148,9 @@ install_packages_from_brew() {
     shellcheck \
     tflint \
     checkbashisms \
-    cppcheck
+    cppcheck \
+    watch \
+    tcping
 
   brew install grep --with-default-names
   brew install nginx --with-passenger

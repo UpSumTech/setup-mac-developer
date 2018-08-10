@@ -73,11 +73,18 @@ install_go_utils() {
     github.com/alecthomas/gometalinter
 }
 
+install_other_utils() {
+  wget https://github.com/kubernetes/kops/releases/download/1.9.2/kops-darwin-amd64
+  chmod +x kops-darwin-amd64
+  mv kops-darwin-amd64 $HOME/bin/kops
+}
+
 main() {
   install_pip_utils
   install_ruby_utils
   install_node_utils
   install_go_utils
+  install_other_utils
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"
