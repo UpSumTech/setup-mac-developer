@@ -51,7 +51,8 @@ install_node_utils() {
     js-beautify \
     jsonlint \
     jshint \
-    js-yaml
+    js-yaml \
+    iplocation-cli
 }
 
 install_go_utils() {
@@ -70,7 +71,11 @@ install_go_utils() {
     github.com/stripe/safesql \
     github.com/alexkohler/nakedret \
     honnef.co/go/tools/cmd/unused \
-    github.com/alecthomas/gometalinter
+    github.com/alecthomas/gometalinter \
+    github.com/nsf/gocode \
+    golang.org/x/tools/cmd/godoc \
+    github.com/sbinet/igo \
+    github.com/sriram-srinivasan/gore
 }
 
 install_other_utils() {

@@ -330,3 +330,8 @@ stop_psql() {
     && pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" stop
   __ok
 }
+
+get_ip_info() {
+  curl http://api.db-ip.com/v2/free/$1
+  echo; nslookup $1 | grep 'name ='
+}
