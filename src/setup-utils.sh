@@ -74,7 +74,6 @@ install_go_utils() {
     github.com/alecthomas/gometalinter \
     github.com/nsf/gocode \
     golang.org/x/tools/cmd/godoc \
-    github.com/sbinet/igo \
     github.com/sriram-srinivasan/gore
 }
 
