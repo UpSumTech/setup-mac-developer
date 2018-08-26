@@ -18,33 +18,37 @@ prep_for_postgres() {
 }
 
 init_postgres() {
-  pg_ctl -D "$PGDATA" -E 'UTF-8' initdb
+  command -v pg_resetwal >/dev/null 2>&1 \
+    && pg_resetwal -D "$PGDATA" -f || echo 'no need of resetting DB'
+  rm -rf "$PGDATA"
+  command -v initdb >/dev/null 2>&1 \
+    && initdb -D "$PGDATA"
   __ok
 }
 
 start_postgres() {
   [[ ! -z $PGDATA ]] || export PGDATA="$HOME/var/data/postgres"
   local pg_log_dir="$HOME/var/log/postgres"
-  ps -ef | grep postgre[s] \
-    || pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" start
+  ps -ef | grep -i 'postgres: writer proces[s]' \
+    || pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" -w start
   __ok
 }
 
 stop_postgres() {
   local pg_log_dir="$HOME/var/log/postgres"
-  ps -ef | grep postgre[s] \
-    && pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" stop
+  ps -ef | grep -i 'postgres: writer proces[s]' \
+    && pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" -w stop
   __ok
 }
 
 setup_root() {
-  psql -h localhost postgres -c "CREATE USER root WITH SUPERUSER;"
-  psql -h localhost postgres -c "ALTER USER root CREATEROLE CREATEDB;"
-  psql -h localhost postgres -c "ALTER USER root WITH PASSWORD 'welcome2psql';"
-  psql -h localhost postgres -c "CREATE DATABASE root OWNER root;"
-  psql -h localhost postgres -c "ALTER DATABASE postgres OWNER TO root;"
-  psql -h localhost postgres -c "ALTER DATABASE template0 OWNER TO root;"
-  psql -h localhost postgres -c "ALTER DATABASE template1 OWNER TO root;"
+  psql -v ON_ERROR_STOP=1 -h localhost postgres -c "CREATE USER root WITH SUPERUSER;"
+  psql -v ON_ERROR_STOP=1 -h localhost postgres -c "ALTER USER root CREATEROLE CREATEDB;"
+  psql -v ON_ERROR_STOP=1 -h localhost postgres -c "ALTER USER root WITH PASSWORD 'welcome2psql';"
+  psql -v ON_ERROR_STOP=1 -h localhost postgres -c "CREATE DATABASE root OWNER root;"
+  psql -v ON_ERROR_STOP=1 -h localhost postgres -c "ALTER DATABASE postgres OWNER TO root;"
+  psql -v ON_ERROR_STOP=1 -h localhost postgres -c "ALTER DATABASE template0 OWNER TO root;"
+  psql -v ON_ERROR_STOP=1 -h localhost postgres -c "ALTER DATABASE template1 OWNER TO root;"
   __ok
 }
 
