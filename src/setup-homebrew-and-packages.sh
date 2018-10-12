@@ -150,7 +150,8 @@ install_packages_from_brew() {
     checkbashisms \
     cppcheck \
     watch \
-    tcping
+    tcping \
+    fzf
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
