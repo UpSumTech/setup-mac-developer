@@ -335,3 +335,14 @@ get_ip_info() {
   curl http://api.db-ip.com/v2/free/$1
   echo; nslookup $1 | grep 'name ='
 }
+
+open_fzf_finder() {
+  command -v fzf \
+    || __err "You dont have fzf installed"
+  fzf --preview-window 'down:30' --preview '[[ $(file --mime {}) =~ binary ]] &&
+    echo {} is a binary file ||
+    (highlight -O ansi -l {} ||
+    coderay {} ||
+    rougify {} ||
+    cat {}) 2> /dev/null | head -500'
+}
