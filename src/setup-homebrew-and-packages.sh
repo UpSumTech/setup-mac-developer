@@ -151,7 +151,9 @@ install_packages_from_brew() {
     cppcheck \
     watch \
     tcping \
-    fzf
+    fzf \
+    highlight \
+    luarocks
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
