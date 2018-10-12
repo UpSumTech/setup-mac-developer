@@ -27,7 +27,9 @@ install_ruby_utils() {
     mdl \
     rubocop \
     rubocop-rails \
-    ruby-lint
+    ruby-lint \
+    coderay \
+    rouge
 }
 
 install_node_utils() {
