@@ -124,6 +124,7 @@ install_packages_from_brew() {
     docker \
     docker-machine \
     kubectl \
+    kubectx \
     spark \
     bash-completion@2 \
     ctags \
