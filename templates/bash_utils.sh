@@ -349,23 +349,25 @@ open_fzf_finder() {
 
 sync_history() {
   local current_time=$(date +%s)
-  if [[ -z $HISTLASTSYNCED || $(( $current_time - $HISTLASTSYNCED)) -gt 900 ]]; then
+  if [[ -z $HISTLASTSYNCED \
+    || (! -z $TMUX && ! -z $PROJECT_ROOT_DIR && ! $PROJECT_ROOT_DIR =~ $PWD) \
+    || $(( $current_time - $HISTLASTSYNCED)) -gt 900 ]]; then
     builtin history -a
-    builtin history -w
     local hist_file
     if [[ ! -z "$TMUX" ]]; then
+      builtin history -w
       local hist_dir
       hist_dir="${HOME}/.bash_history.d${PWD}"
       [[ ! -d "$hist_dir" ]] && mkdir -p "$hist_dir"
       hist_file="${hist_dir}/${USER}_bash_history.txt"
+      if [[ ! -f "$hist_file" || -s "$hist_file" ]]; then
+        touch "$hist_file"
+        builtin history | awk '{$1="";print substr($0,2)}' >> "$hist_file"
+        [[ -f $HOME/.bash_history ]] && cat $HOME/.bash_history >> "$hist_file"
+        cat "$hist_file" | sort -u | sponge "$hist_file"
+      fi
     else
       hist_file="$HOME/.bash_history"
-    fi
-    if [[ ! -f "$hist_file" || -s "$hist_file" ]]; then
-      touch "$hist_file"
-      builtin history | awk '{$1="";print substr($0,2)}' >> "$hist_file"
-      [[ -f $HOME/.bash_history ]] && cat $HOME/.bash_history >> "$hist_file"
-      cat "$hist_file" | sort -u | sponge "$hist_file"
     fi
     export HISTFILE="$hist_file"
     builtin history -c
