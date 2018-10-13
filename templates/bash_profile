@@ -4,6 +4,10 @@
 export VISUAL=vim
 export EDITOR=$VISUAL
 export GIT_EDITOR=$EDITOR
+export HISTSIZE=30000
+export HISTFILESIZE=$HISTSIZE
+shopt -s histappend
+
 [[ -d "$HOME/.secrets" ]] && for file in $(find "$HOME/.secrets" -type f -name "*.sh"); do . "$file"; done
 [[ -f "$HOME/.activate_profile.sh" ]] && . "$HOME/.activate_profile.sh"
 

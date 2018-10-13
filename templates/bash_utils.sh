@@ -347,8 +347,7 @@ open_fzf_finder() {
     cat {}) 2> /dev/null | head -500'
 }
 
-activate_history()
-{
+activate_history() {
   history -w
   local hist_dir="${HOME}/.bash_history.d${PWD}"
   [[ ! -d "$hist_dir" ]] && mkdir -p "$hist_dir"
