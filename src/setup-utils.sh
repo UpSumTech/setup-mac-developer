@@ -54,7 +54,18 @@ install_node_utils() {
     jsonlint \
     jshint \
     js-yaml \
-    iplocation-cli
+    iplocation-cli \
+    eslint \
+    babel-eslint \
+    prettier \
+    eslint-config-prettier \
+    eslint-plugin-prettier \
+    eslint-plugin-flowtype \
+    eslint-plugin-react \
+    stylelint \
+    stylelint-processor-styled-components \
+    stylelint-config-styled-components \
+    stylelint-config-recommended
 }
 
 install_go_utils() {
