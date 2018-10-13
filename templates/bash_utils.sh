@@ -346,3 +346,20 @@ open_fzf_finder() {
     rougify {} ||
     cat {}) 2> /dev/null | head -500'
 }
+
+activate_history()
+{
+  history -w
+  local hist_dir="${HOME}/.bash_history.d${PWD}"
+  [[ ! -d "$hist_dir" ]] && mkdir -p "$hist_dir"
+  local hist_file="${hist_dir}/${USER}_bash_history.txt"
+  if [[ ! -f "$hist_file" || -s "$hist_file" ]]; then
+    touch "$hist_file"
+    history | awk '{$1="";print substr($0,2)}' >> "$hist_file"
+    [[ -f $HOME/.bash_history ]] && cat $HOME/.bash_history >> "$hist_file"
+    cat "$hist_file" | sort -u | sponge "$hist_file"
+  fi
+  export HISTFILE="$hist_file"
+  history -c
+  history -r
+}
