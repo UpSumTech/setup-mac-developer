@@ -378,5 +378,8 @@ sync_history() {
 }
 
 activate_history_sync() {
-  export PROMPT_COMMAND="sync_history;$PROMPT_COMMAND"
+  if [[ ! "sync_history" =~ $PROMPT_COMMAND ]]; then
+    export PROMPT_COMMAND="sync_history;$PROMPT_COMMAND"
+  fi
+  __ok
 }
