@@ -350,14 +350,14 @@ open_fzf_finder() {
 sync_history() {
   local current_time=$(date +%s)
   if [[ -z $HISTLASTSYNCED \
-    || (! -z $TMUX && ! -z $PROJECT_ROOT_DIR && ! $PROJECT_ROOT_DIR =~ $PWD) \
-    || $(( $current_time - $HISTLASTSYNCED)) -gt 900 ]]; then
+    || $(( $current_time - $HISTLASTSYNCED)) -gt 30 ]]; then
     builtin history -a
     local hist_file
-    if [[ ! -z "$TMUX" ]]; then
-      builtin history -w
-      local hist_dir
-      hist_dir="${HOME}/.bash_history.d${PWD}"
+    if [[ ! -z "$TMUX" && ! -z "$PROJECT_ROOT_DIR" && $PROJECT_ROOT_DIR =~ $PWD ]]; then
+      if [[ -z "$HISTLASTSYNCED" ]]; then
+        builtin history -w
+      fi
+      local hist_dir="${HOME}/.bash_history.d${PWD}"
       [[ ! -d "$hist_dir" ]] && mkdir -p "$hist_dir"
       hist_file="${hist_dir}/${USER}_bash_history.txt"
       if [[ ! -f "$hist_file" || -s "$hist_file" ]]; then
@@ -378,5 +378,5 @@ sync_history() {
 }
 
 activate_history_sync() {
-  export COMMAND_PROMPT=sync_history
+  export PROMPT_COMMAND="sync_history;$PROMPT_COMMAND"
 }
