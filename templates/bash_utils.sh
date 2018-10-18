@@ -350,7 +350,7 @@ open_fzf_finder() {
 sync_history() {
   local current_time=$(date +%s)
   if [[ -z $HISTLASTSYNCED \
-    || $(( $current_time - $HISTLASTSYNCED)) -gt 30 ]]; then
+    || $(( $current_time - $HISTLASTSYNCED)) -gt 120 ]]; then
     builtin history -a
     local hist_file
     if [[ ! -z "$TMUX" && ! -z "$PROJECT_ROOT_DIR" && $PROJECT_ROOT_DIR =~ $PWD ]]; then
