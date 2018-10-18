@@ -354,13 +354,10 @@ sync_history() {
     builtin history -a
     local hist_file
     if [[ ! -z "$TMUX" && ! -z "$PROJECT_ROOT_DIR" && $PROJECT_ROOT_DIR =~ $PWD ]]; then
-      if [[ -z "$HISTLASTSYNCED" ]]; then
-        builtin history -w
-      fi
       local hist_dir="${HOME}/.bash_history.d${PWD}"
       [[ ! -d "$hist_dir" ]] && mkdir -p "$hist_dir"
       hist_file="${hist_dir}/${USER}_bash_history.txt"
-      if [[ ! -f "$hist_file" || -s "$hist_file" ]]; then
+      if [[ ! -f "$hist_file" || ! -s "$hist_file" ]]; then
         touch "$hist_file"
         builtin history | awk '{$1="";print substr($0,2)}' >> "$hist_file"
         [[ -f $HOME/.bash_history ]] && cat $HOME/.bash_history >> "$hist_file"
