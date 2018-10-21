@@ -60,8 +60,8 @@ build_vim_from_src() {
     --enable-gui=auto \
     --enable-fail-if-missing \
     --with-tlib=ncurses \
+    --enable-cscope \
     --prefix=$HOME
-    --enable-cscope
   make && make install
   pyenv local --unset
 }
