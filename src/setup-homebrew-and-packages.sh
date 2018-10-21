@@ -127,7 +127,6 @@ install_packages_from_brew() {
     kubectx \
     spark \
     bash-completion@2 \
-    ctags \
     git-quick-stats \
     flock \
     ipcalc \
@@ -154,6 +153,7 @@ install_packages_from_brew() {
     tcping \
     fzf \
     highlight \
+    cscope \
     luarocks
 
   brew install grep --with-default-names
