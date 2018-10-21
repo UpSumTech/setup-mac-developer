@@ -87,7 +87,8 @@ install_go_utils() {
     github.com/alecthomas/gometalinter \
     github.com/nsf/gocode \
     golang.org/x/tools/cmd/godoc \
-    github.com/sriram-srinivasan/gore
+    github.com/sriram-srinivasan/gore \
+    mvdan.cc/sh/cmd/shfmt
 }
 
 install_other_utils() {
