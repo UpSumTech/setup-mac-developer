@@ -154,7 +154,8 @@ install_packages_from_brew() {
     fzf \
     highlight \
     cscope \
-    luarocks
+    luarocks \
+    tmux-xpanes
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
