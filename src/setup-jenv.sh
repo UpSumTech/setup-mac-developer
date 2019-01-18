@@ -14,13 +14,8 @@ enable_jenv_plugins() {
   . $HOME/.bash_profile && jenv global 10.0
 }
 
-add_global_java_opts() {
-  jenv global-options "-Xmx512m"
-}
-
 main() {
   add_javas_to_jenv
-  add_global_java_opts
   enable_jenv_plugins
 }
 
