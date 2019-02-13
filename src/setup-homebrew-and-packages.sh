@@ -28,6 +28,7 @@ setup_brew_taps() {
   brew tap msoap\/tools
   brew tap pivotal\/tap
   brew tap wata727\/tflint
+  brew tap mike-engel\/jwt-cli
 }
 
 install_apps_from_cask() {
@@ -155,7 +156,8 @@ install_packages_from_brew() {
     highlight \
     cscope \
     luarocks \
-    tmux-xpanes
+    tmux-xpanes \
+    jwt-cli
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
