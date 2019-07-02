@@ -123,6 +123,7 @@ install_packages_from_brew() {
     ansible \
     fio \
     docker \
+    container-diff \
     docker-machine \
     kubectl \
     kubectx \

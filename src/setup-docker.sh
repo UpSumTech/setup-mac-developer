@@ -9,6 +9,10 @@ prep_docker_machine() {
   docker run hello-world
 }
 
+setup_utils_with_docker() {
+  docker pull spacevim/spacevim
+}
+
 main() {
   prep_docker_machine
 }
