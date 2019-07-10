@@ -151,6 +151,7 @@ install_packages_from_brew() {
     tflint \
     checkbashisms \
     cppcheck \
+    clang-format \
     watch \
     tcping \
     fzf \
