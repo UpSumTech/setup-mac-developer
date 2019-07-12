@@ -145,6 +145,7 @@ install_packages_from_brew() {
     magic-wormhole \
     scala \
     terraform \
+    tfenv \
     flyway \
     pipenv \
     shellcheck \
@@ -177,6 +178,7 @@ post_brew_package_installation() {
   [[ -d $HOME/.pyenv/plugins/pyenv-implict ]] \
     || git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
+  echo '0.12.0' > $HOME/.terraform-version
 }
 
 main() {
