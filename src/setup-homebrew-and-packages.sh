@@ -146,10 +146,10 @@ install_packages_from_brew() {
     scala \
     terraform \
     tfenv \
+    tflint \
     flyway \
     pipenv \
     shellcheck \
-    tflint \
     checkbashisms \
     cppcheck \
     clang-format \
@@ -173,12 +173,16 @@ install_extras_from_brew() {
 }
 
 post_brew_package_installation() {
+  git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
+  chmod +x $HOME/.kopsenv/bin/*
+  chmod +x $HOME/.kopsenv/libexec/*
+  echo '0.12.0' > $HOME/.terraform-version
+  echo '1.12.0' > $HOME/.kops-version
   [[ -x $(brew --prefix)/bin/nvm ]] || ln -s "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
   mkdir -p $HOME/.nvm
   [[ -d $HOME/.pyenv/plugins/pyenv-implict ]] \
     || git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
-  echo '0.12.0' > $HOME/.terraform-version
 }
 
 main() {
