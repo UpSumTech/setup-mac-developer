@@ -160,7 +160,8 @@ install_packages_from_brew() {
     cscope \
     luarocks \
     tmux-xpanes \
-    jwt-cli
+    jwt-cli \
+    aspell
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
