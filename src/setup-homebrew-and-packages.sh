@@ -161,7 +161,8 @@ install_packages_from_brew() {
     luarocks \
     tmux-xpanes \
     jwt-cli \
-    aspell
+    aspell \
+    telnet
 
   brew install grep --with-default-names
   brew install nginx --with-passenger
