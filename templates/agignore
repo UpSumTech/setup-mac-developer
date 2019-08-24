@@ -21,3 +21,6 @@ tags
 *.pyc
 *.class
 out
+target
+.out
+*cscope*
