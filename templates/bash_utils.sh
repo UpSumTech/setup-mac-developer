@@ -380,3 +380,13 @@ activate_history_sync() {
   fi
   __ok
 }
+
+clean_ensime_sbt_cache() {
+  rm -rf ~/.coursier/cache/v1/https/oss.sonatype.org/content/repositories/snapshots \
+    ~/.ivy2/cache/org.ensime \
+    ~/.ivy2/local \
+    project/target \
+    ~/.sbt/0.13/target \
+    ~/.sbt/0.13/plugins/target
+  __ok
+}
