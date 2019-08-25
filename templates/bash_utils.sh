@@ -390,3 +390,56 @@ clean_ensime_sbt_cache() {
     ~/.sbt/0.13/plugins/target
   __ok
 }
+
+build_dot_env_file() {
+  if [[ -d .git ]]; then
+    cat << 'EOF' >> .env
+if [[ -f .python-version && -f Pipfile.lock ]]; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  pyenv versions | grep "$(head -n 1 .python-version)" || pyenv install
+  pyenv local
+  pyenv rehash
+  pipenv --python "$HOME/.pyenv/versions/$(head -n 1 .python-version)/bin/python"
+  pipenv --bare sync
+fi
+
+if [[ -f .nvmrc ]]; then
+  node_version="$(head -n 1 .nvmrc)"
+  nvm ls | grep -i "$node_version" >/dev/null 2>&1 || nvm install
+  nvm use >/dev/null
+fi
+
+if [[ -f .go-version && -f Gopkg.lock ]]; then
+  golang_version="$(head -n 1 .go-version)"
+  goenv versions | grep -i "$golang_version" >/dev/null 2>&1 || goenv install
+  goenv rehash >/dev/null
+fi
+
+if [[ -f .java-version && -f build.sbt ]]; then
+  jenv shell "$(head -n 1 .java-version)"
+  jenv rehash
+  project_name="$(basename $PWD)"
+  ensime_pid_from_proc=$(ps -ef | grep jav[a] | grep ensim[e] | grep $project_name | awk '{print $2}')
+  ensime_pid_from_file=
+  if [[ -f .ensime_cache/server.pid ]]; then
+    ensime_pid_from_file=$(cat .ensime_cache/server.pid)
+  fi
+
+  if [[ -n $ensime_pid_from_proc ]]; then
+    if [[ -f .ensime_cache/server.pid && $ensime_pid_from_file -eq $ensime_pid_from_proc ]]; then
+      echo "ensime is already running as part of vim with pid - $(cat .ensime_cache/server.pid)"
+    elif [[ -f .ensime_cache/server.pid && ! $ensime_pid_from_file -eq $ensime_pid_from_proc ]]; then
+      echo "ensime is running but not controlled by vim any more with pid - $ensime_pid_from_proc" \
+        && kill -9 $ensime_pid_from_proc
+      rm -rf .ensime_cache/server.pid .ensime_cache/http .ensime_cache/port
+    else
+      kill -9 $ensime_pid_from_proc
+    fi
+  else
+    echo "ensime-server is not running"
+  fi
+fi
+EOF
+  fi
+}
