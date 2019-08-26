@@ -394,30 +394,38 @@ clean_ensime_sbt_cache() {
 build_dot_env_file() {
   if [[ -d .git ]]; then
     cat << 'EOF' >> .env
-if [[ -f .python-version && -f Pipfile.lock ]]; then
+python_version_file="$(find . -maxdepth 3 -type f -name '.java-version')"
+pipenv_lock_file="$(find . -maxdepth 3 -type f -name 'Pipfile.lock')"
+if [[ -n "$python_version_file" && -n "$pipenv_lock_file" ]]; then
+  python_version="$(head -n 1 "$python_version_file")"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
-  pyenv versions | grep "$(head -n 1 .python-version)" || pyenv install
+  pyenv versions | grep "$python_version" || pyenv install
   pyenv local
   pyenv rehash
-  pipenv --python "$HOME/.pyenv/versions/$(head -n 1 .python-version)/bin/python"
+  pipenv --python "$HOME/.pyenv/versions/$python_version/bin/python"
   pipenv --bare sync
 fi
 
-if [[ -f .nvmrc ]]; then
-  node_version="$(head -n 1 .nvmrc)"
+nvmrc_file="$(find . -maxdepth 3 -type f -name '.nvmrc')"
+if [[ -n "$nvmrc_file" ]]; then
+  node_version="$(head -n 1 "$nvmrc_file")"
   nvm ls | grep -i "$node_version" >/dev/null 2>&1 || nvm install
   nvm use >/dev/null
 fi
 
-if [[ -f .go-version && -f Gopkg.lock ]]; then
-  golang_version="$(head -n 1 .go-version)"
+golang_version_file="$(find . -maxdepth 3 -type f -name '.go-version')"
+gopkg_lock_file="$(find . -maxdepth 3 -type f -name 'Gopkg.lock')"
+if [[ -n "$golang_version_file" && -n "$gopkg_lock_file" ]]; then
+  golang_version="$(head -n 1 "$golang_version_file")"
   goenv versions | grep -i "$golang_version" >/dev/null 2>&1 || goenv install
   goenv rehash >/dev/null
 fi
 
-if [[ -f .java-version && -f build.sbt ]]; then
-  jenv shell "$(head -n 1 .java-version)"
+java_version_file="$(find . -maxdepth 3 -type f -name '.java-version')"
+build_sbt_file="$(find . -maxdepth 3 -type f -name 'build.sbt')"
+if [[ -n "$java_version_file" && -n "$build_sbt_file" ]]; then
+  jenv shell "$(head -n 1 "$java_version_file")"
   jenv rehash
   project_name="$(basename $PWD)"
   ensime_pid_from_proc=$(ps -ef | grep jav[a] | grep ensim[e] | grep $project_name | awk '{print $2}')
