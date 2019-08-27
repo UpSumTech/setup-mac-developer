@@ -39,6 +39,7 @@ install_apps_from_cask() {
   command -v virtualbox || brew cask install --appdir="$BREW_APP_INSTALL_DIR" virtualbox
   brew cask install --appdir="$BREW_APP_INSTALL_DIR" \
     java \
+    adoptopenjdk8 \
     atom \
     vagrant \
     tcl \
