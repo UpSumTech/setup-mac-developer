@@ -36,8 +36,10 @@ start_postgres() {
 
 stop_postgres() {
   local pg_log_dir="$HOME/var/log/postgres"
-  ps -ef | grep -i 'postgres: writer proces[s]' \
-    && pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" -w stop
+  if ps -ef | grep -i 'postgres: writer proces[s]'; then
+    pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" -w stop \
+      || pg_ctl -D /usr/local/var/postgresql@10 -w stop
+  fi
   __ok
 }
 
@@ -65,6 +67,7 @@ update_pg_hba_conf() {
 main() {
   check_postgres
   prep_for_postgres
+  stop_postgres
   init_postgres
   start_postgres
   setup_root

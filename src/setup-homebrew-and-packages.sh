@@ -80,7 +80,7 @@ install_packages_from_brew() {
     node \
     golang \
     mysql \
-    postgres \
+    postgresql@10 \
     redis \
     rabbitmq \
     ncurses \

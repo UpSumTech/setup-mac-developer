@@ -17,6 +17,7 @@ alias bci='brew cask install --appdir=$BREW_APP_INSTALL_DIR'
 # Init env specific prog langs and also load it in the paths properly
 export PATH="$HOME/bin:$PATH"
 export PATH="$(brew --prefix)/opt/docker@1.11/bin:$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
+export PATH="$(brew --prefix)/opt/postgresql@10/bin:$PATH"
 export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH"
 echo '[[ -f $(brew --prefix)/opt/autoenv/activate.sh ]] && . $(brew --prefix)/opt/autoenv/activate.sh' >> $HOME/.bash_profile
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"; fi
