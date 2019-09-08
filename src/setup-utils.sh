@@ -63,8 +63,10 @@ install_node_utils() {
     eslint-plugin-flowtype \
     eslint-plugin-react \
     stylelint \
+    stylelint-scss \
     stylelint-processor-styled-components \
     stylelint-config-styled-components \
+    stylelint-config-recommended-scss \
     stylelint-config-recommended
 }
 
