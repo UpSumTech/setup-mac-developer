@@ -394,7 +394,7 @@ clean_ensime_sbt_cache() {
 build_dot_env_file() {
   if [[ -d .git ]]; then
     cat << 'EOF' >> .env
-python_version_file="$(find . -maxdepth 3 -type f -name '.java-version')"
+python_version_file="$(find . -maxdepth 3 -type f -name '.python-version')"
 pipenv_lock_file="$(find . -maxdepth 3 -type f -name 'Pipfile.lock')"
 if [[ -n "$python_version_file" && -n "$pipenv_lock_file" ]]; then
   python_version="$(head -n 1 "$python_version_file")"
