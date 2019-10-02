@@ -163,7 +163,8 @@ install_packages_from_brew() {
     tmux-xpanes \
     jwt-cli \
     aspell \
-    telnet
+    telnet \
+    groovysdk
 
   brew install grep --with-default-names
   brew install nginx --with-passenger

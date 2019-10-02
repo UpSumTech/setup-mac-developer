@@ -7,7 +7,6 @@ main() {
   [[ -f ~/.bash_profile ]] && mv ~/.bash_profile ~/.bash_profile.bak
   ./src/xcode-and-essentials.sh
   ./src/setup-homebrew-and-packages.sh
-  ./src/setup-sdkman.sh
   ./src/setup-bash.sh
   ./src/setup-git.sh "$name" "$email"
   ./src/setup-iterm2.sh
