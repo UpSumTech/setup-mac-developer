@@ -90,7 +90,16 @@ install_go_utils() {
     github.com/nsf/gocode \
     golang.org/x/tools/cmd/godoc \
     github.com/sriram-srinivasan/gore \
-    mvdan.cc/sh/cmd/shfmt
+    mvdan.cc/sh/cmd/shfmt \
+    github.com/gordonklaus/ineffassign \
+    github.com/tsenart/deadcode \
+    github.com/fzipp/gocyclo \
+    github.com/mdempsky/unconvert \
+    github.com/securego/gosec/cmd/gosec \
+    github.com/golangci/golangci-lint/cmd/golangci-lint \
+    github.com/alecthomas/gometalinter \
+    github.com/andrebq/gas \
+    honnef.co/go/tools/...
 }
 
 install_other_utils() {
