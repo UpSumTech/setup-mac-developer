@@ -79,7 +79,7 @@ install_packages_from_brew() {
     ruby \
     node \
     golang \
-    mysql \
+    mysql@5.7 \
     postgresql@10 \
     redis \
     rabbitmq \

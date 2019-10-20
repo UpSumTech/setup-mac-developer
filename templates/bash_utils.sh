@@ -312,7 +312,7 @@ start_mysql() {
 
 stop_mysql() {
   ps -ef | grep mysql[d] \
-    || mysql.server stop
+    && mysql.server stop
   __ok
 }
 
