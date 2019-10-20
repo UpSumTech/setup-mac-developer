@@ -398,14 +398,14 @@ ruby_version_file="$(find . -maxdepth 3 -type f -name '.ruby-version')"
 gem_lock_file="$(find . -maxdepth 3 -type f -name 'Gemfile.lock')"
 if [[ -n "$ruby_version_file" ]]; then
   ruby_version="$(head -n 1 "$ruby_version_file")"
+  eval "$(rbenv init -)"
   rbenv versions | grep "$ruby_version" || rbenv install "$ruby_version"
+  rbenv shell "$ruby_version"
   rbenv local "$ruby_version"
-  gem env home
   rbenv rehash
+  gem env home
   if [[ -n "$gem_lock_file" ]]; then
     bundle install
-  else
-    gem list | grep bundler || gem install bundler
   fi
   rbenv rehash
 fi
