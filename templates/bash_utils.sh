@@ -394,6 +394,22 @@ clean_ensime_sbt_cache() {
 build_dot_env_file() {
   if [[ -d .git ]]; then
     cat << 'EOF' >> .env
+ruby_version_file="$(find . -maxdepth 3 -type f -name '.ruby-version')"
+gem_lock_file="$(find . -maxdepth 3 -type f -name 'Gemfile.lock')"
+if [[ -n "$ruby_version_file" ]]; then
+  ruby_version="$(head -n 1 "$ruby_version_file")"
+  rbenv versions | grep "$ruby_version" || rbenv install "$ruby_version"
+  rbenv local "$ruby_version"
+  gem env home
+  rbenv rehash
+  if [[ -n "$gem_lock_file" ]]; then
+    bundle install
+  else
+    gem list | grep bundler || gem install bundler
+  fi
+  rbenv rehash
+fi
+
 python_version_file="$(find . -maxdepth 3 -type f -name '.python-version')"
 pipenv_lock_file="$(find . -maxdepth 3 -type f -name 'Pipfile.lock')"
 if [[ -n "$python_version_file" && -n "$pipenv_lock_file" ]]; then
