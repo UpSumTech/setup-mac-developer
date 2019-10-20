@@ -426,6 +426,8 @@ fi
 nvmrc_file="$(find . -maxdepth 3 -type f -name '.nvmrc')"
 if [[ -n "$nvmrc_file" ]]; then
   node_version="$(head -n 1 "$nvmrc_file")"
+  export NVM_DIR="$HOME/.nvm"
+  . "$(brew --prefix)/opt/nvm/nvm.sh" >/dev/null
   nvm ls | grep -i "$node_version" >/dev/null 2>&1 || nvm install
   nvm use >/dev/null
 fi
