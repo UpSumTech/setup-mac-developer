@@ -46,7 +46,8 @@ install_apps_from_cask() {
     font-inconsolata \
     kindle \
     minikube \
-    minishift
+    minishift \
+    caffeine
 }
 
 install_packages_from_brew() {
