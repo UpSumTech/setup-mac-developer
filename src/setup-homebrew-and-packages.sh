@@ -29,6 +29,7 @@ setup_brew_taps() {
   brew tap pivotal\/tap
   brew tap wata727\/tflint
   brew tap mike-engel\/jwt-cli
+  brew tap AdoptOpenJDK\/openjdk
 }
 
 install_apps_from_cask() {
