@@ -6,7 +6,6 @@ install_pip_utils() {
     supervisor \
     csvkit \
     shyaml \
-    cheat \
     pylint \
     yq \
     pep8 \
@@ -90,7 +89,6 @@ install_go_utils() {
     github.com/nsf/gocode \
     golang.org/x/tools/cmd/godoc \
     github.com/motemen/gore/cmd/gore \
-    mvdan.cc/sh/cmd/shfmt \
     github.com/gordonklaus/ineffassign \
     github.com/tsenart/deadcode \
     github.com/fzipp/gocyclo \
@@ -100,6 +98,8 @@ install_go_utils() {
     github.com/alecthomas/gometalinter \
     github.com/andrebq/gas \
     honnef.co/go/tools/...
+    
+    # mvdan.cc/sh/cmd/shfmt - This works with the latest versions of go 1.11 and more
 }
 
 install_other_utils() {
@@ -110,12 +110,28 @@ install_other_utils() {
   . $HOME/.bash_profile && kopsenv install
 }
 
+install_cheat() {
+  wget https://github.com/cheat/cheat/releases/download/3.2.1/cheat-darwin-amd64
+  chmod +x cheat-darwin-amd64
+  mv cheat-darwin-amd64 $HOME/bin/cheat
+  mkdir -p $HOME/.config/cheat
+  mkdir -p $HOME/share/doc/cheat/community
+  mkdir -p $HOME/share/doc/cheat/personal
+  mkdir -p $HOME/share/doc/cheat/work
+  pushd .
+  cd $HOME/share/doc/cheat
+  git clone https://github.com/cheat/cheatsheets.git
+  mv cheatsheets community
+  popd
+}
+
 main() {
   install_pip_utils
   install_ruby_utils
   install_node_utils
   install_go_utils
   install_other_utils
+  install_cheat
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"
