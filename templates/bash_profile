@@ -12,7 +12,7 @@ shopt -s histappend
 [[ -f "$HOME/.activate_profile.sh" ]] && . "$HOME/.activate_profile.sh"
 
 # Aliases for brew
-alias bci='brew cask install --appdir=$BREW_APP_INSTALL_DIR'
+alias bci='brew cask install --appdir=~/Applications'
 
 # Init env specific prog langs and also load it in the paths properly
 export PATH="$HOME/bin:$PATH"
