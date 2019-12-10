@@ -11,6 +11,7 @@ main() {
   ./src/setup-git.sh "$name" "$email"
   ./src/setup-iterm2.sh
   ./src/setup-mysql.sh
+  ./src/setup-postgres.sh
   ./src/setup-pyenv.sh
   ./src/setup-rbenv.sh
   ./src/setup-nvm.sh
