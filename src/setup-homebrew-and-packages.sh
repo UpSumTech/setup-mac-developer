@@ -59,6 +59,7 @@ install_packages_from_brew() {
   brew install \
     gcc \
     curl \
+    wget \
     zeromq \
     coreutils \
     findutils \
