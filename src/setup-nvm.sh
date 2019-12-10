@@ -2,10 +2,9 @@
 
 install_nodes() {
   local node_version
-  local arr=('5.0.0' \
-    '6.0.0' \
-    '8.9.3' \
+  local arr=('9.0.0' \
     '10.0.0' \
+    '11.0.0' \
   )
   for node_version in "${arr[@]}"; do
     . $HOME/.bash_profile && nvm install "$node_version"
