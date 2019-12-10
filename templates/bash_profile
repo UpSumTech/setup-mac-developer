@@ -22,7 +22,6 @@ export PATH="$(brew --prefix)/opt/mysql@5.7/bin:$PATH"
 export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH"
 echo '[[ -f $(brew --prefix)/opt/autoenv/activate.sh ]] && . $(brew --prefix)/opt/autoenv/activate.sh' >> $HOME/.bash_profile
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"; fi
-[[ -x $(brew --prefix)/bin/nvm ]] || ln -s "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
 mkdir -p $HOME/.nvm
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix)/opt/nvm/nvm.sh"
