@@ -41,6 +41,10 @@ install_apps_from_cask() {
   brew cask install --appdir="$BREW_APP_INSTALL_DIR" \
     java \
     adoptopenjdk8 \
+    adoptopenjdk9 \
+    adoptopenjdk10 \
+    adoptopenjdk11 \
+    adoptopenjdk12 \
     atom \
     vagrant \
     tcl \
