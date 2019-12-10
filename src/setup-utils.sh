@@ -13,7 +13,9 @@ install_pip_utils() {
     pylama \
     pyflakes \
     yamllint \
-    neovim
+    neovim \
+    sexpdata \
+    websocket-client
 }
 
 install_ruby_utils() {
