@@ -77,6 +77,7 @@ install_packages_from_brew() {
     git \
     git-extras \
     mercurial \
+    zlib \
     python \
     ruby \
     node \
