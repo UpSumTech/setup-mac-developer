@@ -168,9 +168,9 @@ install_packages_from_brew() {
     telnet \
     groovysdk
 
-  brew install grep --with-default-names
-  brew install nginx --with-passenger
-  brew install reattach-to-user-namespace --with-wrap-pbcopy-and-pbpaste
+  brew install grep
+  brew install nginx passenger
+  brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
   brew install --HEAD universal-ctags
 }
 
