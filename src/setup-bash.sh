@@ -36,7 +36,7 @@ create_custom_files() {
 }
 
 enable_bash_it_completions() {
-  . $HOME/.bash_profile && bash-it enable completion \
+  . "$HOME/.bash_it/bash_it.sh" && bash-it enable completion \
     awscli \
     brew \
     bundler \
@@ -68,7 +68,7 @@ enable_bash_it_completions() {
 }
 
 enable_bash_it_plugins() {
-  . $HOME/.bash_profile && bash-it enable plugin \
+  . "$HOME/.bash_it/bash_it.sh" && bash-it enable plugin \
     aws \
     dirs \
     extract \
@@ -84,7 +84,7 @@ enable_bash_it_plugins() {
 }
 
 enable_bash_it_aliases() {
-  . $HOME/.bash_profile && bash-it enable alias \
+  . "$HOME/.bash_it/bash_it.sh" && bash-it enable alias \
     ag \
     ansible \
     bundler \
