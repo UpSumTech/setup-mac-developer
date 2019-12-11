@@ -50,6 +50,7 @@ install_apps_from_cask() {
     tcl \
     font-inconsolata \
     kindle \
+    docker \
     minikube \
     minishift \
     caffeine
