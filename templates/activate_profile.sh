@@ -22,7 +22,6 @@ setup_aws_session_token() {
   local aws_session_token
   if [[ ! -z "$AWS_ROLE_ARN" ]]; then
     if [[ ! -z "$AWS_MFA_ARN" ]]; then
-      rm -rf "$HOME/.aws/cli/cache"
       # aws sts get-session-token --profile $AWS_PROFILE --duration-seconds 43200
       aws sts get-caller-identity --profile $AWS_PROFILE
       creds_file="$(find ~/.aws/cli/cache/ -type f)"
