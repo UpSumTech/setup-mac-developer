@@ -21,19 +21,19 @@ setup_aws_session_token() {
   local aws_secret_access_key
   local aws_session_token
   if [[ ! -z "$AWS_ROLE_ARN" ]]; then
-    if [[ ! -z "$AWS_MFA_ARN" ]]; then
-      # aws sts get-session-token --profile $AWS_PROFILE --duration-seconds 43200
-      aws sts get-caller-identity --profile $AWS_PROFILE
-      creds_file="$(find ~/.aws/cli/cache/ -type f)"
-      aws_access_key_id="$(cat $creds_file | jq -r '.Credentials.AccessKeyId')"
-      aws_secret_access_key="$(cat $creds_file | jq -r '.Credentials.SecretAccessKey')"
-      aws_session_token="$(cat $creds_file | jq -r '.Credentials.SessionToken')"
-      export AWS_ACCESS_KEY_ID="$aws_access_key_id"
-      export AWS_SECRET_ACCESS_KEY="$aws_secret_access_key"
-      export AWS_ACCESS_KEY="$aws_access_key_id"
-      export AWS_SECRET_KEY="$aws_secret_access_key"
-      export AWS_SESSION_TOKEN="$aws_session_token"
-    fi
+    role_name="$(echo $AWS_ROLE_ARN | cut -d'/' -f2)"
+    # aws sts get-session-token --profile $AWS_PROFILE --duration-seconds 43200
+    aws sts get-caller-identity --profile $AWS_PROFILE
+    creds_file="$(grep -rl -E "$AWS_ACCOUNT_ID:assumed-role/$role_name" $HOME/.aws/cli/cache)"
+    aws_access_key_id="$(cat $creds_file | jq -r '.Credentials.AccessKeyId')"
+    aws_secret_access_key="$(cat $creds_file | jq -r '.Credentials.SecretAccessKey')"
+    aws_session_token="$(cat $creds_file | jq -r '.Credentials.SessionToken')"
+    export AWS_ACCESS_KEY_ID="$aws_access_key_id"
+    export AWS_SECRET_ACCESS_KEY="$aws_secret_access_key"
+    export AWS_ACCESS_KEY="$aws_access_key_id"
+    export AWS_SECRET_KEY="$aws_secret_access_key"
+    export AWS_SESSION_TOKEN="$aws_session_token"
+    unset AWS_ROLE_ARN
   fi
 }
 
@@ -131,5 +131,5 @@ activate_help() {
   "
 }
 
-[[ -f "$HOME/.work_helpers.sh" && -z $SOURCED_WORK_HELPERS ]] && . "$HOME/.work_helpers.sh"
+[[ -f "$HOME/.work_helpers.sh" ]] && . "$HOME/.work_helpers.sh"
 export SOURCED_ACTIVATE_PROFILE=1
