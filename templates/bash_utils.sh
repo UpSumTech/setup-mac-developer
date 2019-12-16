@@ -444,6 +444,7 @@ if [[ -n "$python_version_file" ]]; then
     pipenv --python "$HOME/.pyenv/versions/$python_version/bin/python"
     pipenv --bare sync
   else
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     pyenv virtualenvs | grep "$project_name-$python_version" || pyenv virtualenv $python_version $project_name-$python_version
     pyenv activate $project_name-$python_version
   fi
