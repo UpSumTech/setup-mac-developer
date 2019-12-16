@@ -411,6 +411,10 @@ clean_ensime_sbt_cache() {
 build_dot_env_file() {
   if [[ -d .git ]]; then
     cat << 'EOF' >> .env
+dotenv_file="$(find . -maxdepth 3 -type f -name '.env')"
+project_dir="$(dirname "$dotenv_file")"
+project_name="$(basename "$project_dir")"
+
 ruby_version_file="$(find . -maxdepth 3 -type f -name '.ruby-version')"
 gem_lock_file="$(find . -maxdepth 3 -type f -name 'Gemfile.lock')"
 if [[ -n "$ruby_version_file" ]]; then
@@ -429,16 +433,28 @@ fi
 
 python_version_file="$(find . -maxdepth 3 -type f -name '.python-version')"
 pipenv_lock_file="$(find . -maxdepth 3 -type f -name 'Pipfile.lock')"
-if [[ -n "$python_version_file" && -n "$pipenv_lock_file" ]]; then
+if [[ -n "$python_version_file" ]]; then
   python_version="$(head -n 1 "$python_version_file")"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
   pyenv versions | grep "$python_version" || pyenv install
-  pyenv local
+  pyenv local "$python_version"
   pyenv rehash
-  pipenv --python "$HOME/.pyenv/versions/$python_version/bin/python"
-  pipenv --bare sync
+  if [[ -n "$pipenv_lock_file" ]]; then
+    pipenv --python "$HOME/.pyenv/versions/$python_version/bin/python"
+    pipenv --bare sync
+  else
+    pyenv virtualenvs | grep "$project_name-$python_version" || pyenv virtualenv $python_version $project_name-$python_version
+    pyenv activate $project_name-$python_version
+  fi
 fi
+
+python_version_file="$(find . -maxdepth 3 -type f -name '.python-version')"
+python_version="$(head -n 1 "$python_version_file")"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+pyenv versions | grep "$python_version" || pyenv install $python_version
+
 
 nvmrc_file="$(find . -maxdepth 3 -type f -name '.nvmrc')"
 if [[ -n "$nvmrc_file" ]]; then
