@@ -16,6 +16,10 @@ install_pip_utils() {
     neovim \
     sexpdata \
     websocket-client
+
+  pip3 --trusted-host pypi.python.org install \
+    sexpdata \
+    websocket-client
 }
 
 install_ruby_utils() {
