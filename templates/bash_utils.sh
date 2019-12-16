@@ -444,18 +444,10 @@ if [[ -n "$python_version_file" ]]; then
     pipenv --python "$HOME/.pyenv/versions/$python_version/bin/python"
     pipenv --bare sync
   else
-    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     pyenv virtualenvs | grep "$project_name-$python_version" || pyenv virtualenv $python_version $project_name-$python_version
     pyenv activate $project_name-$python_version
   fi
 fi
-
-python_version_file="$(find . -maxdepth 3 -type f -name '.python-version')"
-python_version="$(head -n 1 "$python_version_file")"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv versions | grep "$python_version" || pyenv install $python_version
-
 
 nvmrc_file="$(find . -maxdepth 3 -type f -name '.nvmrc')"
 if [[ -n "$nvmrc_file" ]]; then
