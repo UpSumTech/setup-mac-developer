@@ -412,7 +412,7 @@ build_dot_env_file() {
   if [[ -d .git ]]; then
     cat << 'EOF' >> .env
 dotenv_file="$(find . -maxdepth 3 -type f -name '.env')"
-project_dir="$(dirname "$dotenv_file")"
+project_dir="$(cd "$(dirname "$dotenv_file")" && pwd)"
 project_name="$(basename "$project_dir")"
 
 ruby_version_file="$(find . -maxdepth 3 -type f -name '.ruby-version')"

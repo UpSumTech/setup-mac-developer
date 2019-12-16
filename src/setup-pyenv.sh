@@ -15,9 +15,9 @@ install_python() {
 
   PYENV_PYTHON_CONFIGURE_OPTS="--enable-shared"
   env CFLAGS="$PYENV_CFLAGS" LDFLAGS="$PYENV_LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"
-}                                                                            
-                                                                             
-install_pythons() {                                                          
+}
+
+install_pythons() {
   local arr=('2.7.14' \
     '3.5.4' \
     '3.6.6' \

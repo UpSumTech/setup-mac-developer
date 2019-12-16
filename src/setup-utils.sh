@@ -100,7 +100,7 @@ install_go_utils() {
     github.com/alecthomas/gometalinter \
     github.com/andrebq/gas \
     honnef.co/go/tools/...
-    
+
     # mvdan.cc/sh/cmd/shfmt - This works with the latest versions of go 1.11 and more
 }
 
