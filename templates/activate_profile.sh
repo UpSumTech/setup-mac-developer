@@ -125,6 +125,8 @@ activate_help() {
     Valid options for calling acivate profile are
       activate_profile_for_personal_admin
       deactivate_profile_for_personal_admin
+      activate_profile_for_work_admin
+      deactivate_profile_for_work_admin
       activate_help
       all_available_profiles
       clean_active_profile
