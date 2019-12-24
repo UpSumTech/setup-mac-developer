@@ -157,6 +157,8 @@ install_packages_from_brew() {
     terraform \
     tfenv \
     tflint \
+    packer \
+    packer-completion \
     flyway \
     pipenv \
     shellcheck \
