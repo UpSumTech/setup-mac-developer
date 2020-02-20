@@ -30,6 +30,7 @@ setup_brew_taps() {
   brew tap wata727\/tflint
   brew tap mike-engel\/jwt-cli
   brew tap adoptopenjdk\/openjdk
+  brew tap filippo.io\/age https:\/\/filippo.io\/age
 }
 
 install_apps_from_cask() {
@@ -175,7 +176,9 @@ install_packages_from_brew() {
     jwt-cli \
     aspell \
     telnet \
-    groovysdk
+    groovysdk \
+    age \
+    ffsend
 
   brew install grep
   brew install nginx passenger
