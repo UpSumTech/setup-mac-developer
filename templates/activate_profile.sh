@@ -61,6 +61,8 @@ activate_profile_for_personal_admin() {
   export BINTRAY_API_KEY="$PERSONAL_ADMIN_BINTRAY_API_KEY"
   export BINTRAY_REPO_NAME="$PERSONAL_ADMIN_BINTRAY_REPO_NAME"
   export AWS_PROFILE="personal_root"
+  export PROFILE_COLOR="magenta"
+  set_tmux_pane_props
   activate_profile_helper "admin"
 }
 
@@ -117,6 +119,8 @@ deactivate_profile_helper() {
   unset AWS_ROLE_ARN
   unset AWS_MFA_ARN
   unset AWS_PROFILE
+  unset PROFILE_COLOR
+  reset_tmux_pane_props
 }
 
 activate_help() {

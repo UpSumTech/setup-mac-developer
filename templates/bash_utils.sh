@@ -47,7 +47,7 @@ start_ssh_agent_and_add_key() {
   __ok
 }
 
-mv_2_go_project_root() {
+mv_2_golang_project_root() {
   while [[ ! $(find . -maxdepth 1 -type d | grep '.git') =~ './.git' && ! $(basename $(cd $PWD/../.. && pwd)) =~ (github.com|golang.org|google.golang.org|gopkg.in) ]]; do
     cd ..
   done
@@ -406,6 +406,31 @@ clean_ensime_sbt_cache() {
     ~/.sbt/0.13/target \
     ~/.sbt/0.13/plugins/target
   __ok
+}
+
+go2_project_root() {
+  local path
+  path=$(pwd)
+  while [[ $(find $path -type d -name '.git' -print -prune | wc -l) -eq 0 ]]; do
+    cd ..
+    path=$(pwd)
+  done
+}
+
+set_tmux_pane_props() {
+  local bgcolor="$PROFILE_COLOR"
+  local fgcolor="black"
+  [[ ! -z "$bgcolor" ]] || { bgcolor="default"; fgcolor="green"; }
+  tmux set-option pane-active-border-style bg=$bgcolor,fg=$fgcolor
+  local file
+  mkdir -p $HOME/tmp/tmux_setup
+  file=$HOME/tmp/tmux_setup/vars_of_pane_$TMUX_PANE
+  echo "bgcolor=$bgcolor" > $file
+  echo "fgcolor=$fgcolor" >> $file
+}
+
+reset_tmux_pane_props() {
+  tmux set-option pane-active-border-style bg=default,fg=green
 }
 
 build_dot_env_file() {
