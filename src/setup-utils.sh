@@ -114,6 +114,9 @@ install_other_utils() {
   mv kops-darwin-amd64 $HOME/bin/kops
   . $HOME/.bash_profile && tfenv install
   . $HOME/.bash_profile && kopsenv install
+  wget https://github.com/k14s/ytt/releases/download/v0.25.0/ytt-darwin-amd64
+  chmod +x ytt-darwin-amd64
+  mv ytt-darwin-amd64 $HOME/bin/ytt
 }
 
 install_dockerized_utils() {
