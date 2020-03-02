@@ -80,7 +80,13 @@ enable_bash_it_plugins() {
     projects \
     python \
     ssh \
-    tmux
+    tmux \
+    man \
+    fzf \
+    postgres \
+    explain \
+    browser \
+    docker
 }
 
 enable_bash_it_aliases() {

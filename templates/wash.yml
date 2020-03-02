@@ -1,0 +1,4 @@
+plugins:
+  - aws
+  - docker
+  - kubernetes

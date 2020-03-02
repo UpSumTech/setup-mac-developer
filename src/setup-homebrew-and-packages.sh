@@ -54,7 +54,9 @@ install_apps_from_cask() {
     docker \
     minikube \
     minishift \
-    caffeine
+    caffeine \
+    osxfuse
+  echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
 install_packages_from_brew() {
@@ -178,7 +180,8 @@ install_packages_from_brew() {
     telnet \
     groovysdk \
     age \
-    ffsend
+    ffsend \
+    puppetlabs/puppet/wash
 
   brew install grep
   brew install nginx passenger
@@ -201,6 +204,9 @@ post_brew_package_installation() {
   [[ -d $HOME/.pyenv/plugins/pyenv-implict ]] \
     || git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
+  mkdir -p $HOME/.puppetlabs/wash
+  cp "$ROOT_DIR/templates/wash_analytics.yml" "$HOME/.puppetlabs/wash/analytics.yml"
+  cp "$ROOT_DIR/templates/wash.yml" "$HOME/.puppetlabs/wash/wash.yml"
 }
 
 main() {
