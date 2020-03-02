@@ -364,6 +364,10 @@ open_fzf_finder() {
     cat {}) 2> /dev/null | head -500'
 }
 
+terraform_check() {
+  docker run -t -v $(pwd):/tf bridgecrew/checkov -d /tf
+}
+
 sync_history() {
   local current_time=$(date +%s)
   if [[ -z $HISTLASTSYNCED \

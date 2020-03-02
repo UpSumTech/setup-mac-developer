@@ -116,6 +116,10 @@ install_other_utils() {
   . $HOME/.bash_profile && kopsenv install
 }
 
+install_dockerized_utils() {
+  docker pull bridgecrew/checkov
+}
+
 install_cheat() {
   wget https://github.com/cheat/cheat/releases/download/3.2.1/cheat-darwin-amd64
   chmod +x cheat-darwin-amd64
