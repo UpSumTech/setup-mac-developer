@@ -115,14 +115,12 @@ install_go_utils() {
     golang.org/x/lint/golint \
     golang.org/x/tools/cmd/gorename \
     golang.org/x/tools/cmd/guru \
-    golang.org/x/tools/cmd/goimports
-
-  # These one didnt work with 1.11.0
-    # github.com/motemen/gore/cmd/gore \
-    # golang.org/x/tools/gopls \
-    # golang.org/x/tools/gotags \
-    # golang.org/x/tools/cmd/godoc \
-    # mvdan.cc/sh/cmd/shfmt
+    golang.org/x/tools/cmd/goimports \
+    golang.org/x/tools/gopls \
+    github.com/motemen/gore/cmd/gore \
+    golang.org/x/tools/cmd/godoc \
+    mvdan.cc/sh/cmd/shfmt
+    # golang.org/x/tools/gotags - This one didnt work with 1.12beta1
 }
 
 
