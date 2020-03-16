@@ -78,9 +78,9 @@ install_node_utils() {
 install_go_utils() {
   go get -u github.com/jteeuwen/go-bindata/... \
     github.com/tylertreat/comcast \
-    github.com/derekparker/delve/cmd/dlv \
     github.com/fatih/hclfmt \
     github.com/mitchellh/gox \
+    github.com/mitchellh/go-homedir \
     mvdan.cc/interfacer \
     github.com/jgautheron/goconst/cmd/goconst \
     github.com/opennota/check/cmd/aligncheck \
@@ -90,11 +90,8 @@ install_go_utils() {
     mvdan.cc/unparam \
     github.com/stripe/safesql \
     github.com/alexkohler/nakedret \
-    honnef.co/go/tools/cmd/unused \
     github.com/alecthomas/gometalinter \
     github.com/nsf/gocode \
-    golang.org/x/tools/cmd/godoc \
-    github.com/motemen/gore/cmd/gore \
     github.com/gordonklaus/ineffassign \
     github.com/tsenart/deadcode \
     github.com/fzipp/gocyclo \
@@ -103,10 +100,32 @@ install_go_utils() {
     github.com/golangci/golangci-lint/cmd/golangci-lint \
     github.com/alecthomas/gometalinter \
     github.com/andrebq/gas \
-    honnef.co/go/tools/...
+    honnef.co/go/tools/... \
+    github.com/zmb3/gogetdoc \
+    github.com/davidrjenni/reftools/cmd/fillstruct \
+    github.com/rogpeppe/godef \
+    github.com/fatih/motion \
+    github.com/kisielk/errcheck \
+    github.com/go-delve/delve/cmd/dlv \
+    github.com/koron/iferr \
+    github.com/klauspost/asmfmt/cmd/asmfmt \
+    github.com/josharian/impl \
+    github.com/jstemmer/gotags \
+    github.com/fatih/gomodifytags \
+    golang.org/x/lint/golint \
+    golang.org/x/tools/cmd/gorename \
+    golang.org/x/tools/cmd/guru \
+    golang.org/x/tools/cmd/goimports
 
-    # mvdan.cc/sh/cmd/shfmt - This works with the latest versions of go 1.11 and more
+  # These one didnt work with 1.11.0
+    # github.com/motemen/gore/cmd/gore \
+    # golang.org/x/tools/gopls \
+    # golang.org/x/tools/gotags \
+    # golang.org/x/tools/cmd/godoc \
+    # mvdan.cc/sh/cmd/shfmt
 }
+
+
 
 install_other_utils() {
   wget https://github.com/kubernetes/kops/releases/download/1.9.2/kops-darwin-amd64
