@@ -123,8 +123,6 @@ install_go_utils() {
     # golang.org/x/tools/gotags - This one didnt work with 1.12beta1
 }
 
-
-
 install_other_utils() {
   wget https://github.com/kubernetes/kops/releases/download/1.9.2/kops-darwin-amd64
   chmod +x kops-darwin-amd64

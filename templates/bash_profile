@@ -40,6 +40,7 @@ fi
 
 # Load bash completions for homebrew packages
 for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done
+for completion_file in $(brew --prefix)/opt/*/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done
 
 # kubectl completion functionality
 if command -v kubectl >/dev/null 2>&1 && test ! -f "$HOME/.kubectl-completion"; then

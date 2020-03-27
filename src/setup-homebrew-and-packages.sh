@@ -31,6 +31,7 @@ setup_brew_taps() {
   brew tap mike-engel\/jwt-cli
   brew tap adoptopenjdk\/openjdk
   brew tap filippo.io\/age https:\/\/filippo.io\/age
+  brew tap mongodb\/brew
 }
 
 install_apps_from_cask() {
@@ -181,7 +182,8 @@ install_packages_from_brew() {
     groovysdk \
     age \
     ffsend \
-    puppetlabs/puppet/wash
+    puppetlabs/puppet/wash \
+    mongodb-community-shell
 
   brew install grep
   brew install nginx passenger
