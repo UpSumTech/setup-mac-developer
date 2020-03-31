@@ -37,6 +37,9 @@ command -v pipenv >/dev/null 2>&1 && eval "$(pipenv --completion)"
 if [[ -d $(brew --prefix)/opt/groovysdk/libexec ]]; then
   export GROOVY_HOME=$(brew --prefix)/opt/groovysdk/libexec
 fi
+if [[ -d $HOME/.tgenv ]]; then
+  export PATH="$HOME/.tgenv/bin:$PATH"
+fi
 
 # Load bash completions for homebrew packages
 for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done

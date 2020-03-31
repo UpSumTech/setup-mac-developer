@@ -119,7 +119,9 @@ install_go_utils() {
     golang.org/x/tools/gopls \
     github.com/motemen/gore/cmd/gore \
     golang.org/x/tools/cmd/godoc \
-    mvdan.cc/sh/cmd/shfmt
+    mvdan.cc/sh/cmd/shfmt \
+    github.com/fatih/hclfmt \
+    github.com/fatih/gomodifytags
     # golang.org/x/tools/gotags - This one didnt work with 1.12beta1
 }
 
@@ -132,6 +134,7 @@ install_other_utils() {
   wget https://github.com/k14s/ytt/releases/download/v0.25.0/ytt-darwin-amd64
   chmod +x ytt-darwin-amd64
   mv ytt-darwin-amd64 $HOME/bin/ytt
+  git clone https://github.com/cunymatthieu/tgenv.git ~/.tgenv
 }
 
 install_dockerized_utils() {
