@@ -56,7 +56,8 @@ install_apps_from_cask() {
     minikube \
     minishift \
     caffeine \
-    osxfuse
+    osxfuse \
+    intellij-idea-ce
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
@@ -183,7 +184,8 @@ install_packages_from_brew() {
     age \
     ffsend \
     puppetlabs/puppet/wash \
-    mongodb-community-shell
+    mongodb-community-shell \
+    graphviz
 
   brew install grep
   brew install nginx passenger
