@@ -434,6 +434,9 @@ set_tmux_pane_props() {
 }
 
 reset_tmux_pane_props() {
+  local file="$HOME/tmp/tmux_setup/vars_of_pane_$TMUX_PANE"
+  [[ -s "$file" ]] && rm "$file" \
+    || echo -n ''
   tmux set-option pane-active-border-style bg=default,fg=green
 }
 
