@@ -72,7 +72,8 @@ install_node_utils() {
     stylelint-processor-styled-components \
     stylelint-config-styled-components \
     stylelint-config-recommended-scss \
-    stylelint-config-recommended
+    stylelint-config-recommended \
+    tldr
 }
 
 install_go_utils() {
