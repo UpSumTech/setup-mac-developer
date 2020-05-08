@@ -524,6 +524,13 @@ if [[ -n "$java_version_file" && -n "$build_sbt_file" ]]; then
     echo "ensime-server is not running"
   fi
 fi
+
+terragrunt_version_file="$(find . -maxdepth 3 -type f -name '.terragrunt-version')"
+if [[ -n "$terragrunt_version_file" ]]; then
+  terragrunt_version="$(head -n 1 "$terragrunt_version_file")"
+  tgenv list | grep -i "$terragrunt_version" >/dev/null 2>&1 || tgenv install "$terragrunt_version"
+  tgenv use "$terragrunt_version"
+fi
 EOF
   fi
 }
