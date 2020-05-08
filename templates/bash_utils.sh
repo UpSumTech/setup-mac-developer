@@ -24,6 +24,18 @@ __chdir_and_exec() {
   echo "$result"
 }
 
+get_project_root() {
+  local path
+  pushd . >/dev/null 2>&1
+  path=$(pwd)
+  while [[ $(find $path -type d -name '.git' -print -prune | wc -l) -eq 0 ]]; do
+    cd ..
+    path=$(pwd)
+  done
+  pwd
+  popd >/dev/null 2>&1
+}
+
 install_python() {
   local python_version="$1"
 
@@ -414,11 +426,8 @@ clean_ensime_sbt_cache() {
 
 go2_project_root() {
   local path
-  path=$(pwd)
-  while [[ $(find $path -type d -name '.git' -print -prune | wc -l) -eq 0 ]]; do
-    cd ..
-    path=$(pwd)
-  done
+  path=$(get_project_root)
+  cd "$path"
 }
 
 set_tmux_pane_props() {
@@ -499,30 +508,9 @@ if [[ -n "$golang_version_file" && -n "$gopkg_lock_file" ]]; then
 fi
 
 java_version_file="$(find . -maxdepth 3 -type f -name '.java-version')"
-build_sbt_file="$(find . -maxdepth 3 -type f -name 'build.sbt')"
-if [[ -n "$java_version_file" && -n "$build_sbt_file" ]]; then
+if [[ -n "$java_version_file" ]]; then
   jenv shell "$(head -n 1 "$java_version_file")"
   jenv rehash
-  project_name="$(basename $PWD)"
-  ensime_pid_from_proc=$(ps -ef | grep jav[a] | grep ensim[e] | grep $project_name | awk '{print $2}')
-  ensime_pid_from_file=
-  if [[ -f .ensime_cache/server.pid ]]; then
-    ensime_pid_from_file=$(cat .ensime_cache/server.pid)
-  fi
-
-  if [[ -n $ensime_pid_from_proc ]]; then
-    if [[ -f .ensime_cache/server.pid && $ensime_pid_from_file -eq $ensime_pid_from_proc ]]; then
-      echo "ensime is already running as part of vim with pid - $(cat .ensime_cache/server.pid)"
-    elif [[ -f .ensime_cache/server.pid && ! $ensime_pid_from_file -eq $ensime_pid_from_proc ]]; then
-      echo "ensime is running but not controlled by vim any more with pid - $ensime_pid_from_proc" \
-        && kill -9 $ensime_pid_from_proc
-      rm -rf .ensime_cache/server.pid .ensime_cache/http .ensime_cache/port
-    else
-      kill -9 $ensime_pid_from_proc
-    fi
-  else
-    echo "ensime-server is not running"
-  fi
 fi
 
 terragrunt_version_file="$(find . -maxdepth 3 -type f -name '.terragrunt-version')"
