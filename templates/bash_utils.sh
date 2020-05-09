@@ -386,8 +386,9 @@ sync_history() {
     || $(( $current_time - $HISTLASTSYNCED)) -gt 120 ]]; then
     builtin history -a
     local hist_file
-    if [[ ! -z "$TMUX" && ! -z "$PROJECT_ROOT_DIR" && $PROJECT_ROOT_DIR =~ $PWD ]]; then
-      local hist_dir="${HOME}/.bash_history.d${PWD}"
+    if [[ ! -z "$TMUX" && ! -z "$PROJECT_ROOT_DIR" && $PWD =~ $PROJECT_ROOT_DIR ]]; then
+      local hist_dir
+      hist_dir="${HOME}/.bash_history.d/$(echo $PROJECT_ROOT_DIR | sed -e "s#$HOME##g;s#^/##g")"
       [[ ! -d "$hist_dir" ]] && mkdir -p "$hist_dir"
       hist_file="${hist_dir}/${USER}_bash_history.txt"
       if [[ ! -f "$hist_file" || ! -s "$hist_file" ]]; then
