@@ -60,7 +60,7 @@ start_ssh_agent_and_add_key() {
 }
 
 mv_2_golang_project_root() {
-  while [[ ! $(find . -maxdepth 1 -type d | grep '.git') =~ './.git' && ! $(basename $(cd $PWD/../.. && pwd)) =~ (github.com|golang.org|google.golang.org|gopkg.in) ]]; do
+  while [[ ! $(find . -maxdepth 1 -type d | grep '.git') =~ ./.git && ! $(basename $(cd $PWD/../.. && pwd)) =~ (github.com|golang.org|google.golang.org|gopkg.in) ]]; do
     cd ..
   done
 }

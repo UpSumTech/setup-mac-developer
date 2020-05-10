@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-THIS_DIR="$(cd "$(dirname $BASH_SOURCE[0])" && pwd)"
+THIS_DIR="$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)"
 ROOT_DIR="$THIS_DIR/.."
 VIM_SRC_DIR="$(mktemp -d "${TMPDIR}vim_src.XXXX")"
 PYTHON_VERSION="2.7.14"
@@ -9,7 +9,7 @@ trap "rm -rf "$VIM_SRC_DIR"" EXIT
 
 export PID="$$" # Get parent pid so that you can kill the main proc from subshells
 die() {
-  echo >&2 "Error : $@"
+  echo >&2 "Error : $*"
   kill -s TERM $PID
   exit 1
 }
