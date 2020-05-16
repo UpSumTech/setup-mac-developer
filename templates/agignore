@@ -2,6 +2,8 @@ log
 logs
 images
 tmp
+dist
+bundle
 vendor
 node_modules
 *.sql
