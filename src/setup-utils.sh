@@ -124,6 +124,9 @@ install_go_utils() {
     github.com/fatih/hclfmt \
     github.com/fatih/gomodifytags
     # golang.org/x/tools/gotags - This one didnt work with 1.12beta1
+
+  # This is needed so that ruby bundle still keeps working
+  [[ -f $HOME/go/bin/bundle ]] && mv $HOME/go/bin/bundle $HOME/go/bin/gobundle
 }
 
 install_other_utils() {
