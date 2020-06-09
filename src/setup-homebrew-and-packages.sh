@@ -185,7 +185,9 @@ install_packages_from_brew() {
     ffsend \
     puppetlabs/puppet/wash \
     mongodb-community-shell \
-    graphviz
+    graphviz \
+    khal \
+    vdirsyncer
 
   brew install grep
   brew install nginx passenger

@@ -28,7 +28,7 @@ get_project_root() {
   local path
   pushd . >/dev/null 2>&1
   path=$(pwd)
-  while [[ $(find $path -type d -name '.git' -print -prune | wc -l) -eq 0 ]]; do
+  while [[ $(find $path ! -iwholename '*.terraform*' ! -iwholename '*node_modules*' ! -iwholename '*vendor*' -type d -name '.git' -print -prune | wc -l) -eq 0 ]]; do
     cd ..
     path=$(pwd)
   done
