@@ -186,8 +186,7 @@ install_packages_from_brew() {
     puppetlabs/puppet/wash \
     mongodb-community-shell \
     graphviz \
-    khal \
-    vdirsyncer
+    todo-txt
 
   brew install grep
   brew install nginx passenger
@@ -213,6 +212,8 @@ post_brew_package_installation() {
   mkdir -p $HOME/.puppetlabs/wash
   cp "$ROOT_DIR/templates/wash_analytics.yml" "$HOME/.puppetlabs/wash/analytics.yml"
   cp "$ROOT_DIR/templates/wash.yml" "$HOME/.puppetlabs/wash/wash.yml"
+  mkdir -p $HOME/.todo
+  cp "$ROOT_DIR/templates/todo.cfg" "$HOME/.todo/config"
 }
 
 main() {
