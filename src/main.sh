@@ -23,10 +23,12 @@ main() {
   ./src/setup-docker.sh
   ./src/setup-minishift.sh
   ./src/setup-config-files.sh
+  ./src/update-mac-limits.sh
 
   echo ">>>>>> Things still need to be done <<<<<<<
   1. Open iTerm2. Goto Preferences > Profile > Default > Color > Load presets
-  2. Choose the Dark Solarized theme or upload it if not present"
+  2. Choose the Dark Solarized theme or upload it if not present
+  3. When all done, reboot mac"
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"
