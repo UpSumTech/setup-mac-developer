@@ -127,8 +127,11 @@ goenv_install_version() {
   go get -u mvdan.cc/sh/cmd/shfmt
   go get -u github.com/fatih/hclfmt
   go get -u github.com/fatih/motion
-  # go get -u golang.org/x/tools/gotags - This one didnt work with 1.12beta1
+  # go get -u golang.org/x/tools/gotags - This one didnt work with 1.14.0
+
+  # This is needed so that ruby bundle still keeps working
   [[ -f $HOME/go/$version/bin/bundle ]] && mv $HOME/go/$version/bin/bundle $HOME/go/$version/bin/gobundle
+
   goenv rehash
 }
 
