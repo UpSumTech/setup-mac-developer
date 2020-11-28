@@ -127,6 +127,8 @@ install_go_utils() {
 
   # This is needed so that ruby bundle still keeps working
   [[ -f $HOME/go/1.12beta1/bin/bundle ]] && mv $HOME/go/1.12beta1/bin/bundle $HOME/go/1.12beta1/bin/gobundle
+
+  goenv rehash
 }
 
 install_other_utils() {
