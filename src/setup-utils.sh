@@ -77,56 +77,56 @@ install_node_utils() {
 }
 
 install_go_utils() {
-  go get -u github.com/jteeuwen/go-bindata/... \
-    github.com/tylertreat/comcast \
-    github.com/fatih/hclfmt \
-    github.com/mitchellh/gox \
-    github.com/mitchellh/go-homedir \
-    mvdan.cc/interfacer \
-    github.com/jgautheron/goconst/cmd/goconst \
-    github.com/opennota/check/cmd/aligncheck \
-    github.com/opennota/check/cmd/structcheck \
-    github.com/opennota/check/cmd/varcheck \
-    github.com/mdempsky/maligned \
-    mvdan.cc/unparam \
-    github.com/stripe/safesql \
-    github.com/alexkohler/nakedret \
-    github.com/alecthomas/gometalinter \
-    github.com/nsf/gocode \
-    github.com/gordonklaus/ineffassign \
-    github.com/tsenart/deadcode \
-    github.com/fzipp/gocyclo \
-    github.com/mdempsky/unconvert \
-    github.com/securego/gosec/cmd/gosec \
-    github.com/golangci/golangci-lint/cmd/golangci-lint \
-    github.com/alecthomas/gometalinter \
-    github.com/andrebq/gas \
-    honnef.co/go/tools/... \
-    github.com/zmb3/gogetdoc \
-    github.com/davidrjenni/reftools/cmd/fillstruct \
-    github.com/rogpeppe/godef \
-    github.com/fatih/motion \
-    github.com/kisielk/errcheck \
-    github.com/go-delve/delve/cmd/dlv \
-    github.com/koron/iferr \
-    github.com/klauspost/asmfmt/cmd/asmfmt \
-    github.com/josharian/impl \
-    github.com/jstemmer/gotags \
-    github.com/fatih/gomodifytags \
-    golang.org/x/lint/golint \
-    golang.org/x/tools/cmd/gorename \
-    golang.org/x/tools/cmd/guru \
-    golang.org/x/tools/cmd/goimports \
-    golang.org/x/tools/gopls \
-    github.com/motemen/gore/cmd/gore \
-    golang.org/x/tools/cmd/godoc \
-    mvdan.cc/sh/cmd/shfmt \
-    github.com/fatih/hclfmt \
-    github.com/fatih/gomodifytags
-    # golang.org/x/tools/gotags - This one didnt work with 1.12beta1
+  go get -u github.com/jteeuwen/go-bindata/...
+  go get -u github.com/tylertreat/comcast
+  go get -u github.com/fatih/hclfmt
+  go get -u github.com/mitchellh/gox
+  go get -u github.com/mitchellh/go-homedir
+  go get -u mvdan.cc/interfacer
+  go get -u github.com/jgautheron/goconst/cmd/goconst
+  go get -u github.com/opennota/check/cmd/aligncheck
+  go get -u github.com/opennota/check/cmd/structcheck
+  go get -u github.com/opennota/check/cmd/varcheck
+  go get -u github.com/mdempsky/maligned
+  go get -u mvdan.cc/unparam
+  go get -u github.com/stripe/safesql
+  go get -u github.com/alexkohler/nakedret
+  go get -u github.com/alecthomas/gometalinter
+  go get -u github.com/nsf/gocode
+  go get -u github.com/gordonklaus/ineffassign
+  go get -u github.com/tsenart/deadcode
+  go get -u github.com/fzipp/gocyclo
+  go get -u github.com/mdempsky/unconvert
+  go get -u github.com/securego/gosec/cmd/gosec
+  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+  go get -u github.com/alecthomas/gometalinter
+  go get -u github.com/andrebq/gas
+  go get -u honnef.co/go/tools/...
+  go get -u github.com/zmb3/gogetdoc
+  go get -u github.com/davidrjenni/reftools/cmd/fillstruct
+  go get -u github.com/rogpeppe/godef
+  go get -u github.com/fatih/motion
+  go get -u github.com/kisielk/errcheck
+  go get -u github.com/go-delve/delve/cmd/dlv
+  go get -u github.com/koron/iferr
+  go get -u github.com/klauspost/asmfmt/cmd/asmfmt
+  go get -u github.com/josharian/impl
+  go get -u github.com/jstemmer/gotags
+  go get -u github.com/fatih/gomodifytags
+  go get -u golang.org/x/lint/golint
+  go get -u golang.org/x/tools/cmd/gorename
+  go get -u golang.org/x/tools/cmd/guru
+  go get -u golang.org/x/tools/cmd/goimports
+  go get -u golang.org/x/tools/gopls
+  go get -u github.com/motemen/gore/cmd/gore
+  go get -u golang.org/x/tools/cmd/godoc
+  go get -u mvdan.cc/sh/cmd/shfmt
+  go get -u github.com/fatih/hclfmt
+  go get -u github.com/fatih/gomodifytags
+  # golang.org/x/tools/gotags - This one didnt work with 1.12beta1
 
   # This is needed so that ruby bundle still keeps working
-  [[ -f $HOME/go/bin/bundle ]] && mv $HOME/go/bin/bundle $HOME/go/bin/gobundle
+  [[ -f $HOME/go/1.12beta1/bin/bundle ]] && mv $HOME/go/1.12beta1/bin/bundle $HOME/go/1.12beta1/bin/gobundle
 }
 
 install_other_utils() {
