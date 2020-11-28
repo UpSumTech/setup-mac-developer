@@ -77,6 +77,61 @@ install_go_deps_for_project() {
   __ok
 }
 
+goenv_install_version() {
+  local version="$1"
+  goenv install "$version"
+  goenv local "$version"
+  go get -u github.com/jteeuwen/go-bindata/...
+  go get -u github.com/tylertreat/comcast
+  go get -u github.com/fatih/hclfmt
+  go get -u github.com/mitchellh/gox
+  go get -u github.com/mitchellh/go-homedir
+  go get -u mvdan.cc/interfacer
+  go get -u github.com/jgautheron/goconst/cmd/goconst
+  go get -u github.com/opennota/check/cmd/aligncheck
+  go get -u github.com/opennota/check/cmd/structcheck
+  go get -u github.com/opennota/check/cmd/varcheck
+  go get -u github.com/mdempsky/maligned
+  go get -u mvdan.cc/unparam
+  go get -u github.com/stripe/safesql
+  go get -u github.com/alexkohler/nakedret
+  go get -u github.com/alecthomas/gometalinter
+  go get -u github.com/nsf/gocode
+  go get -u github.com/gordonklaus/ineffassign
+  go get -u github.com/tsenart/deadcode
+  go get -u github.com/fzipp/gocyclo
+  go get -u github.com/mdempsky/unconvert
+  go get -u github.com/securego/gosec/cmd/gosec
+  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+  go get -u github.com/alecthomas/gometalinter
+  go get -u github.com/andrebq/gas
+  go get -u honnef.co/go/tools/...
+  go get -u github.com/zmb3/gogetdoc
+  go get -u github.com/davidrjenni/reftools/cmd/fillstruct
+  go get -u github.com/rogpeppe/godef
+  go get -u github.com/fatih/motion
+  go get -u github.com/kisielk/errcheck
+  go get -u github.com/go-delve/delve/cmd/dlv
+  go get -u github.com/koron/iferr
+  go get -u github.com/klauspost/asmfmt/cmd/asmfmt
+  go get -u github.com/josharian/impl
+  go get -u github.com/jstemmer/gotags
+  go get -u github.com/fatih/gomodifytags
+  go get -u golang.org/x/lint/golint
+  go get -u golang.org/x/tools/cmd/gorename
+  go get -u golang.org/x/tools/cmd/guru
+  go get -u golang.org/x/tools/cmd/goimports
+  go get -u golang.org/x/tools/gopls
+  go get -u github.com/motemen/gore/cmd/gore
+  go get -u golang.org/x/tools/cmd/godoc
+  go get -u mvdan.cc/sh/cmd/shfmt
+  go get -u github.com/fatih/hclfmt
+  go get -u github.com/fatih/motion
+  # go get -u golang.org/x/tools/gotags - This one didnt work with 1.12beta1
+  [[ -f $HOME/go/$version/bin/bundle ]] && mv $HOME/go/$version/bin/bundle $HOME/go/$version/bin/gobundle
+  goenv rehash
+}
+
 build_static_go_bin() {
   pushd .
   mv_2_go_project_root

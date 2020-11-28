@@ -122,8 +122,8 @@ install_go_utils() {
   go get -u golang.org/x/tools/cmd/godoc
   go get -u mvdan.cc/sh/cmd/shfmt
   go get -u github.com/fatih/hclfmt
-  go get -u github.com/fatih/gomodifytags
-  # golang.org/x/tools/gotags - This one didnt work with 1.12beta1
+  go get -u github.com/fatih/motion
+  # go get -u golang.org/x/tools/gotags - This one didnt work with 1.12beta1
 
   # This is needed so that ruby bundle still keeps working
   [[ -f $HOME/go/1.12beta1/bin/bundle ]] && mv $HOME/go/1.12beta1/bin/bundle $HOME/go/1.12beta1/bin/gobundle
