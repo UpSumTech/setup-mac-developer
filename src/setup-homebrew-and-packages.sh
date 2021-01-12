@@ -186,7 +186,8 @@ install_packages_from_brew() {
     puppetlabs/puppet/wash \
     mongodb-community-shell \
     graphviz \
-    todo-txt
+    todo-txt \
+    protobuf
 
   brew install grep
   brew install nginx passenger
