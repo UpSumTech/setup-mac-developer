@@ -32,6 +32,7 @@ setup_brew_taps() {
   brew tap adoptopenjdk\/openjdk
   brew tap filippo.io\/age https:\/\/filippo.io\/age
   brew tap mongodb\/brew
+  brew tap ktr0731\/evans
 }
 
 install_apps_from_cask() {
@@ -57,7 +58,8 @@ install_apps_from_cask() {
     minishift \
     caffeine \
     osxfuse \
-    intellij-idea-ce
+    intellij-idea-ce \
+    evans
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
@@ -215,6 +217,9 @@ post_brew_package_installation() {
   cp "$ROOT_DIR/templates/wash.yml" "$HOME/.puppetlabs/wash/wash.yml"
   mkdir -p $HOME/.todo
   cp "$ROOT_DIR/templates/todo.cfg" "$HOME/.todo/config"
+  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+  brew update
 }
 
 main() {

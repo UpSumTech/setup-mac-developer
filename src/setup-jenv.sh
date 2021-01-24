@@ -11,7 +11,7 @@ enable_jenv_plugins() {
   . $HOME/.bash_profile && jenv sh-enable-plugin maven
   . $HOME/.bash_profile && jenv sh-enable-plugin ant
   . $HOME/.bash_profile && jenv sh-enable-plugin export
-  . $HOME/.bash_profile && jenv global 10.0
+  . $HOME/.bash_profile && jenv global 11.0
 }
 
 main() {
