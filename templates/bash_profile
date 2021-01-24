@@ -12,7 +12,7 @@ shopt -s histappend
 [[ -f "$HOME/.activate_profile.sh" ]] && . "$HOME/.activate_profile.sh"
 
 # Aliases for brew
-alias bci='brew cask install --appdir=~/Applications'
+alias bci='brew install --appdir=~/Applications'
 
 # Alias for todo.sh
 alias todo='todo.sh'
