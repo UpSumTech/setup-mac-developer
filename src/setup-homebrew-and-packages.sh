@@ -33,6 +33,7 @@ setup_brew_taps() {
   brew tap filippo.io\/age https:\/\/filippo.io\/age
   brew tap mongodb\/brew
   brew tap ktr0731\/evans
+  brew tap instrumenta\/instrumenta
 }
 
 install_apps_from_cask() {
@@ -189,7 +190,10 @@ install_packages_from_brew() {
     mongodb-community-shell \
     graphviz \
     todo-txt \
-    protobuf
+    protobuf \
+    helm \
+    kubeval \
+    helmsman
 
   brew install grep
   brew install nginx passenger
