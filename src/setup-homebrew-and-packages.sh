@@ -14,7 +14,6 @@ prep_homebrew() {
   echo 'export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/opt:$PATH' >> $HOME/.bash_profile
   brew update
   brew cleanup
-  brew cask cleanup
   brew doctor
 }
 
@@ -41,8 +40,8 @@ install_apps_from_cask() {
   # Follow this link to fix that - https://developer.apple.com/library/content/technotes/tn2459/_index.html
   # This could also be because the security ad privacy settings in mac is not allowing virttualbox to install stuff from oracle
   # Allowing that could fix the problem too
-  command -v virtualbox || brew cask install --appdir="$BREW_APP_INSTALL_DIR" virtualbox
-  brew cask install --appdir="$BREW_APP_INSTALL_DIR" \
+  command -v virtualbox || brew install --appdir="$BREW_APP_INSTALL_DIR" virtualbox
+  brew install --appdir="$BREW_APP_INSTALL_DIR" \
     java \
     adoptopenjdk8 \
     adoptopenjdk9 \
@@ -202,7 +201,7 @@ install_packages_from_brew() {
 }
 
 install_extras_from_brew() {
-  brew cask install --appdir="$BREW_APP_INSTALL_DIR" iterm2
+  brew install --appdir="$BREW_APP_INSTALL_DIR" iterm2
 }
 
 post_brew_package_installation() {
