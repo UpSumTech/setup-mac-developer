@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-[[ ! -z "$BREW_APP_INSTALL_DIR" ]] || export BREW_APP_INSTALL_DIR="$HOME/Applications"
-mkdir -p "$BREW_APP_INSTALL_DIR"
-
 THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
 ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
@@ -40,8 +37,8 @@ install_apps_from_cask() {
   # Follow this link to fix that - https://developer.apple.com/library/content/technotes/tn2459/_index.html
   # This could also be because the security ad privacy settings in mac is not allowing virttualbox to install stuff from oracle
   # Allowing that could fix the problem too
-  command -v virtualbox || brew install --appdir="$BREW_APP_INSTALL_DIR" virtualbox
-  brew install --appdir="$BREW_APP_INSTALL_DIR" \
+  command -v virtualbox || brew install virtualbox
+  brew install \
     java \
     adoptopenjdk8 \
     adoptopenjdk9 \
@@ -201,7 +198,7 @@ install_packages_from_brew() {
 }
 
 install_extras_from_brew() {
-  brew install --appdir="$BREW_APP_INSTALL_DIR" iterm2
+  brew install iterm2
 }
 
 post_brew_package_installation() {

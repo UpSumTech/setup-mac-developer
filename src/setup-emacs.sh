@@ -9,11 +9,12 @@ die() {
 }
 
 install_emacs() {
-  brew cask install emacs
+  brew install emacs
   pip install jedi rope flake8 autopep8 yapf black
 }
 
 main() {
+  install_emacs
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"
