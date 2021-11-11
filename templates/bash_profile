@@ -11,9 +11,6 @@ shopt -s histappend
 [[ -d "$HOME/.secrets" ]] && for file in $(find "$HOME/.secrets" -type f -name "*.sh"); do . "$file"; done
 [[ -f "$HOME/.activate_profile.sh" ]] && . "$HOME/.activate_profile.sh"
 
-# Aliases for brew
-alias bci='brew install --appdir=~/Applications'
-
 # Alias for todo.sh
 alias todo='todo.sh'
 
@@ -33,6 +30,7 @@ eval "$(rbenv init -)"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 eval "$(goenv init -)"
+export PATH="$HOME/.goenv/shims:$PATH"
 export PATH="$HOME/.kopsenv/bin:$PATH"
 export PGDATA="$HOME/var/data/postgres"
 command -v pipenv >/dev/null 2>&1 && eval "$(pipenv --completion)"
