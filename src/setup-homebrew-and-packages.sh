@@ -188,7 +188,9 @@ install_packages_from_brew() {
     protobuf \
     helm \
     kubeval \
-    helmsman
+    helmsman \
+    mailhog \
+    istioctl
 
   brew install grep
   brew install nginx passenger
