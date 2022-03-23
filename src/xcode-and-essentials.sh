@@ -8,7 +8,7 @@ install_xcode() {
 
 set_hostname() {
   # TODO: Ask for user feedback for the host name
-  sudo scutil --set HostName engineer
+  sudo scutil --set HostName workhorse
 }
 
 show_essential_dirs() {
