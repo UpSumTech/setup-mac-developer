@@ -119,7 +119,7 @@ install_packages_from_brew() {
     maven-shell \
     maven-completion \
     tig \
-    python3.9 \
+    python3 \
     lua@5.1 \
     luajit \
     bash \

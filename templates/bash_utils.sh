@@ -36,18 +36,20 @@ get_project_root() {
   popd >/dev/null 2>&1
 }
 
-install_python() {
+pyenv_install_python() {
   local python_version="$1"
 
   PYENV_CFLAGS="-I$(brew --prefix openssl)/include"
   PYENV_CFLAGS="-I$(brew --prefix zlib)/include $PYENV_CFLAGS"
   PYENV_CFLAGS="-I$(brew --prefix readline)/include $PYENV_CFLAGS"
   PYENV_CFLAGS="-I$(brew --prefix sqlite)/include $PYENV_CFLAGS"
+  PYENV_CFLAGS="-I$(brew --prefix curl)/include $PYENV_CFLAGS"
 
   PYENV_LDFLAGS="-L$(brew --prefix openssl)/lib"
   PYENV_LDFLAGS="-L$(brew --prefix zlib)/lib $PYENV_LDFLAGS"
   PYENV_LDFLAGS="-L$(brew --prefix readline)/lib $PYENV_LDFLAGS"
   PYENV_LDFLAGS="-L$(brew --prefix sqlite)/lib $PYENV_LDFLAGS"
+  PYENV_LDFLAGS="-L$(brew --prefix curl)/lib $PYENV_LDFLAGS"
 
   PYENV_PYTHON_CONFIGURE_OPTS="--enable-shared"
   env CFLAGS="$PYENV_CFLAGS" LDFLAGS="$PYENV_LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"
