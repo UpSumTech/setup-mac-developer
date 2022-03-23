@@ -165,6 +165,7 @@ install_packages_from_brew() {
     terraform \
     tfenv \
     tflint \
+    tgenv \
     packer \
     packer-completion \
     flyway \
@@ -212,8 +213,9 @@ post_brew_package_installation() {
   git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
   chmod +x $HOME/.kopsenv/bin/*
   chmod +x $HOME/.kopsenv/libexec/*
-  echo '0.12.0' > $HOME/.terraform-version
-  echo '1.12.0' > $HOME/.kops-version
+  echo '1.1.7' > $HOME/.terraform-version
+  echo '0.36.0' > $HOME/.terragrunt-version
+  echo '1.23.0' > $HOME/.kops-version
   [[ -x $(brew --prefix)/bin/nvm ]] || ln -s "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
   mkdir -p $HOME/.nvm
   [[ -d $HOME/.pyenv/plugins/pyenv-implict ]] \
