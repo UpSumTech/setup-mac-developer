@@ -59,7 +59,7 @@ install_apps_from_cask() {
     docker \
     minikube \
     caffeine \
-    osxfuse \
+    macfuse \
     intellij-idea-ce \
     evans
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
@@ -209,6 +209,8 @@ install_extras_from_brew() {
 }
 
 post_brew_package_installation() {
+  brew cleanup
+  brew doctor
   git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
   chmod +x $HOME/.kopsenv/bin/*
   chmod +x $HOME/.kopsenv/libexec/*
