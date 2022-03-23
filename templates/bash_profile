@@ -54,17 +54,6 @@ if [[ -f "$HOME/.kubectl-completion" ]]; then
   type -t __ltrim_colon_completions | grep -i function >/dev/null 2>&1 || __ltrim_colon_completions() { :; }
 fi
 
-# oc completion functionality
-if command -v oc >/dev/null 2>&1 && test ! -f "$HOME/.oc-completion"; then
-  oc completion bash > $HOME/.oc-completion
-fi
-if [[ -f "$HOME/.oc-completion" ]]; then
-  . "$HOME/.oc-completion"
-fi
-if [[ -f "$HOME/.openshift/bash_autocomplete" ]]; then
-  . "$HOME/.openshift/bash_autocomplete"
-fi
-
 # ark completion functionality
 if command -v ark >/dev/null 2>&1 && test ! -f "$HOME/.ark-completion"; then
   ark completion bash > $HOME/.ark-completion

@@ -206,7 +206,6 @@ is_docker_machine_not_running() {
 
 switch_to_docker_machine() {
   stop_minikube
-  stop_minishift
   start_docker_machine
   __ok
 }
@@ -231,41 +230,13 @@ is_minikube_running() {
 
 switch_to_minikube() {
   stop_docker_machine
-  stop_minishift
   start_minikube
-  __ok
-}
-
-start_minishift() {
-  (minishift status | grep -i "running" || (minishift start --vm-driver virtualbox)) &
-  wait
-  eval "$(minishift docker-env)"
-  command -v oc >/dev/null 2>&1 && eval "$(minishift oc-env)"
-  __ok
-}
-
-stop_minishift() {
-  (minishift status | grep -i "running" && (minishift stop)) &
-  wait
-  unset ${!DOCKER_*}
-  __ok
-}
-
-is_minishift_running() {
-  minishift status | grep -i "running" >/dev/null 2>&1
-}
-
-switch_to_minishift() {
-  stop_docker_machine
-  stop_minikube
-  start_minishift
   __ok
 }
 
 start_default_docker_env() {
   stop_docker_machine
   stop_minikube
-  stop_minishift
   start_docker_machine
   echo "$1"
   __ok
@@ -276,44 +247,24 @@ load_docker_env() {
     minikube)
       switch_to_minikube
       ;;
-    minishift)
-      switch_to_minishift
-      ;;
     docker-machine)
       switch_to_docker_machine
       ;;
     *)
-      if [[ is_docker_machine_not_running && !is_minikube_running && !is_minishift_running ]]; then
-        start_default_docker_env "Neither minishift, minikube or docker machine were running. So defaulting."
+      if [[ is_docker_machine_not_running && !is_minikube_running ]]; then
+        start_default_docker_env "Neither minikube nor docker machine were running. So defaulting."
       fi
 
-      if [[ is_docker_machine_running && !is_minikube_running && !is_minishift_running ]]; then
+      if [[ is_docker_machine_running && !is_minikube_running ]]; then
         eval "$(docker-machine env default)"
       fi
 
-      if [[ is_docker_machine_not_running && is_minikube_running && !is_minishift_running ]]; then
+      if [[ is_docker_machine_not_running && is_minikube_running ]]; then
         eval "$(minikube docker-env)"
       fi
 
-      if [[ is_docker_machine_not_running && !is_minikube_running && is_minishift_running ]]; then
-        eval "$(minishift docker-env)"
-        eval "$(minishift oc-env)"
-      fi
-
-      if [[ is_docker_machine_running && is_minikube_running && !is_minishift_running ]]; then
+      if [[ is_docker_machine_running && is_minikube_running ]]; then
         start_default_docker_env "Both minikube and docker-machine are running. Stopping both of them and defaulting."
-      fi
-
-      if [[ is_docker_machine_running && !is_minikube_running && is_minishift_running ]]; then
-        start_default_docker_env "Both minishift and docker-machine are running. Stopping both of them and defaulting."
-      fi
-
-      if [[ is_docker_machine_not_running && is_minikube_running && is_minishift_running ]]; then
-        start_default_docker_env "Both minishift and minikube are running. Stopping both of them and defaulting."
-      fi
-
-      if [[ is_docker_machine_running && is_minikube_running && is_minishift_running ]]; then
-        start_default_docker_env "All of minikube, minishift and docker-machine are running. Stopping all of them and defaulting."
       fi
       ;;
   esac

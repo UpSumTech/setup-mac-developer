@@ -21,7 +21,6 @@ main() {
   ./src/setup-tmux.sh
   ./src/setup-utils.sh
   ./src/setup-docker.sh
-  ./src/setup-minishift.sh
   ./src/setup-helm.sh
   ./src/setup-config-files.sh
   ./src/update-mac-limits.sh

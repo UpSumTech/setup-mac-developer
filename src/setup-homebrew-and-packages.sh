@@ -58,7 +58,6 @@ install_apps_from_cask() {
     kindle \
     docker \
     minikube \
-    minishift \
     caffeine \
     osxfuse \
     intellij-idea-ce \
