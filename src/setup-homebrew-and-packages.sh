@@ -18,12 +18,13 @@ prep_homebrew() {
   brew update
   brew cleanup
   brew doctor
+  brew upgrade
 }
 
 setup_brew_taps() {
-  brew tap caskroom\/versions
+  brew tap homebrew\/cask-versions
   brew tap homebrew\/services
-  brew tap caskroom\/fonts
+  brew tap homebrew\/cask-fonts
   brew tap brona\/iproute2mac
   brew tap universal-ctags\/universal-ctags
   brew tap discoteq\/discoteq
@@ -35,7 +36,6 @@ setup_brew_taps() {
   brew tap filippo.io\/age https:\/\/filippo.io\/age
   brew tap mongodb\/brew
   brew tap ktr0731\/evans
-  brew tap instrumenta\/instrumenta
 }
 
 install_apps_from_cask() {
@@ -53,7 +53,7 @@ install_apps_from_cask() {
     adoptopenjdk12 \
     atom \
     vagrant \
-    tcl \
+    tcl-tk \
     font-inconsolata \
     kindle \
     docker \
@@ -193,7 +193,6 @@ install_packages_from_brew() {
     todo-txt \
     protobuf \
     helm \
-    kubeval \
     helmsman \
     mailhog \
     istioctl

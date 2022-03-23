@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+install_kube_utils() {
+  pushd .
+  cd $HOME/tmp
+  wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-darwin-amd64.tar.gz
+  tar xf kubeval-darwin-amd64.tar.gz
+  cp kubeval /usr/local/bin
+  popd
+}
+
 install_pip_utils() {
   pip --trusted-host pypi.python.org install doitlive \
     percol \
@@ -161,6 +170,7 @@ install_cheat() {
 }
 
 main() {
+  install_kube_utils
   install_pip_utils
   install_ruby_utils
   install_node_utils
