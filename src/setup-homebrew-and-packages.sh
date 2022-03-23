@@ -46,7 +46,7 @@ install_apps_from_cask() {
   command -v virtualbox || brew install virtualbox
   brew install \
     java \
-    adoptopenjdk8 \
+    adoptopenjdk\/openjdk\/adoptopenjdk8 \
     adoptopenjdk9 \
     adoptopenjdk10 \
     adoptopenjdk11 \
