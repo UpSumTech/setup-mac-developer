@@ -8,20 +8,20 @@ install_xcode() {
 
 set_hostname() {
   # TODO: Ask for user feedback for the host name
-  sudo scutil --set HostName suman-mbp
+  sudo scutil --set HostName engineer
 }
 
 show_essential_dirs() {
-  chflags nohidden ~/Library
+  chflags nohidden $HOME/Library
 }
 
 create_essential_dirs_and_files() {
-  mkdir ~/lib
-  mkdir -p ~/var/run
-  mkdir -p ~/var/log
-  mkdir -p ~/bin
-  mkdir -p ~/etc
-  mkdir -p ~/tmp
+  mkdir -p $HOME/lib
+  mkdir -p $HOME/var/run
+  mkdir -p $HOME/var/log
+  mkdir -p $HOME/bin
+  mkdir -p $HOME/etc
+  mkdir -p $HOME/tmp
 }
 
 main() {

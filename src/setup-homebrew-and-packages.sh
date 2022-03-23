@@ -5,6 +5,12 @@ ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
 install_homebrew() {
   command -v brew || /usr/bin/env ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  sudo chgrp -R admin /usr/local/*
+  sudo chmod -R g+w /usr/local/*
+  # sudo chgrp -R admin /Library/Caches/Homebrew
+  # sudo chmod -R g+w /Library/Caches/Homebrew
+  # sudo chgrp -R admin /opt/homebrew-cask
+  # sudo chmod -R g+w /opt/homebrew-cask
 }
 
 prep_homebrew() {
