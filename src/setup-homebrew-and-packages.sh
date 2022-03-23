@@ -69,7 +69,6 @@ install_apps_from_cask() {
 install_packages_from_brew() {
   brew install \
     gcc \
-    curl \
     wget \
     zeromq \
     coreutils \
@@ -198,10 +197,11 @@ install_packages_from_brew() {
     istioctl
 
   brew install grep
-  brew install nginx passenger
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
-  brew install --HEAD universal-ctags
   brew install --HEAD goenv
+  brew install curl
+  brew install nginx passenger
+  brew install --HEAD universal-ctags
 }
 
 install_extras_from_brew() {
