@@ -36,6 +36,7 @@ eval "$(jenv init -)"
 eval "$(goenv init -)"
 export PATH="$HOME/.goenv/shims:$PATH"
 export PATH="$HOME/.kopsenv/bin:$PATH"
+export PATH="$HOME/.helmenv/bin:$PATH"
 export PGDATA="$HOME/var/data/postgres"
 command -v pipenv >/dev/null 2>&1 && eval "$(_PIPENV_COMPLETE=bash_source pipenv)"
 if [[ -d $(brew --prefix)/opt/groovysdk/libexec ]]; then

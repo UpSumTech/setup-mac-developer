@@ -65,8 +65,7 @@ build_vim_from_src() {
   make && make install
   pyenv local --unset
 }
-# To use fzf in Vim, add the following line to your .vimrc:
-# set rtp+=/usr/local/opt/fzf
+
 customize_vim() {
   curl -H "Cache-Control: no-cache" -sSL https://raw.githubusercontent.com/sumanmukherjee03/vim_setup/master/bootstrap.sh | bash
   cd $HOME/.vim
