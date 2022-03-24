@@ -16,7 +16,9 @@ main() {
   ./src/setup-rbenv.sh
   ./src/setup-nvm.sh
   ./src/setup-jenv.sh
-  ./src/setup-go.sh
+  ./src/setup-goenv.sh
+  ./src/setup-tfenv.sh
+  ./src/setup-tgenv.sh
   ./src/setup-vim.sh
   ./src/setup-emacs.sh
   ./src/setup-tmux.sh
