@@ -2,8 +2,8 @@
 
 install_rubies() {
   local ruby_version
-  local arr=('2.4.0' \
-    '2.5.0' \
+  local arr=('2.7.0' \
+    '3.0.0' \
   )
   for ruby_version in "${arr[@]}"; do
     rbenv install "$ruby_version"
@@ -12,7 +12,7 @@ install_rubies() {
 
 main() {
   install_rubies
-  . $HOME/.bash_profile && rbenv global 2.4.0 && rbenv rehash
+  . $HOME/.bash_profile && rbenv global 3.0.0 && rbenv rehash
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

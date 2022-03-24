@@ -18,9 +18,9 @@ main() {
   ./src/setup-jenv.sh
   ./src/setup-go.sh
   ./src/setup-vim.sh
+  ./src/setup-emacs.sh
   ./src/setup-tmux.sh
   ./src/setup-utils.sh
-  ./src/setup-docker.sh
   ./src/setup-helm.sh
   ./src/setup-config-files.sh
   ./src/update-mac-limits.sh

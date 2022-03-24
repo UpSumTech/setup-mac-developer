@@ -36,6 +36,7 @@ setup_brew_taps() {
   brew tap filippo.io\/age https:\/\/filippo.io\/age
   brew tap mongodb\/brew
   brew tap ktr0731\/evans
+  brew tap spring-io\/tap
 }
 
 install_apps_from_cask() {
@@ -44,158 +45,153 @@ install_apps_from_cask() {
   # This could also be because the security ad privacy settings in mac is not allowing virttualbox to install stuff from oracle
   # Allowing that could fix the problem too
   command -v virtualbox || brew install virtualbox
-  brew install \
-    java \
-    adoptopenjdk\/openjdk\/adoptopenjdk8 \
-    adoptopenjdk9 \
-    adoptopenjdk10 \
-    adoptopenjdk11 \
-    adoptopenjdk12 \
-    atom \
-    vagrant \
-    tcl-tk \
-    font-inconsolata \
-    kindle \
-    docker \
-    minikube \
-    caffeine \
-    macfuse \
-    intellij-idea-ce \
-    evans
+  brew install java
+  brew install adoptopenjdk\/openjdk\/adoptopenjdk8
+  brew install adoptopenjdk9
+  brew install adoptopenjdk10
+  brew install adoptopenjdk11
+  brew install adoptopenjdk12
+  brew install atom
+  brew install vagrant
+  brew install tcl-tk
+  brew install font-inconsolata
+  brew install kindle
+  brew install docker
+  brew install minikube
+  brew install caffeine
+  brew install macfuse
+  brew install intellij-idea-ce
+  brew install eva
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
 install_packages_from_brew() {
-  brew install \
-    gcc \
-    wget \
-    zeromq \
-    coreutils \
-    findutils \
-    gnu-tar \
-    gnu-sed \
-    gawk \
-    gnutls \
-    gnu-indent \
-    gnu-getopt \
-    pgrep \
-    ngrep \
-    sgrep \
-    tree \
-    pstree \
-    moreutils \
-    cmake \
-    tmux \
-    readline \
-    openssl \
-    git \
-    git-extras \
-    mercurial \
-    zlib \
-    python \
-    ruby \
-    node \
-    golang \
-    mysql@5.7 \
-    postgresql@10 \
-    redis \
-    rabbitmq \
-    ncurses \
-    autoconf \
-    automake \
-    libtool \
-    mytop \
-    pg_top \
-    dnstop \
-    passenger \
-    iftop \
-    imagemagick \
-    ag \
-    ack \
-    diff-so-fancy \
-    colordiff \
-    diffutils \
-    maven \
-    maven-shell \
-    maven-completion \
-    tig \
-    python3 \
-    lua@5.1 \
-    luajit \
-    bash \
-    autoenv \
-    rbenv \
-    jenv \
-    pyenv \
-    pyenv-virtualenv \
-    nvm \
-    awscli \
-    tcptrace \
-    iproute2mac \
-    mtr \
-    jq \
-    mycli \
-    pgcli \
-    krb5 \
-    ansible \
-    fio \
-    docker \
-    container-diff \
-    docker-machine \
-    kubectl \
-    kubectx \
-    spark \
-    bash-completion@2 \
-    git-quick-stats \
-    flock \
-    ipcalc \
-    nmap \
-    iftop \
-    nethogs \
-    vnstat \
-    multitail \
-    modd \
-    shell2http \
-    vegeta \
-    springboot \
-    dep \
-    magic-wormhole \
-    scala \
-    terraform \
-    tfenv \
-    tflint \
-    tgenv \
-    packer \
-    packer-completion \
-    flyway \
-    pipenv \
-    shellcheck \
-    checkbashisms \
-    cppcheck \
-    clang-format \
-    watch \
-    tcping \
-    fzf \
-    highlight \
-    cscope \
-    luarocks \
-    tmux-xpanes \
-    jwt-cli \
-    aspell \
-    telnet \
-    groovysdk \
-    age \
-    ffsend \
-    puppetlabs/puppet/wash \
-    mongodb-community-shell \
-    graphviz \
-    todo-txt \
-    protobuf \
-    helm \
-    helmsman \
-    mailhog \
-    istioctl
-
+  brew install gcc
+  brew install wget
+  brew install zeromq
+  brew install coreutils
+  brew install findutils
+  brew install gnu-tar
+  brew install gnu-sed
+  brew install gawk
+  brew install gnutls
+  brew install gnu-indent
+  brew install gnu-getopt
+  brew install pgrep
+  brew install ngrep
+  brew install sgrep
+  brew install tree
+  brew install pstree
+  brew install moreutils
+  brew install cmake
+  brew install tmux
+  brew install readline
+  brew install openssl
+  brew install git
+  brew install git-extras
+  brew install mercurial
+  brew install zlib
+  brew install bzip2
+  brew install python
+  brew install ruby
+  brew install node
+  brew install golang
+  brew install mysql@5.7
+  brew install postgresql@10
+  brew install redis
+  brew install rabbitmq
+  brew install ncurses
+  brew install autoconf
+  brew install automake
+  brew install libtool
+  brew install mytop
+  brew install pg_top
+  brew install dnstop
+  brew install passenger
+  brew install iftop
+  brew install imagemagick
+  brew install ag
+  brew install ack
+  brew install diff-so-fancy
+  brew install colordiff
+  brew install diffutils
+  brew install maven
+  brew install maven-shell
+  brew install maven-completion
+  brew install tig
+  brew install python3
+  brew install lua@5.1
+  brew install luajit
+  brew install bash
+  brew install autoenv
+  brew install rbenv
+  brew install jenv
+  brew install pyenv
+  brew install pyenv-virtualenv
+  brew install nvm
+  brew install awscli
+  brew install tcptrace
+  brew install iproute2mac
+  brew install mtr
+  brew install jq
+  brew install mycli
+  brew install pgcli
+  brew install krb5
+  brew install ansible
+  brew install fio
+  brew install docker
+  brew install container-diff
+  brew install kubectl
+  brew install kubectx
+  brew install spark
+  brew install bash-completion@2
+  brew install git-quick-stats
+  brew install flock
+  brew install ipcalc
+  brew install nmap
+  brew install iftop
+  brew install nethogs
+  brew install vnstat
+  brew install multitail
+  brew install modd
+  brew install shell2http
+  brew install vegeta
+  brew install spring-boot
+  brew install magic-wormhole
+  brew install scala
+  brew install tfenv
+  brew install tflint
+  brew install tgenv
+  brew install packer
+  brew install packer-completion
+  brew install flyway
+  brew install pipenv
+  brew install shellcheck
+  brew install checkbashisms
+  brew install cppcheck
+  brew install clang-format
+  brew install watch
+  brew install tcping
+  brew install fzf
+  brew install highlight
+  brew install cscope
+  brew install luarocks
+  brew install tmux-xpanes
+  brew install jwt-cli
+  brew install aspell
+  brew install telnet
+  brew install groovysdk
+  brew install age
+  brew install ffsend
+  brew install puppetlabs/puppet/wash
+  brew install mongodb-community-shell
+  brew install graphviz
+  brew install todo-txt
+  brew install protobuf
+  brew install helm
+  brew install helmsman
+  brew install mailhog
+  brew install istioctl
   brew install grep
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
   brew install --HEAD goenv
@@ -209,8 +205,6 @@ install_extras_from_brew() {
 }
 
 post_brew_package_installation() {
-  brew cleanup
-  brew doctor
   git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
   chmod +x $HOME/.kopsenv/bin/*
   chmod +x $HOME/.kopsenv/libexec/*
@@ -227,9 +221,11 @@ post_brew_package_installation() {
   cp "$ROOT_DIR/templates/wash.yml" "$HOME/.puppetlabs/wash/wash.yml"
   mkdir -p $HOME/.todo
   cp "$ROOT_DIR/templates/todo.cfg" "$HOME/.todo/config"
-  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
-  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch
+  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch
   brew update
+  brew cleanup
+  brew doctor
 }
 
 main() {

@@ -21,7 +21,11 @@ export PATH="$(brew --prefix)/opt/postgresql@10/bin:$PATH"
 export PATH="$(brew --prefix)/opt/mysql@5.7/bin:$PATH"
 export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH"
 [[ -f $(brew --prefix)/opt/autoenv/activate.sh ]] && . $(brew --prefix)/opt/autoenv/activate.sh
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then
+  export PATH="$HOME/.pyenv/shims:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 mkdir -p $HOME/.nvm
 export NVM_DIR="$HOME/.nvm"

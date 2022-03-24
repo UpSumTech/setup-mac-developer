@@ -4,8 +4,9 @@ THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
 ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
 change_shell() {
-  sudo grep '/usr/local/bin/bash' /etc/shells \
-    || sudo echo '/usr/local/bin/bash' >> /etc/shells
+  if sudo grep '/usr/local/bin/bash' /etc/shells; then
+    sudo echo '/usr/local/bin/bash' >> /etc/shells
+  fi
   chsh -s /usr/local/bin/bash
 }
 

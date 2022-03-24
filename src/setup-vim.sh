@@ -3,8 +3,8 @@
 THIS_DIR="$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)"
 ROOT_DIR="$THIS_DIR/.."
 VIM_SRC_DIR="$(mktemp -d "${TMPDIR}vim_src.XXXX")"
-PYTHON_VERSION="2.7.14"
-PYTHON3_VERSION="3.5.4"
+PYTHON_VERSION="2.7.18"
+PYTHON3_VERSION="3.10.3"
 trap "rm -rf "$VIM_SRC_DIR"" EXIT
 
 export PID="$$" # Get parent pid so that you can kill the main proc from subshells
@@ -65,7 +65,8 @@ build_vim_from_src() {
   make && make install
   pyenv local --unset
 }
-
+# To use fzf in Vim, add the following line to your .vimrc:
+# set rtp+=/usr/local/opt/fzf
 customize_vim() {
   curl -H "Cache-Control: no-cache" -sSL https://raw.githubusercontent.com/sumanmukherjee03/vim_setup/master/bootstrap.sh | bash
   cd $HOME/.vim

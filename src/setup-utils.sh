@@ -177,6 +177,7 @@ main() {
   install_go_utils
   install_other_utils
   install_cheat
+  # install_dockerized_utils # This requires a GUI for the docker app to be started manually
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

@@ -44,15 +44,25 @@ pyenv_install_python() {
   PYENV_CFLAGS="-I$(brew --prefix readline)/include $PYENV_CFLAGS"
   PYENV_CFLAGS="-I$(brew --prefix sqlite)/include $PYENV_CFLAGS"
   PYENV_CFLAGS="-I$(brew --prefix curl)/include $PYENV_CFLAGS"
+  PYENV_CFLAGS="-I$(brew --prefix bzip2)/include $PYENV_CFLAGS"
+  PYENV_CFLAGS="-I$(xcrun --show-sdk-path)/usr/include $PYENV_CFLAGS"
 
   PYENV_LDFLAGS="-L$(brew --prefix openssl)/lib"
   PYENV_LDFLAGS="-L$(brew --prefix zlib)/lib $PYENV_LDFLAGS"
   PYENV_LDFLAGS="-L$(brew --prefix readline)/lib $PYENV_LDFLAGS"
   PYENV_LDFLAGS="-L$(brew --prefix sqlite)/lib $PYENV_LDFLAGS"
   PYENV_LDFLAGS="-L$(brew --prefix curl)/lib $PYENV_LDFLAGS"
+  PYENV_LDFLAGS="-L$(brew --prefix bzip2)/lib $PYENV_LDFLAGS"
 
-  PYENV_PYTHON_CONFIGURE_OPTS="--enable-shared"
-  env CFLAGS="$PYENV_CFLAGS" LDFLAGS="$PYENV_LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"
+  PYENV_PYTHON_CONFIGURE_OPTS="--enable-shared --enable-unicode=ucs2"
+  env CPPFLAGS="$PYENV_CFLAGS" LDFLAGS="$PYENV_LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"
+  __ok
+}
+
+pyenv_uninstall_python() {
+  local python_version="$1"
+  rm -rf "$HOME/.pyenv/versions/$python_version"
+  __ok
 }
 
 start_ssh_agent_and_add_key() {
@@ -164,54 +174,6 @@ build_static_go_bin() {
   __ok
 }
 
-start_docker_machine() {
-  if uname -s | grep -i 'darwin'; then
-    (docker-machine ls | awk '{if(NR>1) print $1,$3,$4,$5}' | grep -i '^default virtualbox' 2>&1 >/dev/null \
-      || docker-machine create --driver virtualbox --virtualbox-memory "2048" --virtualbox-disk-size "40000" default) &
-    eval "$(docker-machine env default)"
-    (env | grep DOCKER | grep DOCKER_HOST | cut -d '=' -f2 | sed -e 's#tcp://##g;s#:# #g' | xargs nc -v \
-      || (docker-machine stop default 2>&1 >/dev/null; eval "$(docker-machine env -u)"; docker-machine start default; eval "$(docker-machine env default)")) &
-    wait
-    eval "$(docker-machine env default)"
-  else
-    echo "You are on linux. You dont need docker machine. Defaulting to docker native."
-  fi
-  __ok
-}
-
-stop_docker_machine() {
-  if uname -s | grep -i 'darwin'; then
-    (docker-machine status default | grep -i "running" && (docker-machine stop default)) &
-    wait
-    eval "$(docker-machine env -u)"
-  else
-    echo "You are on linux. You probably never started docker machine. Defaulting to docker native."
-  fi
-  __ok
-}
-
-is_docker_machine_running() {
-  if uname -s | grep -i 'darwin'; then
-    docker-machine status default | grep -i "running" >/dev/null 2>&1
-  else
-    __ok
-  fi
-}
-
-is_docker_machine_not_running() {
-  if uname -s | grep -i 'darwin'; then
-    !docker-machine status default | grep -i "running" >/dev/null 2>&1
-  else
-    __ok
-  fi
-}
-
-switch_to_docker_machine() {
-  stop_minikube
-  start_docker_machine
-  __ok
-}
-
 start_minikube() {
   (minikube status | grep -i "running" || (minikube start)) &
   wait
@@ -231,15 +193,12 @@ is_minikube_running() {
 }
 
 switch_to_minikube() {
-  stop_docker_machine
   start_minikube
   __ok
 }
 
 start_default_docker_env() {
-  stop_docker_machine
   stop_minikube
-  start_docker_machine
   echo "$1"
   __ok
 }
@@ -249,24 +208,13 @@ load_docker_env() {
     minikube)
       switch_to_minikube
       ;;
-    docker-machine)
-      switch_to_docker_machine
-      ;;
     *)
-      if [[ is_docker_machine_not_running && !is_minikube_running ]]; then
-        start_default_docker_env "Neither minikube nor docker machine were running. So defaulting."
+      if [[ !is_minikube_running ]]; then
+        start_default_docker_env "Minikube is not running. So defaulting."
       fi
 
-      if [[ is_docker_machine_running && !is_minikube_running ]]; then
-        eval "$(docker-machine env default)"
-      fi
-
-      if [[ is_docker_machine_not_running && is_minikube_running ]]; then
+      if [[ is_minikube_running ]]; then
         eval "$(minikube docker-env)"
-      fi
-
-      if [[ is_docker_machine_running && is_minikube_running ]]; then
-        start_default_docker_env "Both minikube and docker-machine are running. Stopping both of them and defaulting."
       fi
       ;;
   esac
@@ -299,11 +247,6 @@ stop_docker_containers() {
   __ok
 }
 
-kube_get_namespaces() {
-  __check_kubectl
-  kubectl get namespace -o template --template=$'{{range .items}}{{.metadata.name}}\n{{end}}'
-}
-
 kube_set_creds() {
   local user="$1"
   __check_kubectl
@@ -322,16 +265,6 @@ kube_set_cluster() {
     --server="$server" \
     --certificate-authority="$KUBE_CERTS_DIR/ca.pem"
   __ok
-}
-
-kube_get_master_pods() {
-  __check_kubectl
-  kubectl -n kube-system get pods
-}
-
-kube_get_clusters() {
-  __check_kubectl
-  kubectl config get-clusters
 }
 
 ssh_port_forward() {
