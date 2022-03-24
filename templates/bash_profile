@@ -16,7 +16,7 @@ alias todo='todo.sh'
 
 # Init env specific prog langs and also load it in the paths properly
 export PATH="$HOME/bin:$PATH"
-export PATH="$(brew --prefix)/opt/docker@1.11/bin:$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
+export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
 export PATH="$(brew --prefix)/opt/postgresql@10/bin:$PATH"
 export PATH="$(brew --prefix)/opt/mysql@5.7/bin:$PATH"
 export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH"
@@ -37,7 +37,7 @@ eval "$(goenv init -)"
 export PATH="$HOME/.goenv/shims:$PATH"
 export PATH="$HOME/.kopsenv/bin:$PATH"
 export PGDATA="$HOME/var/data/postgres"
-command -v pipenv >/dev/null 2>&1 && eval "$(pipenv --completion)"
+command -v pipenv >/dev/null 2>&1 && eval "$(_PIPENV_COMPLETE=bash_source pipenv)"
 if [[ -d $(brew --prefix)/opt/groovysdk/libexec ]]; then
   export GROOVY_HOME=$(brew --prefix)/opt/groovysdk/libexec
 fi

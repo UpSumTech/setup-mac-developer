@@ -2,7 +2,7 @@
 
 install_terragrunt_versions() {
   local terragrunt_version
-  local arr=( '0.36.0' '0.23.0' )
+  local arr=( '0.36.0' '0.30.0' )
   for terragrunt_version in "${arr[@]}"; do
     . "$HOME/.bash_profile" && tgenv install "$terragrunt_version"
   done
