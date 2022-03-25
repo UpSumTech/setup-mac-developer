@@ -17,6 +17,7 @@ main() {
   ./src/setup-nvm.sh
   ./src/setup-jenv.sh
   ./src/setup-goenv.sh
+  ./src/setup-rustup.sh
   ./src/setup-tfenv.sh
   ./src/setup-tgenv.sh
   ./src/setup-vim.sh

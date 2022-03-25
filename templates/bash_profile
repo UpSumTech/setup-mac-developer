@@ -45,6 +45,9 @@ fi
 if [[ -d $HOME/.tgenv ]]; then
   export PATH="$HOME/.tgenv/bin:$PATH"
 fi
+if [[ -d $HOME/.cargo ]]; then
+  . $HOME/.cargo/env
+fi
 
 # Load bash completions for homebrew packages
 for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done
