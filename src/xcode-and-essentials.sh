@@ -6,6 +6,7 @@ install_xcode() {
   xcode-select -p || xcode-select --install
   # Update the software command line tools. This might take a while
   softwareupdate --all --install --force
+  softwareupdate --install-rosetta # This is needed for installing jdk
 }
 
 set_hostname() {

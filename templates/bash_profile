@@ -4,11 +4,10 @@
 export VISUAL=vim
 export EDITOR=$VISUAL
 export GIT_EDITOR=$EDITOR
-export HISTSIZE=30000
+export HISTSIZE=50000
 export HISTFILESIZE=$HISTSIZE
 shopt -s histappend
 
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt:$PATH"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 [[ -d "$HOME/.secrets" ]] && for file in $(find "$HOME/.secrets" -type f -name "*.sh"); do . "$file"; done
@@ -18,13 +17,14 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 alias todo='todo.sh'
 
 # Init env specific prog langs and also load it in the paths properly
-export PATH="$HOME/bin:$PATH"
-export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
+export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/gnu-getopt/libexec/gnubin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$(brew --prefix)/opt/ruby/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
 export PATH="$(brew --prefix)/opt/postgresql@10/bin:$PATH"
 export PATH="$(brew --prefix)/opt/mysql@5.7/bin:$PATH"
+export PATH="$(brew --prefix)/opt/tcl-tk/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH"
 [[ -f $(brew --prefix)/opt/autoenv/activate.sh ]] && . $(brew --prefix)/opt/autoenv/activate.sh
-if which pyenv-virtualenv-init > /dev/null; then
+if command -v pyenv-virtualenv-init > /dev/null; then
   export PATH="$HOME/.pyenv/shims:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
@@ -53,6 +53,7 @@ if [[ -d $HOME/.cargo ]]; then
 fi
 
 # Load bash completions for homebrew packages
+. "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done
 for completion_file in $(brew --prefix)/opt/*/etc/bash_completion.d/*; do [[ -f "$completion_file" ]] && . "$completion_file"; done
 
