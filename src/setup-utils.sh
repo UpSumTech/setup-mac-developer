@@ -5,7 +5,7 @@ install_kube_utils() {
   cd $HOME/tmp
   wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-darwin-amd64.tar.gz
   tar xf kubeval-darwin-amd64.tar.gz
-  cp kubeval /usr/local/bin
+  cp kubeval $HOME/bin
   popd
 }
 

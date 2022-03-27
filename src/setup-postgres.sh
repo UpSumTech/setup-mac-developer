@@ -38,7 +38,7 @@ stop_postgres() {
   local pg_log_dir="$HOME/var/log/postgres"
   if ps -ef | grep -i 'postgres: writer proces[s]'; then
     pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" -w stop \
-      || pg_ctl -D /usr/local/var/postgresql@10 -w stop
+      || pg_ctl -D "$(brew --prefix)/var/postgresql@10" -w stop
   fi
   __ok
 }

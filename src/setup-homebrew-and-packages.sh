@@ -7,14 +7,20 @@ install_homebrew() {
   command -v brew || /usr/bin/env ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   sudo chgrp -R admin /usr/local/*
   sudo chmod -R g+w /usr/local/*
+  if [[ -d /opt/homebrew ]]; then
+    sudo chgrp -R admin /opt/homebrew
+    sudo chmod -R g+w /opt/homebrew
+  fi
   # sudo chgrp -R admin /Library/Caches/Homebrew
   # sudo chmod -R g+w /Library/Caches/Homebrew
-  # sudo chgrp -R admin /opt/homebrew-cask
-  # sudo chmod -R g+w /opt/homebrew-cask
+  if [[ -d /opt/homebrew-cask ]]; then
+    sudo chgrp -R admin /opt/homebrew-cask
+    sudo chmod -R g+w /opt/homebrew-cask
+  fi
 }
 
 prep_homebrew() {
-  echo 'export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/opt:$PATH' >> $HOME/.bash_profile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   brew update
   brew cleanup
   brew doctor
@@ -64,6 +70,7 @@ install_apps_from_cask() {
   brew install intellij-idea-ce
   brew install eva
   brew install brave-browser
+  brew install iterm2
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
@@ -202,10 +209,6 @@ install_packages_from_brew() {
   brew install --HEAD universal-ctags
 }
 
-install_extras_from_brew() {
-  brew install iterm2
-}
-
 post_brew_package_installation() {
   git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
   chmod +x $HOME/.kopsenv/bin/*
@@ -221,8 +224,13 @@ post_brew_package_installation() {
   cp "$ROOT_DIR/templates/wash.yml" "$HOME/.puppetlabs/wash/wash.yml"
   mkdir -p $HOME/.todo
   cp "$ROOT_DIR/templates/todo.cfg" "$HOME/.todo/config"
-  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch
-  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch
+  if [[ -d /opt/homebrew ]]; then
+    git -C /opt/homebrew/Library/Taps/homebrew/homebrew-core fetch
+    git -C /opt/homebrew/Library/Taps/homebrew/homebrew-cask fetch
+  else
+    git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch
+    git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch
+  fi
   brew update
   brew cleanup
   brew doctor
@@ -234,7 +242,6 @@ main() {
   setup_brew_taps
   install_apps_from_cask
   install_packages_from_brew
-  install_extras_from_brew
   post_brew_package_installation
 }
 
