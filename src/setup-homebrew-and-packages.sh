@@ -63,6 +63,7 @@ install_apps_from_cask() {
   brew install macfuse
   brew install intellij-idea-ce
   brew install eva
+  brew install brave-browser
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
