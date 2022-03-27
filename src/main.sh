@@ -20,6 +20,7 @@ main() {
   ./src/setup-rustup.sh
   ./src/setup-tfenv.sh
   ./src/setup-tgenv.sh
+  ./src/setup-pkenv.sh
   ./src/setup-vim.sh
   ./src/setup-emacs.sh
   ./src/setup-tmux.sh

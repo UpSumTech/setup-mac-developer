@@ -37,6 +37,7 @@ setup_brew_taps() {
   brew tap mongodb\/brew
   brew tap ktr0731\/evans
   brew tap spring-io\/tap
+  brew tap kwilczynski\/homebrew-pkenv
 }
 
 install_apps_from_cask() {
@@ -162,7 +163,7 @@ install_packages_from_brew() {
   brew install tfenv
   brew install tflint
   brew install tgenv
-  brew install packer
+  brew install pkenv
   brew install packer-completion
   brew install flyway
   brew install pipenv
