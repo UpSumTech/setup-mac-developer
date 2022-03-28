@@ -61,7 +61,6 @@ install_apps_from_cask() {
   brew install vagrant
   brew install tcl-tk
   brew install font-inconsolata
-  brew install kindle
   brew install docker
   brew install minikube
   brew install caffeine
@@ -128,7 +127,6 @@ install_packages_from_brew() {
   brew install tig
   brew install python3
   brew install lua@5.1
-  # brew install luajit # This does not seem to be installing properly on mac ARM M1
   brew install bash
   brew install autoenv
   brew install rbenv
@@ -205,6 +203,7 @@ install_packages_from_brew() {
   brew install curl
   brew install nginx passenger
   brew install --HEAD universal-ctags
+  brew install luajit --HEAD # This does not seem to be installing properly on mac ARM M1 by default. Hence this workaround.
 }
 
 post_brew_package_installation() {
