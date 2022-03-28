@@ -3,6 +3,7 @@
 install_helm() {
   brew install helm
   brew install helmsman
+  brew install skaffold
 }
 
 enable_helm_plugins() {
