@@ -21,11 +21,11 @@ main() {
   ./src/setup-tfenv.sh
   ./src/setup-tgenv.sh
   ./src/setup-pkenv.sh
+  ./src/setup-helm.sh
   ./src/setup-vim.sh
   ./src/setup-emacs.sh
   ./src/setup-tmux.sh
   ./src/setup-utils.sh
-  ./src/setup-helmenv.sh
   ./src/setup-config-files.sh
   ./src/update-mac-limits.sh
 

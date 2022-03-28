@@ -60,10 +60,6 @@ if [[ -d "$HOME/.kopsenv" ]]; then
   export PATH="$HOME/.kopsenv/bin:$PATH"
 fi
 
-if [[ -d "$HOME/.helmenv" ]]; then
-  export PATH="$HOME/.helmenv/bin:$PATH"
-fi
-
 if [[ -d "$HOME/var/data/postgres" ]]; then
   export PGDATA="$HOME/var/data/postgres"
 fi

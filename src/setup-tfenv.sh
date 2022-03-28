@@ -2,7 +2,7 @@
 
 install_terraform_versions() {
   local terraform_version
-  local arr=( '1.1.7' '0.15.5' )
+  local arr=( '1.1.7' '1.0.0' )
   for terraform_version in "${arr[@]}"; do
     . "$HOME/.bash_profile" && tfenv install "$terraform_version"
   done

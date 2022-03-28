@@ -193,8 +193,6 @@ install_packages_from_brew() {
   brew install graphviz
   brew install todo-txt
   brew install protobuf
-  brew install helm
-  brew install helmsman
   brew install mailhog
   brew install istioctl
   brew install grep
