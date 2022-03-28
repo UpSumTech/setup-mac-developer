@@ -9,6 +9,7 @@ pyenv_install_python() {
   PYENV_CFLAGS="-I$(brew --prefix sqlite)/include $PYENV_CFLAGS"
   PYENV_CFLAGS="-I$(brew --prefix curl)/include $PYENV_CFLAGS"
   PYENV_CFLAGS="-I$(brew --prefix bzip2)/include $PYENV_CFLAGS"
+  PYENV_CFLAGS="-I$(brew --prefix tcl-tk)/include $PYENV_CFLAGS"
   PYENV_CFLAGS="-I$(xcrun --show-sdk-path)/usr/include $PYENV_CFLAGS"
 
   PYENV_LDFLAGS="-L$(brew --prefix openssl)/lib"
@@ -17,6 +18,7 @@ pyenv_install_python() {
   PYENV_LDFLAGS="-L$(brew --prefix sqlite)/lib $PYENV_LDFLAGS"
   PYENV_LDFLAGS="-L$(brew --prefix curl)/lib $PYENV_LDFLAGS"
   PYENV_LDFLAGS="-L$(brew --prefix bzip2)/lib $PYENV_LDFLAGS"
+  PYENV_LDFLAGS="-L$(brew --prefix tcl-tk)/lib $PYENV_LDFLAGS"
 
   PYENV_PYTHON_CONFIGURE_OPTS="--enable-shared --enable-unicode=ucs2"
   env CPPFLAGS="$PYENV_CFLAGS" LDFLAGS="$PYENV_LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"

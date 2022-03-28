@@ -4,9 +4,8 @@ install_xcode() {
   # TODO: This will pause the script to download and install xcode
   # Use applescript to automate this part
   xcode-select -p || xcode-select --install
-  # Update the software command line tools. This might take a while
-  softwareupdate --all --install --force
-  softwareupdate --install-rosetta # This is needed for installing jdk
+  softwareupdate --all --install --force # Update the software command line tools. This might take a while
+  softwareupdate --install-rosetta --agree-to-license # This is needed for installing jdk
 }
 
 set_hostname() {

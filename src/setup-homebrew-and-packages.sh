@@ -88,7 +88,6 @@ install_packages_from_brew() {
   brew install gnu-getopt
   brew install pgrep
   brew install ngrep
-  brew install sgrep
   brew install tree
   brew install pstree
   brew install moreutils
@@ -130,7 +129,7 @@ install_packages_from_brew() {
   brew install tig
   brew install python3
   brew install lua@5.1
-  brew install luajit
+  # brew install luajit # This does not seem to be installing properly on mac ARM M1
   brew install bash
   brew install autoenv
   brew install rbenv
