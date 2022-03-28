@@ -139,15 +139,16 @@ install_go_utils() {
 }
 
 install_other_utils() {
-  wget https://github.com/kubernetes/kops/releases/download/1.9.2/kops-darwin-amd64
-  chmod +x kops-darwin-amd64
-  mv kops-darwin-amd64 $HOME/bin/kops
+  git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
+  chmod +x $HOME/.kopsenv/bin/*
+  chmod +x $HOME/.kopsenv/libexec/*
+  echo '1.23.0' > $HOME/.kops-version
   . $HOME/.bash_profile && tfenv install
   . $HOME/.bash_profile && kopsenv install
   wget https://github.com/k14s/ytt/releases/download/v0.25.0/ytt-darwin-amd64
   chmod +x ytt-darwin-amd64
   mv ytt-darwin-amd64 $HOME/bin/ytt
-  git clone https://github.com/cunymatthieu/tgenv.git ~/.tgenv
+  brew install puppetlabs/puppet/wash
 }
 
 install_dockerized_utils() {

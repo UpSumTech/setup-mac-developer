@@ -47,11 +47,10 @@ setup_brew_taps() {
 }
 
 install_apps_from_cask() {
-  # New mac os - high sierra may have trouble installing virtualbox
-  # Follow this link to fix that - https://developer.apple.com/library/content/technotes/tn2459/_index.html
-  # This could also be because the security ad privacy settings in mac is not allowing virttualbox to install stuff from oracle
-  # Allowing that could fix the problem too
-  command -v virtualbox || brew install virtualbox
+  # New mac os and the arm m1 chip have problems installing virtualbox because a hypervisor is not supported.
+  # You need a fullon emulator like qemu
+  # This might cause some pain to test out configuration using vagrant.
+  # TODO : Add the link to address the issue with vagrant and arm m1 chip
   brew install java
   brew install adoptopenjdk\/openjdk\/adoptopenjdk8
   brew install adoptopenjdk9
@@ -151,6 +150,7 @@ install_packages_from_brew() {
   brew install container-diff
   brew install kubectl
   brew install kubectx
+  brew install kops
   brew install spark
   brew install bash-completion@2
   brew install git-quick-stats
@@ -191,7 +191,6 @@ install_packages_from_brew() {
   brew install groovysdk
   brew install age
   brew install ffsend
-  brew install puppetlabs/puppet/wash
   brew install mongodb-community-shell
   brew install graphviz
   brew install todo-txt
@@ -209,14 +208,11 @@ install_packages_from_brew() {
 }
 
 post_brew_package_installation() {
-  git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
-  chmod +x $HOME/.kopsenv/bin/*
-  chmod +x $HOME/.kopsenv/libexec/*
-  echo '1.23.0' > $HOME/.kops-version
   [[ -x $(brew --prefix)/bin/nvm ]] || ln -s "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
   mkdir -p $HOME/.nvm
-  [[ -d $HOME/.pyenv/plugins/pyenv-implict ]] \
-    || git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
+  if [[ ! -d $HOME/.pyenv/plugins/pyenv-implict ]]; then
+    git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
+  fi
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
   mkdir -p $HOME/.puppetlabs/wash
   cp "$ROOT_DIR/templates/wash_analytics.yml" "$HOME/.puppetlabs/wash/analytics.yml"
