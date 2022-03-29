@@ -25,8 +25,8 @@ wrap_around_dir_change() {
 
 verify_required_python_versions() {
   command -v python | grep "pyenv" || die "python needs to be installed through pyenv"
-  pyenv versions | grep $PYTHON_VERSION || die "Does not $PYTHON_VERSION installed through pyenv"
-  pyenv versions | grep $PYTHON3_VERSION || die "Does not $PYTHON3_VERSION installed through pyenv"
+  pyenv versions | grep $PYTHON_VERSION || die "Does not have python version $PYTHON_VERSION installed through pyenv"
+  pyenv versions | grep $PYTHON3_VERSION || die "Does not have python version $PYTHON3_VERSION installed through pyenv"
 }
 
 get_vim() {
