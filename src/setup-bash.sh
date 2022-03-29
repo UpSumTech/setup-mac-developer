@@ -4,10 +4,16 @@ THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
 ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
 change_shell() {
-  if sudo grep "$(brew --prefix)/bin/bash" /etc/shells; then
-    sudo echo "$(brew --prefix)/bin/bash" >> /etc/shells
+  local brewDir
+  if [[ -d /usr/local/Cellar ]]; then
+    brewDir="/usr/local"
+  else
+    brewDir="/opt/homebrew"
   fi
-  chsh -s "$(brew --prefix)/bin/bash"
+  if sudo grep "$brewDir/bin/bash" /etc/shells; then
+    sudo echo "$brewDir/bin/bash" >> /etc/shells
+  fi
+  chsh -s "$brewDir/bin/bash"
 }
 
 preserve_bash_profile() {

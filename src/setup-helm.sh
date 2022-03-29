@@ -12,7 +12,7 @@ enable_helm_plugins() {
   helm plugin install https://github.com/adamreese/helm-last
   helm plugin install https://github.com/aslafy-z/helm-git --version 0.10.0
   helm plugin install https://github.com/instrumenta/helm-kubeval
-  helm plugin install https://github.com/karuppiah7890/helm-schema-gen.git
+  helm plugin install https://github.com/karuppiah7890/helm-schema-gen.git # This plugin seems to fail when installing in mac m1
 }
 
 main() {
