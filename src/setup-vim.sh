@@ -60,6 +60,7 @@ build_vim_from_src() {
     --with-python3-command="$PYTHON3_VERSION_SHORT" \
     --with-python3-config-dir=$py3_config \
     --enable-perlinterp \
+    --enable-tclinterp \
     --enable-luainterp \
     --with-lua-prefix="$(brew --prefix)" \
     --with-luajit \

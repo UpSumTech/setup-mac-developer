@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-install_kube_utils() {
-  pushd .
-  cd $HOME/tmp
-  wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-darwin-amd64.tar.gz
-  tar xf kubeval-darwin-amd64.tar.gz
-  cp kubeval $HOME/bin
-  popd
-}
-
 install_pip_utils() {
   pip --trusted-host pypi.python.org install doitlive \
     percol \
@@ -53,7 +44,6 @@ install_node_utils() {
     empty-trash-cli \
     strip-json-comments-cli \
     doctoc \
-    git-commander \
     gistup \
     pretty-bytes-cli \
     normalize-newline-cli \
@@ -71,6 +61,7 @@ install_node_utils() {
     iplocation-cli \
     eslint \
     babel-eslint \
+    @babel/eslint-parser \
     prettier \
     eslint-config-prettier \
     eslint-plugin-prettier \
@@ -86,52 +77,52 @@ install_node_utils() {
 }
 
 install_go_utils() {
-  go get -u github.com/jteeuwen/go-bindata/...
-  go get -u github.com/tylertreat/comcast
-  go get -u github.com/fatih/hclfmt
-  go get -u github.com/mitchellh/gox
-  go get -u github.com/mitchellh/go-homedir
-  go get -u mvdan.cc/interfacer
-  go get -u github.com/jgautheron/goconst/cmd/goconst
-  go get -u github.com/opennota/check/cmd/aligncheck
-  go get -u github.com/opennota/check/cmd/structcheck
-  go get -u github.com/opennota/check/cmd/varcheck
-  go get -u github.com/mdempsky/maligned
-  go get -u mvdan.cc/unparam
-  go get -u github.com/stripe/safesql
-  go get -u github.com/alexkohler/nakedret
-  go get -u github.com/alecthomas/gometalinter
-  go get -u github.com/nsf/gocode
-  go get -u github.com/gordonklaus/ineffassign
-  go get -u github.com/tsenart/deadcode
-  go get -u github.com/fzipp/gocyclo
-  go get -u github.com/mdempsky/unconvert
-  go get -u github.com/securego/gosec/cmd/gosec
-  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-  go get -u github.com/alecthomas/gometalinter
-  go get -u github.com/andrebq/gas
-  go get -u honnef.co/go/tools/...
-  go get -u github.com/zmb3/gogetdoc
-  go get -u github.com/davidrjenni/reftools/cmd/fillstruct
-  go get -u github.com/rogpeppe/godef
-  go get -u github.com/fatih/motion
-  go get -u github.com/kisielk/errcheck
-  go get -u github.com/go-delve/delve/cmd/dlv
-  go get -u github.com/koron/iferr
-  go get -u github.com/klauspost/asmfmt/cmd/asmfmt
-  go get -u github.com/josharian/impl
-  go get -u github.com/jstemmer/gotags
-  go get -u github.com/fatih/gomodifytags
-  go get -u golang.org/x/lint/golint
-  go get -u golang.org/x/tools/cmd/gorename
-  go get -u golang.org/x/tools/cmd/guru
-  go get -u golang.org/x/tools/cmd/goimports
-  go get -u golang.org/x/tools/gopls
-  go get -u github.com/motemen/gore/cmd/gore
-  go get -u golang.org/x/tools/cmd/godoc
-  go get -u mvdan.cc/sh/cmd/shfmt
-  go get -u github.com/fatih/hclfmt
-  go get -u github.com/fatih/motion
+  go install github.com/jteeuwen/go-bindata/...@latest
+  go install github.com/tylertreat/comcast@latest
+  go install github.com/fatih/hclfmt@latest
+  go install github.com/mitchellh/gox@latest
+  go install github.com/mitchellh/go-homedir@latest
+  go install mvdan.cc/interfacer@latest
+  go install github.com/jgautheron/goconst/cmd/goconst@latest
+  go install github.com/opennota/check/cmd/aligncheck@latest
+  go install github.com/opennota/check/cmd/structcheck@latest
+  go install github.com/opennota/check/cmd/varcheck@latest
+  go install github.com/mdempsky/maligned@latest
+  go install mvdan.cc/unparam@latest
+  go install github.com/stripe/safesql@latest
+  go install github.com/alexkohler/nakedret@latest
+  go install github.com/alecthomas/gometalinter@latest
+  go install github.com/nsf/gocode@latest
+  go install github.com/gordonklaus/ineffassign@latest
+  go install github.com/tsenart/deadcode@latest
+  go install github.com/fzipp/gocyclo@latest
+  go install github.com/mdempsky/unconvert@latest
+  go install github.com/securego/gosec/cmd/gosec@latest
+  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  go install github.com/alecthomas/gometalinter@latest
+  go install github.com/andrebq/gas@latest
+  go install honnef.co/go/tools/...@latest
+  go install github.com/zmb3/gogetdoc@latest
+  go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+  go install github.com/rogpeppe/godef@latest
+  go install github.com/fatih/motion@latest
+  go install github.com/kisielk/errcheck@latest
+  go install github.com/go-delve/delve/cmd/dlv@latest
+  go install github.com/koron/iferr@latest
+  go install github.com/klauspost/asmfmt/cmd/asmfmt@latest
+  go install github.com/josharian/impl@latest
+  go install github.com/jstemmer/gotags@latest
+  go install github.com/fatih/gomodifytags@latest
+  go install golang.org/x/lint/golint@latest
+  go install golang.org/x/tools/cmd/gorename@latest
+  go install golang.org/x/tools/cmd/guru@latest
+  go install golang.org/x/tools/cmd/goimports@latest
+  go install golang.org/x/tools/gopls@latest
+  go install github.com/motemen/gore/cmd/gore@latest
+  go install golang.org/x/tools/cmd/godoc@latest
+  go install mvdan.cc/sh/cmd/shfmt@latest
+  go install github.com/fatih/hclfmt@latest
+  go install github.com/fatih/motion@latest
   # This is needed so that ruby bundle still keeps working
   # [[ -f $HOME/go/1.12beta1/bin/bundle ]] && mv $HOME/go/1.12beta1/bin/bundle $HOME/go/1.12beta1/bin/gobundle
 
@@ -143,42 +134,38 @@ install_other_utils() {
   chmod +x $HOME/.kopsenv/bin/*
   chmod +x $HOME/.kopsenv/libexec/*
   echo '1.23.0' > $HOME/.kops-version
-  . $HOME/.bash_profile && tfenv install
   . $HOME/.bash_profile && kopsenv install
-  wget https://github.com/k14s/ytt/releases/download/v0.25.0/ytt-darwin-amd64
-  chmod +x ytt-darwin-amd64
-  mv ytt-darwin-amd64 $HOME/bin/ytt
-  brew install puppetlabs/puppet/wash
-}
-
-install_dockerized_utils() {
-  docker pull bridgecrew/checkov
+  wget https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.40.1/ytt-darwin-$(arch)
+  chmod +x ytt-darwin-$(arch)
+  mv ytt-darwin-$(arch) $HOME/bin/ytt
+  # TODO : Checkback for wash later. Right now there is no binary for arm64 (ie Mac M1)
+  # brew install puppetlabs/puppet/wash
 }
 
 install_cheat() {
-  wget https://github.com/cheat/cheat/releases/download/3.2.1/cheat-darwin-amd64
-  chmod +x cheat-darwin-amd64
-  mv cheat-darwin-amd64 $HOME/bin/cheat
+  go install github.com/cheat/cheat/cmd/cheat@latest
   mkdir -p $HOME/.config/cheat
+  cp "$ROOT_DIR/templates/cheatconf.yml" "$HOME/.config/cheat/conf.yml"
   mkdir -p $HOME/share/doc/cheat/community
   mkdir -p $HOME/share/doc/cheat/personal
   mkdir -p $HOME/share/doc/cheat/work
+  wget -O $HOME/bin/cheatsheets https://raw.githubusercontent.com/cheat/cheat/master/scripts/git/cheatsheets
+  chmod +x $HOME/bin/cheatsheets
   pushd .
   cd $HOME/share/doc/cheat
   git clone https://github.com/cheat/cheatsheets.git
   mv cheatsheets community
   popd
+  . $HOME/.bash_profile && cheatsheets pull
 }
 
 main() {
-  install_kube_utils
   install_pip_utils
   install_ruby_utils
   install_node_utils
   install_go_utils
   install_other_utils
   install_cheat
-  # install_dockerized_utils # This requires a GUI for the docker app to be started manually
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

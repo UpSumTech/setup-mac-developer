@@ -195,6 +195,9 @@ install_packages_from_brew() {
   brew install protobuf
   brew install mailhog
   brew install istioctl
+  brew install checkov
+  brew install kubeconform
+  brew tap johanhaleby/kubetail && brew install kubetail
   brew install grep
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
   brew install --HEAD goenv
