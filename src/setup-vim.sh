@@ -5,6 +5,8 @@ ROOT_DIR="$THIS_DIR/.."
 VIM_SRC_DIR="$(mktemp -d "${TMPDIR}vim_src.XXXX")"
 PYTHON_VERSION="2.7.18"
 PYTHON3_VERSION="3.10.3"
+PYTHON_VERSION_SHORT="2.7"
+PYTHON3_VERSION_SHORT="3.10"
 trap "rm -rf "$VIM_SRC_DIR"" EXIT
 
 export PID="$$" # Get parent pid so that you can kill the main proc from subshells
@@ -35,6 +37,7 @@ get_vim() {
 }
 
 build_vim_from_src() {
+  . "$HOME/.bash_profile"
   pyenv local "$PYTHON_VERSION" "$PYTHON3_VERSION"
   local py_config="$(pyenv prefix $PYTHON_VERSION/lib/python2.7/config)"
   local py3_prefix="$(pyenv prefix $PYTHON3_VERSION)"
@@ -42,16 +45,19 @@ build_vim_from_src() {
   echo ">>>> PYTHON_CONFIG : $py_config"
   echo ">>>> PYTHON3_CONFIG : $py3_config"
   cd "$VIM_SRC_DIR/vim"
-  make distclean
+  make clean distclean
   ./configure \
     --with-features=huge \
+    --with-local-dir="$(brew --prefix)" \
     --enable-multibyte \
     --enable-rubyinterp \
     --enable-largefile \
     --disable-netbeans \
     --enable-pythoninterp \
+    --with-python-command="$PYTHON_VERSION_SHORT" \
     --with-python-config-dir="$py_config" \
     --enable-python3interp=dynamic \
+    --with-python3-command="$PYTHON3_VERSION_SHORT" \
     --with-python3-config-dir=$py3_config \
     --enable-perlinterp \
     --enable-luainterp \
