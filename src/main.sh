@@ -26,6 +26,7 @@ main() {
   ./src/setup-emacs.sh
   ./src/setup-tmux.sh
   ./src/setup-utils.sh
+  ./src/setup-kubectl.sh
   ./src/setup-config-files.sh
   ./src/update-mac-limits.sh
 

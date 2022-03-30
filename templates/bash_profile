@@ -76,6 +76,10 @@ if [[ -d $HOME/.cargo ]]; then
   . $HOME/.cargo/env
 fi
 
+if [[ -d $HOME/.krew ]]; then
+  export PATH="$HOME/.krew/bin:$PATH"
+fi
+
 #################################### COMPLETIONS ###################################
 if command -v pipenv >/dev/null 2>&1; then
   eval "$(_PIPENV_COMPLETE=bash_source pipenv)"
