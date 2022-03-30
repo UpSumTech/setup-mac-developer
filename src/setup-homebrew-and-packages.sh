@@ -198,6 +198,7 @@ install_packages_from_brew() {
   brew install checkov
   brew install kubeconform
   brew tap johanhaleby/kubetail && brew install kubetail
+  brew install mas # This is useful for installing apps from the app store
   brew install grep
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
   brew install --HEAD goenv
