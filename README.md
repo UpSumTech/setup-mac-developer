@@ -1,17 +1,24 @@
 ## Setup Mac Developer
 
-This repo is used to set up a development environment. It has recently been tested with Catalina.
+This repo is used to set up a development environment. It has recently been tested with OSX Monterey and on Mac M1 (arm64).
 This project is not backwards compatible and does not support older versions of Mac OS.
+There is a script to run it all called `./src/main.sh`.
+But i advise you to run each script mentioned in that file one by one, so that you can fix things according to your needs as you go.
 
-I pretty much work on it as and when i need to setup a new dev machine. So there could be months between bug fixes.
+I pretty much work on it as and when i need to setup a new dev machine. So there could be months between bug fixes. But feel free to create a PR and i will merge.
 
 ### Pre-requisites
-There are a few pre-res for Catalina
+There are a few pre-reqs for Monterey
 
-1. To allow the terminal to be able to change dirs etc on mac
-   some of which could be owned by root, you need to provide "Full Disk Access" to terminal and iterm2 in the "Privacy" settings.
+1. To allow the terminal to be able to change dirs etc on mac some of which could be owned by root you need to provide "Full Disk Access" to terminal and iterm in the "Privacy" settings.
+    Go to
+      System Preferences > Security and Privacy > Privacy > Full Disk Access
+      System Preferences > Security and Privacy > Privacy > Developer Tools
+    and add Terminal and Iterm
 
 ### Provisioning on AWS
+
+For development purposes or fixing things in this project you can test out the scripts on a Mac in AWS.
 
 For provisioning a mac on AWS, you need a dedicated host with auto-placement on. You can get that with this
 ```

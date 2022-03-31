@@ -13,16 +13,10 @@ install_krew_for_kubectl() {
 }
 
 install_plugins_with_krew() {
-  . $HOME/.bash_profile && kubectl krew install access-matrix \
-    evict-pod \
+  . $HOME/.bash_profile
+  kubectl krew install access-matrix \
     pod-logs \
-    advise-psp \
-    deprecations \
-    grep \
     node-shell \
-    rbac-lookup \
-    tail \
-    warp \
     who-can
 }
 
@@ -30,7 +24,6 @@ main() {
   brew install kubectl
   install_krew_for_kubectl
   install_plugins_with_krew
-  . $HOME/.bash_profile && echo "done"
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

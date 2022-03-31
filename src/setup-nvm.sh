@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
 install_nodes() {
+  . $HOME/.bash_profile
+  . "$(brew --prefix)/opt/nvm/nvm.sh"
+  command -v nvm
   local node_version
   local arr=('14.19.0' \
     '16.14.0' \
     '17.8.0' \
   )
   for node_version in "${arr[@]}"; do
-    . $HOME/.bash_profile && nvm install "$node_version"
+    nvm install "$node_version"
   done
 }
 

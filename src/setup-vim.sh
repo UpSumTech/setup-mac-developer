@@ -54,10 +54,10 @@ build_vim_from_src() {
     --enable-largefile \
     --disable-netbeans \
     --enable-pythoninterp \
-    --with-python-command="$PYTHON_VERSION_SHORT" \
+    --with-python-command="python${PYTHON_VERSION_SHORT}" \
     --with-python-config-dir="$py_config" \
     --enable-python3interp=dynamic \
-    --with-python3-command="$PYTHON3_VERSION_SHORT" \
+    --with-python3-command="python${PYTHON3_VERSION_SHORT}" \
     --with-python3-config-dir=$py3_config \
     --enable-perlinterp \
     --enable-tclinterp \
@@ -74,6 +74,7 @@ build_vim_from_src() {
 }
 
 customize_vim() {
+  . "$HOME/.bash_profile"
   curl -H "Cache-Control: no-cache" -sSL https://raw.githubusercontent.com/sumanmukherjee03/vim_setup/master/bootstrap.sh | bash
   cd $HOME/.vim
   make

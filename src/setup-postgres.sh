@@ -35,6 +35,7 @@ start_postgres() {
 }
 
 stop_postgres() {
+  [[ ! -z $PGDATA ]] || export PGDATA="$HOME/var/data/postgres"
   local pg_log_dir="$HOME/var/log/postgres"
   if ps -ef | grep -i 'postgres: writer proces[s]'; then
     pg_ctl -D "$PGDATA" -l "$pg_log_dir/server.log" -w stop \

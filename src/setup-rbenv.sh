@@ -2,7 +2,7 @@
 
 install_rubies() {
   local ruby_version
-  local arr=('2.7.0' \
+  local arr=('2.7.5' \
     '3.0.0' \
   )
   for ruby_version in "${arr[@]}"; do

@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
+
 install_pip_utils() {
-  pip --trusted-host pypi.python.org install doitlive \
+  python3 -m pip --trusted-host pypi.python.org install doitlive \
     percol \
     supervisor \
     csvkit \
@@ -17,7 +20,7 @@ install_pip_utils() {
     sexpdata \
     websocket-client
 
-  pip3 --trusted-host pypi.python.org install \
+  python3 -m pip --trusted-host pypi.python.org install \
     sexpdata \
     websocket-client
 }
@@ -146,7 +149,6 @@ install_cheat() {
   go install github.com/cheat/cheat/cmd/cheat@latest
   mkdir -p $HOME/.config/cheat
   cp "$ROOT_DIR/templates/cheatconf.yml" "$HOME/.config/cheat/conf.yml"
-  mkdir -p $HOME/share/doc/cheat/community
   mkdir -p $HOME/share/doc/cheat/personal
   mkdir -p $HOME/share/doc/cheat/work
   wget -O $HOME/bin/cheatsheets https://raw.githubusercontent.com/cheat/cheat/master/scripts/git/cheatsheets

@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 install_pkenv_versions() {
+  . "$HOME/.bash_profile"
   local packer_version
-  local arr=( '1.8.0' '1.7.0' '1.6.0' )
+  local arr=( '1.8.0' '1.7.5' )
   for packer_version in "${arr[@]}"; do
-    . "$HOME/.bash_profile" && pkenv install "$packer_version"
+    PKENV_ARCH=$(uname -m) pkenv install "$packer_version"
   done
 }
 

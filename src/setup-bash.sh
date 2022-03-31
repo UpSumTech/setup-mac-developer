@@ -10,7 +10,7 @@ change_shell() {
   else
     brewDir="/opt/homebrew"
   fi
-  if sudo grep "$brewDir/bin/bash" /etc/shells; then
+  if !sudo grep "$brewDir/bin/bash" /etc/shells; then
     sudo echo "$brewDir/bin/bash" >> /etc/shells
   fi
   chsh -s "$brewDir/bin/bash"
@@ -124,8 +124,8 @@ setup_bashit() {
   enable_bash_it_aliases
 }
 
-update_bash_profile() {
-  cat $HOME/.bash_profile.bak >> $HOME/.bash_profile
+restore_bash_profile() {
+  mv $HOME/.bash_profile.bak $HOME/.bash_profile
 }
 
 main() {
@@ -135,7 +135,7 @@ main() {
   add_composure
   create_custom_files
   setup_bashit
-  update_bash_profile
+  restore_bash_profile
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"
