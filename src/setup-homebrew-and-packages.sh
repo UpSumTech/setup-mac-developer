@@ -68,6 +68,8 @@ install_apps_from_cask() {
   brew install intellij-idea-ce
   brew install eva
   brew install brave-browser
+  brew install google-chrome
+  brew install slack
   brew install iterm2
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
@@ -95,6 +97,7 @@ install_packages_from_brew() {
   brew install openssl
   brew install git
   brew install git-extras
+  brew install git-secrets
   brew install mercurial
   brew install zlib
   brew install bzip2
