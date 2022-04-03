@@ -13,15 +13,6 @@ esac
 
 
 
-
-####################################### LOAD BASH_IT #######################################
-if [[ -d "$BASH_IT" ]]; then
-  mkdir -p $HOME/.local/state/bash_it/dirs
-  source "$BASH_IT"/bash_it.sh
-fi
-
-
-
 ####################################### GLOBAL VARS #######################################
 export VISUAL=vim
 export EDITOR=$VISUAL
@@ -39,6 +30,14 @@ export SCM_CHECK=true
 
 ####################################### HOMEBREW #######################################
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
+
+####################################### LOAD BASH_IT #######################################
+if [[ -d "$BASH_IT" ]]; then
+  mkdir -p $HOME/.local/state/bash_it/dirs
+  source "$BASH_IT"/bash_it.sh
+fi
 
 
 
@@ -83,11 +82,11 @@ if command -v goenv >/dev/null 2>&1; then
 fi
 
 if command -v tfenv >/dev/null 2>&1; then
-  export PATH="$(brew --prefix)/tfenv/bin:$PATH"
+  export PATH="$(brew --prefix tfenv)/bin:$PATH"
 fi
 
 if command -v tgenv >/dev/null 2>&1; then
-  export PATH="$(brew --prefix)/tgenv/bin:$PATH"
+  export PATH="$(brew --prefix tgenv)/bin:$PATH"
 fi
 
 if [[ -d "$HOME/.kopsenv" ]]; then
@@ -180,9 +179,5 @@ if [[ -f "$HOME/.activate_profile.sh" ]]; then
   . "$HOME/.activate_profile.sh"
 fi
 if [[ -f ~/.bash_utils.sh ]]; then
-  . ~/.bash_utils.sh
+  . "$HOME/.bash_utils.sh"
 fi
-
-
-
-echo "Shell ready"
