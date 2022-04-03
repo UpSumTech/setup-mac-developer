@@ -11,7 +11,6 @@ install_terraform_versions() {
 
 main() {
   install_terraform_versions
-  echo '1.1.7' > $HOME/.terraform-version
   . $HOME/.bash_profile && tfenv use 1.1.7
 }
 

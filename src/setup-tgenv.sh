@@ -11,7 +11,6 @@ install_terragrunt_versions() {
 
 main() {
   install_terragrunt_versions
-  echo '0.36.0' > $HOME/.terragrunt-version
   . $HOME/.bash_profile && tgenv use 0.36.0
 }
 

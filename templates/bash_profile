@@ -25,6 +25,8 @@ export BASH_IT_THEME='bobby'
 unset MAILCHECK
 export IRC_CLIENT='irssi'
 export SCM_CHECK=true
+export DEFAULT_TERRAFORM_VERSION="1.1.7"
+export DEFAULT_TERRAGRUNT_VERSION="0.36.0"
 
 
 
@@ -83,10 +85,12 @@ fi
 
 if command -v tfenv >/dev/null 2>&1; then
   export PATH="$(brew --prefix tfenv)/bin:$PATH"
+  tfenv use "$DEFAULT_TERRAFORM_VERSION"
 fi
 
 if command -v tgenv >/dev/null 2>&1; then
   export PATH="$(brew --prefix tgenv)/bin:$PATH"
+  tgenv use "$DEFAULT_TERRAGRUNT_VERSION"
 fi
 
 if [[ -d "$HOME/.kopsenv" ]]; then
