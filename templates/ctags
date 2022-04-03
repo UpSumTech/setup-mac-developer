@@ -29,6 +29,7 @@
 
 --langmap=Lisp:+.clj
 
+# This lang def is copied from - https://github.com/juliosueiras/vim-terraform-completion/blob/master/ctags/terraform.ctags
 --langdef=terraform
 --langmap=terraform:.tf.tfvars
 --regex-terraform=/^[[:space:]]*resource[[:space:]]*"([^"]*)"[[:space:]]*"([^"]*)"/\1.\2/r,Resource/
