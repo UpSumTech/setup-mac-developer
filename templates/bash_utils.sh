@@ -36,7 +36,13 @@ get_project_root() {
   popd >/dev/null 2>&1
 }
 
-pyenv_install_python() {
+start_ssh_agent_and_add_key() {
+  eval `ssh-agent -s`
+  ssh-add -K "$1"
+  __ok
+}
+
+pyenv_install_version() {
   local python_version="$1"
 
   PYENV_CFLAGS="-I$(brew --prefix openssl)/include"
@@ -65,89 +71,59 @@ pyenv_install_python() {
   __ok
 }
 
-pyenv_uninstall_python() {
-  local python_version="$1"
-  rm -rf "$HOME/.pyenv/versions/$python_version"
-  __ok
-}
-
-start_ssh_agent_and_add_key() {
-  eval `ssh-agent -s`
-  ssh-add -K "$1"
-  __ok
-}
-
-mv_2_golang_project_root() {
-  while [[ ! $(find . -maxdepth 1 -type d | grep '.git') =~ ./.git && ! $(basename $(cd $PWD/../.. && pwd)) =~ (github.com|golang.org|google.golang.org|gopkg.in) ]]; do
-    cd ..
-  done
-}
-
-install_go_deps_for_project() {
-  pushd .
-  mv_2_go_project_root
-  if [[ ! -f "$PWD/Gopkg.toml" && ! -f "$PWD/Gopkg.lock" ]]; then
-    go get -u $(find . -maxdepth 1 ! -path . ! -path '*/\.*' -type d | grep -v vendor | xargs -n 1 -I % echo %/...)
-  else
-    dep ensure -vendor-only
-  fi
-  popd
-  __ok
-}
-
 goenv_install_version() {
   local version="$1"
   goenv install "$version"
   goenv local "$version"
-  go get -u github.com/jteeuwen/go-bindata/...
-  go get -u github.com/tylertreat/comcast
-  go get -u github.com/fatih/hclfmt
-  go get -u github.com/mitchellh/gox
-  go get -u github.com/mitchellh/go-homedir
-  go get -u mvdan.cc/interfacer
-  go get -u github.com/jgautheron/goconst/cmd/goconst
-  go get -u github.com/opennota/check/cmd/aligncheck
-  go get -u github.com/opennota/check/cmd/structcheck
-  go get -u github.com/opennota/check/cmd/varcheck
-  go get -u github.com/mdempsky/maligned
-  go get -u mvdan.cc/unparam
-  go get -u github.com/stripe/safesql
-  go get -u github.com/alexkohler/nakedret
-  go get -u github.com/alecthomas/gometalinter
-  go get -u github.com/nsf/gocode
-  go get -u github.com/gordonklaus/ineffassign
-  go get -u github.com/tsenart/deadcode
-  go get -u github.com/fzipp/gocyclo
-  go get -u github.com/mdempsky/unconvert
-  go get -u github.com/securego/gosec/cmd/gosec
-  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-  go get -u github.com/alecthomas/gometalinter
-  go get -u github.com/andrebq/gas
-  go get -u honnef.co/go/tools/...
-  go get -u github.com/zmb3/gogetdoc
-  go get -u github.com/davidrjenni/reftools/cmd/fillstruct
-  go get -u github.com/rogpeppe/godef
-  go get -u github.com/fatih/motion
-  go get -u github.com/kisielk/errcheck
-  go get -u github.com/go-delve/delve/cmd/dlv
-  go get -u github.com/koron/iferr
-  go get -u github.com/klauspost/asmfmt/cmd/asmfmt
-  go get -u github.com/josharian/impl
-  go get -u github.com/jstemmer/gotags
-  go get -u github.com/fatih/gomodifytags
-  go get -u golang.org/x/lint/golint
-  go get -u golang.org/x/tools/cmd/gorename
-  go get -u golang.org/x/tools/cmd/guru
-  go get -u golang.org/x/tools/cmd/goimports
-  go get -u golang.org/x/tools/gopls
-  go get -u github.com/motemen/gore/cmd/gore
-  go get -u golang.org/x/tools/cmd/godoc
-  go get -u mvdan.cc/sh/cmd/shfmt
-  go get -u github.com/fatih/hclfmt
-  go get -u github.com/fatih/motion
-  go get -u github.com/golang/protobuf/proto
-  go get -u github.com/golang/protobuf/protoc-gen-go
-  # go get -u golang.org/x/tools/gotags - This one didnt work with 1.14.0
+  go install github.com/jteeuwen/go-bindata/...@latest
+  go install github.com/tylertreat/comcast@latest
+  go install github.com/fatih/hclfmt@latest
+  go install github.com/mitchellh/gox@latest
+  go install github.com/mitchellh/go-homedir@latest
+  go install mvdan.cc/interfacer@latest
+  go install github.com/jgautheron/goconst/cmd/goconst@latest
+  go install github.com/opennota/check/cmd/aligncheck@latest
+  go install github.com/opennota/check/cmd/structcheck@latest
+  go install github.com/opennota/check/cmd/varcheck@latest
+  go install github.com/mdempsky/maligned@latest
+  go install mvdan.cc/unparam@latest
+  go install github.com/stripe/safesql@latest
+  go install github.com/alexkohler/nakedret@latest
+  go install github.com/alecthomas/gometalinter@latest
+  go install github.com/nsf/gocode@latest
+  go install github.com/gordonklaus/ineffassign@latest
+  go install github.com/tsenart/deadcode@latest
+  go install github.com/fzipp/gocyclo@latest
+  go install github.com/mdempsky/unconvert@latest
+  go install github.com/securego/gosec/cmd/gosec@latest
+  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  go install github.com/alecthomas/gometalinter@latest
+  go install github.com/andrebq/gas@latest
+  go install honnef.co/go/tools/...@latest
+  go install github.com/zmb3/gogetdoc@latest
+  go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+  go install github.com/rogpeppe/godef@latest
+  go install github.com/fatih/motion@latest
+  go install github.com/kisielk/errcheck@latest
+  go install github.com/go-delve/delve/cmd/dlv@latest
+  go install github.com/koron/iferr@latest
+  go install github.com/klauspost/asmfmt/cmd/asmfmt@latest
+  go install github.com/josharian/impl@latest
+  go install github.com/jstemmer/gotags@latest
+  go install github.com/fatih/gomodifytags@latest
+  go install golang.org/x/lint/golint@latest
+  go install golang.org/x/tools/cmd/gorename@latest
+  go install golang.org/x/tools/cmd/guru@latest
+  go install golang.org/x/tools/cmd/goimports@latest
+  go install golang.org/x/tools/gopls@latest
+  go install github.com/motemen/gore/cmd/gore@latest
+  go install golang.org/x/tools/cmd/godoc@latest
+  go install mvdan.cc/sh/cmd/shfmt@latest
+  go install github.com/fatih/hclfmt@latest
+  go install github.com/fatih/motion@latest
+  go install github.com/golang/protobuf/proto@latest
+  go install github.com/golang/protobuf/protoc-gen-go@latest
+  # go install golang.org/x/tools/gotags@latest - This one didnt work with 1.14.0
 
   # This is needed so that ruby bundle still keeps working
   [[ -f $HOME/go/$version/bin/bundle ]] && mv $HOME/go/$version/bin/bundle $HOME/go/$version/bin/gobundle
@@ -155,29 +131,21 @@ goenv_install_version() {
   goenv rehash
 }
 
-build_static_go_bin() {
-  pushd .
-  mv_2_go_project_root
-
+go_build() {
   local arch="$(uname -m | tr '[:upper:]' '[:lower:]')"
   local osname="$(uname -s | tr '[:upper:]' '[:lower:]')"
-  local archname
-
-  case "$arch" in
-    x86_64)
-      archname='amd64'
-      ;;
-    i386)
-      archname='386'
-      ;;
-    *)
-      __err "ERROR >> Arch not supported for go build process"
-      ;;
-  esac
-  echo "Building static binary for $osname/$archname"
-  CGO_ENABLED=0 gox -osarch="$osname/$archname" -rebuild -tags='netgo' -ldflags='-w -extldflags "-static"'
-  popd
+  GOOS=$osname GOARCH=$arch CGO_ENABLED=0 go build -ldflags='-extldflags=-static' -tags osusergo,netgo -o $(basename $(pwd))-$osname-$arch
   __ok
+}
+
+tgenv_install_version() {
+  local version="$1"
+  TGENV_ARCH=$(uname -m) tgenv install "$version"
+}
+
+tfenv_install_version() {
+  local version="$1"
+  TFENV_ARCH=$(uname -m) tfenv install "$version"
 }
 
 start_minikube() {
@@ -203,46 +171,10 @@ switch_to_minikube() {
   __ok
 }
 
-start_default_docker_env() {
-  stop_minikube
-  echo "$1"
-  __ok
-}
-
-load_docker_env() {
-  case "$1" in
-    minikube)
-      switch_to_minikube
-      ;;
-    *)
-      if [[ !is_minikube_running ]]; then
-        start_default_docker_env "Minikube is not running. So defaulting."
-      fi
-
-      if [[ is_minikube_running ]]; then
-        eval "$(minikube docker-env)"
-      fi
-      ;;
-  esac
-  __ok
-}
-
 login_dockerhub() {
   [[ ! -z "$DOCKERHUB_USERNAME" && ! -z "$DOCKERHUB_PASSWORD" ]] \
     || __err "dockerhub creds have not been exported to the shell"
   docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
-  __ok
-}
-
-rm_intermediate_docker_images() {
-  docker images | grep '<none>' | awk '{print $3}' | xargs -n 1 -I % docker rmi -f %
-  __ok
-}
-
-rm_stopped_docker_containers() {
-  docker ps --filter status=exited --filter status=dead --format="{{ .ID }} {{ .Names }}" \
-    | awk '{print $1}' \
-    | xargs -n 1 -I % docker rm %
   __ok
 }
 
@@ -253,7 +185,19 @@ stop_docker_containers() {
   __ok
 }
 
-kube_set_creds() {
+rm_stopped_docker_containers() {
+  docker ps --filter status=exited --filter status=dead --format="{{ .ID }} {{ .Names }}" \
+    | awk '{print $1}' \
+    | xargs -n 1 -I % docker rm %
+  __ok
+}
+
+rm_intermediate_docker_images() {
+  docker images | grep '<none>' | awk '{print $3}' | xargs -n 1 -I % docker rmi -f %
+  __ok
+}
+
+kube_set_creds_for_user() {
   local user="$1"
   __check_kubectl
   kubectl config set-credentials "$user" \
@@ -367,13 +311,14 @@ activate_history_sync() {
   __ok
 }
 
-clean_ensime_sbt_cache() {
+clean_sbt_cache() {
+  local version="$1"
   rm -rf ~/.coursier/cache/v1/https/oss.sonatype.org/content/repositories/snapshots \
-    ~/.ivy2/cache/org.ensime \
+    ~/.ivy2/cache \
     ~/.ivy2/local \
     project/target \
-    ~/.sbt/0.13/target \
-    ~/.sbt/0.13/plugins/target
+    $HOME/.sbt/$version/target \
+    $HOME/.sbt/$version/plugins/target
   __ok
 }
 
@@ -410,7 +355,6 @@ project_dir="$(pwd)"
 project_name="$(basename "$project_dir")"
 
 ruby_version_file="$(find . -maxdepth 3 -type f -name '.ruby-version')"
-gem_lock_file="$(find . -maxdepth 3 -type f -name 'Gemfile.lock')"
 if [[ -n "$ruby_version_file" ]]; then
   ruby_version="$(head -n 1 "$ruby_version_file")"
   eval "$(rbenv init -)"
@@ -419,6 +363,7 @@ if [[ -n "$ruby_version_file" ]]; then
   rbenv local "$ruby_version"
   rbenv rehash
   gem env home
+  gem_lock_file="$(find . -maxdepth 3 -type f -name 'Gemfile.lock')"
   if [[ -n "$gem_lock_file" ]]; then
     bundle install
   fi
@@ -426,7 +371,6 @@ if [[ -n "$ruby_version_file" ]]; then
 fi
 
 python_version_file="$(find . -maxdepth 3 -type f -name '.python-version')"
-pipenv_lock_file="$(find . -maxdepth 3 -type f -name 'Pipfile.lock')"
 if [[ -n "$python_version_file" ]]; then
   python_version="$(head -n 1 "$python_version_file")"
   eval "$(pyenv init -)"
@@ -434,6 +378,7 @@ if [[ -n "$python_version_file" ]]; then
   pyenv versions | grep "$python_version" || pyenv install
   pyenv local "$python_version"
   pyenv rehash
+  pipenv_lock_file="$(find . -maxdepth 3 -type f -name 'Pipfile.lock')"
   if [[ -n "$pipenv_lock_file" ]]; then
     pipenv --python "$HOME/.pyenv/versions/$python_version/bin/python"
     pipenv --bare sync
@@ -453,14 +398,15 @@ if [[ -n "$nvmrc_file" ]]; then
 fi
 
 golang_version_file="$(find . -maxdepth 3 -type f -name '.go-version')"
-gopkg_lock_file="$(find . -maxdepth 3 -type f -name 'Gopkg.lock')"
-if [[ -n "$golang_version_file" && -n "$gopkg_lock_file" ]]; then
+if [[ -n "$golang_version_file" ]]; then
   golang_version="$(head -n 1 "$golang_version_file")"
   goenv versions | grep -i "$golang_version" >/dev/null 2>&1 || goenv install
   goenv rehash >/dev/null
-  mkdir -p $HOME/go/$golang_version/src
-  mkdir -p $HOME/go/$golang_version/pkg
-  mkdir -p $HOME/go/$golang_version/bin
+  gopkg_lock_file="$(find . -maxdepth 3 -type f -name 'Gopkg.lock')"
+  if [[ -n "$gopkg_lock_file" ]]; then
+    go mod init
+    go mod tidy
+  fi
 fi
 
 java_version_file="$(find . -maxdepth 3 -type f -name '.java-version')"
@@ -474,6 +420,13 @@ if [[ -n "$terragrunt_version_file" ]]; then
   terragrunt_version="$(head -n 1 "$terragrunt_version_file")"
   tgenv list | grep -i "$terragrunt_version" >/dev/null 2>&1 || tgenv install "$terragrunt_version"
   tgenv use "$terragrunt_version"
+fi
+
+terraform_version_file="$(find . -maxdepth 3 -type f -name '.terraform-version')"
+if [[ -n "$terraform_version_file" ]]; then
+  terraform_version="$(head -n 1 "$terraform_version_file")"
+  tfenv list | grep -i "$terraform_version" >/dev/null 2>&1 || tfenv install "$terraform_version"
+  tfenv use "$terraform_version"
 fi
 EOF
   fi
