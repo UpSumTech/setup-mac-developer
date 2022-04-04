@@ -19,10 +19,6 @@ install_pip_utils() {
     neovim \
     sexpdata \
     websocket-client
-
-  python3 -m pip --trusted-host pypi.python.org install \
-    sexpdata \
-    websocket-client
 }
 
 install_ruby_utils() {
@@ -102,7 +98,6 @@ install_go_utils() {
   go install github.com/mdempsky/unconvert@latest
   go install github.com/securego/gosec/cmd/gosec@latest
   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-  go install github.com/alecthomas/gometalinter@latest
   go install github.com/andrebq/gas@latest
   go install honnef.co/go/tools/...@latest
   go install github.com/zmb3/gogetdoc@latest
@@ -126,9 +121,8 @@ install_go_utils() {
   go install mvdan.cc/sh/cmd/shfmt@latest
   go install github.com/fatih/hclfmt@latest
   go install github.com/fatih/motion@latest
-  # This is needed so that ruby bundle still keeps working
-  # [[ -f $HOME/go/1.12beta1/bin/bundle ]] && mv $HOME/go/1.12beta1/bin/bundle $HOME/go/1.12beta1/bin/gobundle
-
+  go install github.com/golang/protobuf/proto@latest
+  go install github.com/golang/protobuf/protoc-gen-go@latest
   goenv rehash
 }
 

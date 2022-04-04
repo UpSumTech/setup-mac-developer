@@ -42,8 +42,28 @@ start_ssh_agent_and_add_key() {
   __ok
 }
 
+rbenv_install_version() {
+  local ruby_version="$1"
+  rbenv install $ruby_version
+  rbenv shell $ruby_version
+  gem install bundler \
+    rake \
+    thor \
+    fpm \
+    pleaserun \
+    sqlint \
+    mdl \
+    rubocop \
+    rubocop-rails \
+    ruby-lint \
+    coderay \
+    rouge
+  __ok
+}
+
 pyenv_install_version() {
   local python_version="$1"
+  local short_python_version=$(echo "$python_version" | cut -d '.' -f 1,2)
 
   PYENV_CFLAGS="-I$(brew --prefix openssl)/include"
   PYENV_CFLAGS="-I$(brew --prefix zlib)/include $PYENV_CFLAGS"
@@ -68,6 +88,24 @@ pyenv_install_version() {
 
   PYENV_PYTHON_CONFIGURE_OPTS="--enable-shared --enable-unicode=ucs2 --build=aarch64-apple-darwin$(uname -r)"
   env CPPFLAGS="$PYENV_CFLAGS" LDFLAGS="$PYENV_LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"
+
+  pyenv shell $python_version
+  python${short_python_version} -m pip --trusted-host pypi.python.org install doitlive \
+    percol \
+    supervisor \
+    csvkit \
+    shyaml \
+    pylint \
+    yq \
+    pep8 \
+    pycodestyle \
+    pylama \
+    pyflakes \
+    yamllint \
+    neovim \
+    sexpdata \
+    websocket-client
+
   __ok
 }
 
@@ -97,7 +135,6 @@ goenv_install_version() {
   go install github.com/mdempsky/unconvert@latest
   go install github.com/securego/gosec/cmd/gosec@latest
   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-  go install github.com/alecthomas/gometalinter@latest
   go install github.com/andrebq/gas@latest
   go install honnef.co/go/tools/...@latest
   go install github.com/zmb3/gogetdoc@latest
@@ -123,12 +160,8 @@ goenv_install_version() {
   go install github.com/fatih/motion@latest
   go install github.com/golang/protobuf/proto@latest
   go install github.com/golang/protobuf/protoc-gen-go@latest
-  # go install golang.org/x/tools/gotags@latest - This one didnt work with 1.14.0
-
-  # This is needed so that ruby bundle still keeps working
-  [[ -f $HOME/go/$version/bin/bundle ]] && mv $HOME/go/$version/bin/bundle $HOME/go/$version/bin/gobundle
-
   goenv rehash
+  __ok
 }
 
 go_build() {
