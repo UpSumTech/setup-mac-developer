@@ -27,6 +27,7 @@ export IRC_CLIENT='irssi'
 export SCM_CHECK=true
 export DEFAULT_TERRAFORM_VERSION="1.1.7"
 export DEFAULT_TERRAGRUNT_VERSION="0.36.0"
+export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
 
 
@@ -115,7 +116,9 @@ fi
 
 export PATH="$HOME/bin:$PATH"
 
-
+if command -v m1-terraform-provider-helper >/dev/null 2>&1; then
+  m1-terraform-provider-helper activate
+fi
 
 
 

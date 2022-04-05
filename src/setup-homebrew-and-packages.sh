@@ -209,6 +209,7 @@ install_packages_from_brew() {
   brew install nginx passenger
   brew install --HEAD universal-ctags
   brew install luajit --HEAD # This does not seem to be installing properly on mac ARM M1 by default. Hence this workaround.
+  brew install kreuzwerker/taps/m1-terraform-provider-helper # This is a helper for installing terraform modules for apple m1 mac
 }
 
 post_brew_package_installation() {

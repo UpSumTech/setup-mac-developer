@@ -11,6 +11,8 @@ install_terraform_versions() {
 
 main() {
   install_terraform_versions
+  export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+  mkdir -p "$TF_PLUGIN_CACHE_DIR"
   . $HOME/.bash_profile && tfenv use 1.1.7
 }
 
