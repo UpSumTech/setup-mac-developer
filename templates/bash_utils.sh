@@ -42,6 +42,48 @@ start_ssh_agent_and_add_key() {
   __ok
 }
 
+nvm_install_version() {
+  local node_version="$1"
+  nvm install $node_version
+  nvm use $node_version && npm install -g how2 \
+    cpy-cli \
+    trash-cli \
+    empty-trash-cli \
+    strip-json-comments-cli \
+    doctoc \
+    gistup \
+    pretty-bytes-cli \
+    normalize-newline-cli \
+    speed-test \
+    weather-cli \
+    strip-css-comments-cli \
+    localtunnel \
+    json2csv \
+    xml2json-command \
+    json2yaml \
+    js-beautify \
+    jsonlint \
+    jshint \
+    js-yaml \
+    iplocation-cli \
+    eslint \
+    babel-eslint \
+    @babel/eslint-parser \
+    prettier \
+    eslint-config-prettier \
+    eslint-plugin-prettier \
+    eslint-plugin-flowtype \
+    eslint-plugin-react \
+    stylelint \
+    stylelint-scss \
+    stylelint-processor-styled-components \
+    stylelint-config-styled-components \
+    stylelint-config-recommended-scss \
+    stylelint-config-recommended \
+    tldr
+  __ok
+}
+
 rbenv_install_version() {
   local ruby_version="$1"
   rbenv install $ruby_version
@@ -181,29 +223,6 @@ tfenv_install_version() {
   TFENV_ARCH=$(uname -m) tfenv install "$version"
 }
 
-start_minikube() {
-  (minikube status | grep -i "running" || (minikube start)) &
-  wait
-  eval "$(minikube docker-env)"
-  __ok
-}
-
-stop_minikube() {
-  (minikube status | grep -i "running" && (minikube stop)) &
-  wait
-  unset ${!DOCKER_*}
-  __ok
-}
-
-is_minikube_running() {
-  minikube status | grep -i "running" >/dev/null 2>&1
-}
-
-switch_to_minikube() {
-  start_minikube
-  __ok
-}
-
 login_dockerhub() {
   [[ ! -z "$DOCKERHUB_USERNAME" && ! -z "$DOCKERHUB_PASSWORD" ]] \
     || __err "dockerhub creds have not been exported to the shell"
@@ -227,26 +246,6 @@ rm_stopped_docker_containers() {
 
 rm_intermediate_docker_images() {
   docker images | grep '<none>' | awk '{print $3}' | xargs -n 1 -I % docker rmi -f %
-  __ok
-}
-
-kube_set_creds_for_user() {
-  local user="$1"
-  __check_kubectl
-  kubectl config set-credentials "$user" \
-    --certificate-authority="$KUBE_CERTS_DIR/ca.pem" \
-    --client-key="$KUBE_CERTS_DIR/key.pem" \
-    --client-certificate="$KUBE_CERTS_DIR/cert.pem"
-  __ok
-}
-
-kube_set_cluster() {
-  local cluster="$1"
-  local server="$2"
-  __check_kubectl
-  kubectl config set-cluster "$cluster" \
-    --server="$server" \
-    --certificate-authority="$KUBE_CERTS_DIR/ca.pem"
   __ok
 }
 

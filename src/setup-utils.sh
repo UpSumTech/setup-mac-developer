@@ -127,11 +127,6 @@ install_go_utils() {
 }
 
 install_other_utils() {
-  git clone https://github.com/kilna/kopsenv.git $HOME/.kopsenv
-  chmod +x $HOME/.kopsenv/bin/*
-  chmod +x $HOME/.kopsenv/libexec/*
-  echo '1.23.0' > $HOME/.kops-version
-  . $HOME/.bash_profile && kopsenv install
   wget https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.40.1/ytt-darwin-$(arch)
   chmod +x ytt-darwin-$(arch)
   mv ytt-darwin-$(arch) $HOME/bin/ytt

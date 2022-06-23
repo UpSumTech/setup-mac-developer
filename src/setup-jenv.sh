@@ -12,7 +12,7 @@ enable_jenv_plugins() {
   jenv sh-enable-plugin maven
   jenv sh-enable-plugin ant
   jenv sh-enable-plugin export
-  jenv global 11.0
+  jenv global 18.0
 }
 
 main() {

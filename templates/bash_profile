@@ -25,9 +25,11 @@ export BASH_IT_THEME='bobby'
 unset MAILCHECK
 export IRC_CLIENT='irssi'
 export SCM_CHECK=true
-export DEFAULT_TERRAFORM_VERSION="1.1.7"
+export DEFAULT_TERRAFORM_VERSION="1.2.2"
 export DEFAULT_TERRAGRUNT_VERSION="0.36.0"
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+export KHELM_TRUST_ANY_REPO=true
+export XDG_CONFIG_HOME="$HOME/.config"
 
 
 
@@ -94,10 +96,6 @@ if command -v tgenv >/dev/null 2>&1; then
   tgenv use "$DEFAULT_TERRAGRUNT_VERSION"
 fi
 
-if [[ -d "$HOME/.kopsenv" ]]; then
-  export PATH="$HOME/.kopsenv/bin:$PATH"
-fi
-
 if [[ -d "$HOME/var/data/postgres" ]]; then
   export PGDATA="$HOME/var/data/postgres"
 fi
@@ -111,7 +109,7 @@ if [[ -d $HOME/.cargo ]]; then
 fi
 
 if [[ -d $HOME/.krew ]]; then
-  export PATH="$HOME/.krew/bin:$PATH"
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
 export PATH="$HOME/bin:$PATH"
@@ -160,18 +158,10 @@ if [[ -f "$HOME/.ark-completion" ]]; then
   . "$HOME/.ark-completion"
 fi
 
-# kops completion functionality
-if command -v kops >/dev/null 2>&1 && test ! -f "$HOME/.kops-completion"; then
-  kops completion bash > $HOME/.kops-completion
-fi
-if [[ -f "$HOME/.kops-completion" ]]; then
-  . "$HOME/.kops-completion"
-fi
 
 
 
 ####################################### ALIASES #######################################
-alias todo='todo.sh'
 
 
 
@@ -188,3 +178,4 @@ fi
 if [[ -f ~/.bash_utils.sh ]]; then
   . "$HOME/.bash_utils.sh"
 fi
+

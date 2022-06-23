@@ -39,7 +39,6 @@ create_custom_files() {
   touch $HOME/.bash_it/custom/aliases.bash
   touch $HOME/.bash_it/custom/utils.bash
   cp $ROOT_DIR/templates/bash_utils.sh $HOME/.bash_utils.sh
-  cp $ROOT_DIR/templates/activate_profile.sh $HOME/.activate_profile.sh
 }
 
 enable_bash_it_completions() {
@@ -47,7 +46,6 @@ enable_bash_it_completions() {
     awscli \
     brew \
     bundler \
-    capistrano \
     defaults \
     dirs \
     django \
@@ -55,7 +53,6 @@ enable_bash_it_completions() {
     git \
     grunt \
     gulp \
-    jboss7 \
     maven \
     npm \
     packer \
@@ -65,12 +62,7 @@ enable_bash_it_completions() {
     ssh \
     terraform \
     vault \
-    test_kitchen \
-    salt \
     tmux \
-    vagrant \
-    virtualbox \
-    rake \
     docker
 }
 
@@ -81,10 +73,8 @@ enable_bash_it_plugins() {
     extract \
     java \
     javascript \
-    nginx \
     node \
     osx \
-    projects \
     python \
     ssh \
     tmux \
@@ -103,15 +93,12 @@ enable_bash_it_aliases() {
     bundler \
     docker \
     git \
-    heroku \
     homebrew \
     homebrew-cask \
     maven \
     npm \
     osx \
-    rails \
     tmux \
-    vagrant \
     vim \
     emacs \
     docker \
@@ -129,7 +116,7 @@ restore_bash_profile() {
 }
 
 main() {
-  change_shell
+  # change_shell
   preserve_bash_profile
   install_bashit
   add_composure
