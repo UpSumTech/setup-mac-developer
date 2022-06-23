@@ -308,6 +308,16 @@ terraform_check() {
   docker run -t -v $(pwd):/tf bridgecrew/checkov -d /tf
 }
 
+kubectl_get_all_in_ns() {
+  kubectl api-resources --verbs=list --namespaced -o name \
+    | xargs -n 1 kubectl get --show-kind --ignore-not-found
+  __ok
+}
+
+docker_img_sha() {
+  docker inspect --format='{{index .RepoDigests 0}}' "$1"
+}
+
 sync_history() {
   local current_time=$(date +%s)
   if [[ -z $HISTLASTSYNCED \

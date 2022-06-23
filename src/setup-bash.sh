@@ -116,7 +116,7 @@ restore_bash_profile() {
 }
 
 main() {
-  # change_shell
+  change_shell # NOTE : You might want to do this part manually in some work machines if needed
   preserve_bash_profile
   install_bashit
   add_composure
