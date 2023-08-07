@@ -31,15 +31,9 @@ setup_brew_taps() {
   brew tap homebrew\/cask-versions
   brew tap homebrew\/services
   brew tap homebrew\/cask-fonts
-  brew tap brona\/iproute2mac
   brew tap universal-ctags\/universal-ctags
-  brew tap discoteq\/discoteq
-  brew tap msoap\/tools
-  brew tap pivotal\/tap
   brew tap wata727\/tflint
   brew tap mike-engel\/jwt-cli
-  brew tap adoptopenjdk\/openjdk
-  brew tap filippo.io\/age https:\/\/filippo.io\/age
   brew tap mongodb\/brew
   brew tap ktr0731\/evans
   brew tap spring-io\/tap
@@ -52,25 +46,15 @@ install_apps_from_cask() {
   # This might cause some pain to test out configuration using vagrant.
   # TODO : Add the link to address the issue with vagrant and arm m1 chip
   brew install java
-  brew install adoptopenjdk\/openjdk\/adoptopenjdk8
-  brew install adoptopenjdk9
-  brew install adoptopenjdk10
-  brew install adoptopenjdk11
-  brew install adoptopenjdk12
-  brew install atom
-  brew install vagrant
+  brew install --cask temurin8
+  brew install --cask temurin11
+  brew install --cask temurin17
+  brew install --cask temurin
   brew install tcl-tk
   brew install font-inconsolata
   brew install docker
-  brew install minikube
-  brew install caffeine
-  brew install macfuse
-  brew install intellij-idea-ce
-  brew install eva
-  brew install brave-browser
-  brew install google-chrome
-  brew install slack
   brew install iterm2
+  brew tap weaveworks/tap
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
@@ -116,9 +100,7 @@ install_packages_from_brew() {
   brew install mytop
   brew install pg_top
   brew install dnstop
-  brew install passenger
   brew install iftop
-  brew install imagemagick
   brew install ag
   brew install ack
   brew install diff-so-fancy
@@ -138,9 +120,6 @@ install_packages_from_brew() {
   brew install pyenv-virtualenv
   brew install nvm
   brew install awscli
-  brew install tcptrace
-  brew install iproute2mac
-  brew install mtr
   brew install jq
   brew install mycli
   brew install pgcli
@@ -151,22 +130,12 @@ install_packages_from_brew() {
   brew install container-diff
   brew install kubectl
   brew install kubectx
-  brew install kops
-  brew install spark
   brew install bash-completion@2
   brew install git-quick-stats
-  brew install flock
   brew install ipcalc
-  brew install nmap
-  brew install iftop
   brew install nethogs
-  brew install vnstat
   brew install multitail
-  brew install modd
-  brew install shell2http
-  brew install vegeta
   brew install spring-boot
-  brew install magic-wormhole
   brew install scala
   brew install tfenv
   brew install tflint
@@ -190,28 +159,26 @@ install_packages_from_brew() {
   brew install aspell
   brew install telnet
   brew install groovysdk
-  brew install age
-  brew install ffsend
   brew install mongodb-community-shell
   brew install graphviz
-  brew install todo-txt
   brew install protobuf
-  brew install mailhog
   brew install istioctl
   brew install checkov
   brew install kubeconform
   brew tap johanhaleby/kubetail && brew install kubetail
-  brew install mas # This is useful for installing apps from the app store
   brew install grep
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
   brew install --HEAD goenv
   brew install curl
-  brew install nginx passenger
   brew install --HEAD universal-ctags
   brew install luajit --HEAD # This does not seem to be installing properly on mac ARM M1 by default. Hence this workaround.
   brew install kreuzwerker/taps/m1-terraform-provider-helper # This is a helper for installing terraform modules for apple m1 mac
-  brew tap weaveworks/tap
   brew install weaveworks/tap/eksctl
+  brew install sops
+  brew install argocd
+  brew install font-inconsolata-for-powerline
+  brew install font-powerline-symbols
+  brew install git-gui
 }
 
 post_brew_package_installation() {
@@ -221,21 +188,6 @@ post_brew_package_installation() {
     git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
   fi
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
-  mkdir -p $HOME/.puppetlabs/wash
-  cp "$ROOT_DIR/templates/wash_analytics.yml" "$HOME/.puppetlabs/wash/analytics.yml"
-  cp "$ROOT_DIR/templates/wash.yml" "$HOME/.puppetlabs/wash/wash.yml"
-  mkdir -p $HOME/.todo
-  cp "$ROOT_DIR/templates/todo.cfg" "$HOME/.todo/config"
-  if [[ -d /opt/homebrew ]]; then
-    git -C /opt/homebrew/Library/Taps/homebrew/homebrew-core fetch
-    git -C /opt/homebrew/Library/Taps/homebrew/homebrew-cask fetch
-  else
-    git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch
-    git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch
-  fi
-  brew update
-  brew cleanup
-  brew doctor
 }
 
 main() {

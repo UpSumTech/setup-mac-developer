@@ -21,10 +21,13 @@ export HISTSIZE=50000
 export HISTFILESIZE=$HISTSIZE
 shopt -s histappend
 export BASH_IT="$HOME/.bash_it"
-export BASH_IT_THEME='bobby'
+export BASH_IT_THEME='powerline'
 unset MAILCHECK
 export IRC_CLIENT='irssi'
 export SCM_CHECK=true
+export THEME_SHOW_CLOCK_CHAR=false
+export POWERLINE_PROMPT="user_info scm aws_profile k8s_context k8s_namespace cwd"
+export POWERLINE_COMPACT=1
 export DEFAULT_TERRAFORM_VERSION="1.2.2"
 export DEFAULT_TERRAGRUNT_VERSION="0.36.0"
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
