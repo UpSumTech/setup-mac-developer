@@ -179,6 +179,7 @@ install_packages_from_brew() {
   brew install font-inconsolata-for-powerline
   brew install font-powerline-symbols
   brew install git-gui
+  brew install pulumi/tap/pulumi
 }
 
 post_brew_package_installation() {
