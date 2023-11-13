@@ -52,7 +52,6 @@ install_apps_from_cask() {
   brew install --cask temurin
   brew install tcl-tk
   brew install font-inconsolata
-  brew install docker
   brew install iterm2
   brew tap weaveworks/tap
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
@@ -180,6 +179,8 @@ install_packages_from_brew() {
   brew install font-powerline-symbols
   brew install git-gui
   brew install pulumi/tap/pulumi
+  brew install kubebuilder
+  brew install naml
 }
 
 post_brew_package_installation() {
