@@ -15,7 +15,6 @@ main() {
   ./src/setup-pyenv.sh
   ./src/setup-rbenv.sh
   ./src/setup-nvm.sh
-  ./src/setup-jenv.sh
   ./src/setup-goenv.sh
   ./src/setup-rustup.sh
   ./src/setup-tfenv.sh
@@ -29,6 +28,7 @@ main() {
   ./src/setup-kubectl.sh
   ./src/setup-config-files.sh
   ./src/update-mac-limits.sh
+  ./src/setup-podman.sh
 
   echo ">>>>>> Things still need to be done <<<<<<<
   1. Open iTerm2. Goto Preferences > Profile > Default > Color > Load presets

@@ -2,30 +2,8 @@
 
 pyenv_install_python() {
   local python_version="$1"
-
-  PYENV_CFLAGS="-I$(brew --prefix openssl)/include"
-  PYENV_CFLAGS="-I$(brew --prefix zlib)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(brew --prefix readline)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(brew --prefix sqlite)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(brew --prefix curl)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(brew --prefix bzip2)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(brew --prefix tcl-tk)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(brew --prefix mysql@5.7)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(brew --prefix postgresql@10)/include $PYENV_CFLAGS"
-  PYENV_CFLAGS="-I$(xcrun --show-sdk-path)/usr/include $PYENV_CFLAGS"
-
-  PYENV_LDFLAGS="-L$(brew --prefix openssl)/lib"
-  PYENV_LDFLAGS="-L$(brew --prefix zlib)/lib $PYENV_LDFLAGS"
-  PYENV_LDFLAGS="-L$(brew --prefix readline)/lib $PYENV_LDFLAGS"
-  PYENV_LDFLAGS="-L$(brew --prefix sqlite)/lib $PYENV_LDFLAGS"
-  PYENV_LDFLAGS="-L$(brew --prefix curl)/lib $PYENV_LDFLAGS"
-  PYENV_LDFLAGS="-L$(brew --prefix bzip2)/lib $PYENV_LDFLAGS"
-  PYENV_LDFLAGS="-L$(brew --prefix tcl-tk)/lib $PYENV_LDFLAGS"
-  PYENV_LDFLAGS="-L$(brew --prefix mysql@5.7)/lib $PYENV_LDFLAGS"
-  PYENV_LDFLAGS="-L$(brew --prefix postgresql@10)/lib $PYENV_LDFLAGS"
-
   PYENV_PYTHON_CONFIGURE_OPTS="--enable-shared --enable-unicode=ucs2 --build=aarch64-apple-darwin$(uname -r)"
-  env CPPFLAGS="$PYENV_CFLAGS" LDFLAGS="$PYENV_LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"
+  env CPPFLAGS="$CPPFLAGS" LDFLAGS="$LDFLAGS" PYTHON_CONFIGURE_OPTS="$PYENV_PYTHON_CONFIGURE_OPTS" pyenv install -fk "$python_version"
 }
 
 install_pythons() {
@@ -46,8 +24,8 @@ main() {
   pushd .
   mkdir -p $HOME/lib
   cd $HOME/lib
-  ln -s $HOME/.pyenv/versions/2.7.18/lib/libpython2.7.dylib
-  ln -s $HOME/.pyenv/versions/3.10.3/lib/libpython3.10.dylib
+  ln -sf $HOME/.pyenv/versions/2.7.18/lib/libpython2.7.dylib
+  ln -sf $HOME/.pyenv/versions/3.10.3/lib/libpython3.10.dylib
   popd
 }
 

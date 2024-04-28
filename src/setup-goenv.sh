@@ -2,7 +2,7 @@
 
 install_golangs() {
   local go_version
-  local arr=( '1.20.2' )
+  local arr=( '1.22.1' )
   for go_version in "${arr[@]}"; do
     . "$HOME/.bash_profile" && goenv install "$go_version"
   done
@@ -10,7 +10,7 @@ install_golangs() {
 
 main() {
   install_golangs
-  . $HOME/.bash_profile && goenv global 1.20.2
+  . $HOME/.bash_profile && goenv global 1.22.1
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

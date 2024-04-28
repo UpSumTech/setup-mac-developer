@@ -45,25 +45,11 @@ enable_bash_it_completions() {
   . "$HOME/.bash_it/bash_it.sh" && bash-it enable completion \
     awscli \
     brew \
-    bundler \
     defaults \
     dirs \
-    django \
-    gem \
     git \
-    grunt \
-    gulp \
-    maven \
-    npm \
-    packer \
-    pip \
-    pip3 \
-    packer \
     ssh \
-    terraform \
-    vault \
-    tmux \
-    docker
+    tmux
 }
 
 enable_bash_it_plugins() {
@@ -71,44 +57,17 @@ enable_bash_it_plugins() {
     aws \
     dirs \
     extract \
-    java \
-    javascript \
-    node \
     osx \
-    python \
     ssh \
     tmux \
     man \
     fzf \
-    postgres \
-    explain \
-    browser \
-    docker
-}
-
-enable_bash_it_aliases() {
-  . "$HOME/.bash_it/bash_it.sh" && bash-it enable alias \
-    ag \
-    ansible \
-    bundler \
-    docker \
-    git \
-    homebrew \
-    homebrew-cask \
-    maven \
-    npm \
-    osx \
-    tmux \
-    vim \
-    emacs \
-    docker \
-    docker-compose
+    explain
 }
 
 setup_bashit() {
   enable_bash_it_completions
   enable_bash_it_plugins
-  enable_bash_it_aliases
 }
 
 restore_bash_profile() {

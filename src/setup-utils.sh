@@ -39,17 +39,10 @@ install_ruby_utils() {
 install_node_utils() {
   npm install -g how2 \
     cpy-cli \
-    trash-cli \
-    empty-trash-cli \
     strip-json-comments-cli \
-    doctoc \
-    gistup \
     pretty-bytes-cli \
     normalize-newline-cli \
-    speed-test \
-    weather-cli \
     strip-css-comments-cli \
-    localtunnel \
     json2csv \
     xml2json-command \
     json2yaml \
@@ -90,7 +83,6 @@ install_go_utils() {
   go install mvdan.cc/unparam@latest
   go install github.com/stripe/safesql@latest
   go install github.com/alexkohler/nakedret@latest
-  go install github.com/alecthomas/gometalinter@latest
   go install github.com/nsf/gocode@latest
   go install github.com/gordonklaus/ineffassign@latest
   go install github.com/tsenart/deadcode@latest
@@ -116,7 +108,6 @@ install_go_utils() {
   go install golang.org/x/tools/cmd/guru@latest
   go install golang.org/x/tools/cmd/goimports@latest
   go install golang.org/x/tools/gopls@latest
-  go install github.com/motemen/gore/cmd/gore@latest
   go install golang.org/x/tools/cmd/godoc@latest
   go install mvdan.cc/sh/cmd/shfmt@latest
   go install github.com/fatih/hclfmt@latest
@@ -130,8 +121,6 @@ install_other_utils() {
   wget https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.40.1/ytt-darwin-$(arch)
   chmod +x ytt-darwin-$(arch)
   mv ytt-darwin-$(arch) $HOME/bin/ytt
-  # TODO : Checkback for wash later. Right now there is no binary for arm64 (ie Mac M1)
-  # brew install puppetlabs/puppet/wash
 }
 
 install_cheat() {

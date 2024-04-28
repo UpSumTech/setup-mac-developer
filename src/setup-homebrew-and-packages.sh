@@ -45,15 +45,11 @@ install_apps_from_cask() {
   # You need a fullon emulator like qemu
   # This might cause some pain to test out configuration using vagrant.
   # TODO : Add the link to address the issue with vagrant and arm m1 chip
-  brew install java
-  brew install --cask temurin8
-  brew install --cask temurin11
-  brew install --cask temurin17
-  brew install --cask temurin
+  brew install openjdk@17
+  sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
   brew install tcl-tk
   brew install font-inconsolata
   brew install iterm2
-  brew tap weaveworks/tap
   echo "You might need to enable a few apps in >> System Preferences → Security & Privacy → General"
 }
 
@@ -73,8 +69,10 @@ install_packages_from_brew() {
   brew install ngrep
   brew install tree
   brew install pstree
+  brew install glib
   brew install moreutils
   brew install cmake
+  brew install cmake-docs
   brew install tmux
   brew install readline
   brew install openssl
@@ -88,15 +86,14 @@ install_packages_from_brew() {
   brew install ruby
   brew install node
   brew install golang
-  brew install mysql@5.7
-  brew install postgresql@10
+  brew install mysql
+  brew install postgresql@15
   brew install redis
   brew install rabbitmq
   brew install ncurses
   brew install autoconf
   brew install automake
   brew install libtool
-  brew install mytop
   brew install pg_top
   brew install dnstop
   brew install iftop
@@ -114,7 +111,6 @@ install_packages_from_brew() {
   brew install bash
   brew install autoenv
   brew install rbenv
-  brew install jenv
   brew install pyenv
   brew install pyenv-virtualenv
   brew install nvm
@@ -125,22 +121,26 @@ install_packages_from_brew() {
   brew install krb5
   brew install ansible
   brew install fio
-  brew install docker
+  brew install podman # NOTE: This is the alternative for docker
+  brew install kind
   brew install container-diff
   brew install kubectl
   brew install kubectx
   brew install bash-completion@2
+  brew install yarn-completion
+  brew install ruby-completion
+  brew install rake-completion
   brew install git-quick-stats
   brew install ipcalc
   brew install nethogs
   brew install multitail
   brew install spring-boot
   brew install scala
+  brew install sbt
   brew install tfenv
   brew install tflint
   brew install tgenv
   brew install pkenv
-  brew install packer-completion
   brew install flyway
   brew install pipenv
   brew install shellcheck
@@ -158,21 +158,21 @@ install_packages_from_brew() {
   brew install aspell
   brew install telnet
   brew install groovysdk
-  brew install mongodb-community-shell
+  brew install mongosh
   brew install graphviz
-  brew install protobuf
+  brew install protobuf@21
   brew install istioctl
   brew install checkov
   brew install kubeconform
   brew tap johanhaleby/kubetail && brew install kubetail
   brew install grep
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
-  brew install --HEAD goenv
+  brew install goenv
   brew install curl
-  brew install --HEAD universal-ctags
-  brew install luajit --HEAD # This does not seem to be installing properly on mac ARM M1 by default. Hence this workaround.
+  brew install universal-ctags
+  brew install luajit
   brew install kreuzwerker/taps/m1-terraform-provider-helper # This is a helper for installing terraform modules for apple m1 mac
-  brew install weaveworks/tap/eksctl
+  brew install eksctl
   brew install sops
   brew install argocd
   brew install font-inconsolata-for-powerline
@@ -184,12 +184,14 @@ install_packages_from_brew() {
 }
 
 post_brew_package_installation() {
-  [[ -x $(brew --prefix)/bin/nvm ]] || ln -s "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
+  [[ -x $(brew --prefix)/bin/nvm ]] || ln -sf "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
   mkdir -p $HOME/.nvm
   if [[ ! -d $HOME/.pyenv/plugins/pyenv-implict ]]; then
     git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
   fi
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
+  brew cleanup
+  brew services stop --all
 }
 
 main() {
