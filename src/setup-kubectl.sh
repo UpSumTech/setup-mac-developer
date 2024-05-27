@@ -17,6 +17,7 @@ install_plugins_with_krew() {
   kubectl krew install access-matrix \
     pod-logs \
     node-shell \
+    cert-manager \
     who-can
 }
 
