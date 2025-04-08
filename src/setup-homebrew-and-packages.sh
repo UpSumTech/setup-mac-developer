@@ -124,8 +124,7 @@ install_packages_from_brew() {
   brew install podman # NOTE: This is the alternative for docker
   brew install kind
   brew install container-diff
-  brew install kubectl
-  brew install kubectx
+  brew install kubernetes-cli
   brew install bash-completion@2
   brew install yarn-completion
   brew install ruby-completion
