@@ -8,9 +8,9 @@ install_rustup() {
   if cat "$HOME/.bash_profile" | tail -n 1 | grep -i cargo; then
     head -n -1 "$HOME/.bash_profile" | sponge "$HOME/.bash_profile"
   fi
-  . $HOME/.bash_profile
+  . "$HOME/.bashrc"
   . "$HOME/.cargo/env"
-  rustup completions bash > $(brew --prefix)/etc/bash_completion.d/rustup.bash-completion
+  rustup completions bash > "$(brew --prefix)/etc/bash_completion.d/rustup.bash-completion"
   rustup component add rust-src # Add component for rust-src because you will need it in the LSP for vim that rust uses
 }
 

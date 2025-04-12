@@ -28,16 +28,16 @@ prep_homebrew() {
 }
 
 setup_brew_taps() {
-  brew tap homebrew\/cask-versions
-  brew tap homebrew\/services
-  brew tap homebrew\/cask-fonts
-  brew tap universal-ctags\/universal-ctags
-  brew tap wata727\/tflint
-  brew tap mike-engel\/jwt-cli
-  brew tap mongodb\/brew
-  brew tap ktr0731\/evans
-  brew tap spring-io\/tap
-  brew tap kwilczynski\/homebrew-pkenv
+  brew tap homebrew/cask-versions
+  brew tap homebrew/services
+  brew tap homebrew/cask-fonts
+  brew tap universal-ctags/universal-ctags
+  brew tap wata727/tflint
+  brew tap mike-engel/jwt-cli
+  brew tap mongodb/brew
+  brew tap ktr0731/evans
+  brew tap spring-io/tap
+  brew tap kwilczynski/homebrew-pkenv
 }
 
 install_apps_from_cask() {
@@ -63,6 +63,7 @@ install_packages_from_brew() {
   brew install gnu-sed
   brew install gawk
   brew install gnutls
+  brew install texinfo
   brew install gnu-indent
   brew install gnu-getopt
   brew install pgrep
@@ -77,11 +78,13 @@ install_packages_from_brew() {
   brew install readline
   brew install openssl
   brew install git
+  brew install git-gui
   brew install git-extras
   brew install git-secrets
   brew install mercurial
   brew install zlib
   brew install bzip2
+  brew install bison
   brew install python
   brew install ruby
   brew install node
@@ -107,7 +110,8 @@ install_packages_from_brew() {
   brew install maven-completion
   brew install tig
   brew install python3
-  brew install lua@5.1
+  brew install lua
+  brew install luarocks
   brew install bash
   brew install autoenv
   brew install rbenv
@@ -123,7 +127,6 @@ install_packages_from_brew() {
   brew install fio
   brew install podman # NOTE: This is the alternative for docker
   brew install kind
-  brew install container-diff
   brew install kubernetes-cli
   brew install bash-completion@2
   brew install yarn-completion
@@ -151,7 +154,6 @@ install_packages_from_brew() {
   brew install fzf
   brew install highlight
   brew install cscope
-  brew install luarocks
   brew install tmux-xpanes
   brew install jwt-cli
   brew install aspell
@@ -168,30 +170,32 @@ install_packages_from_brew() {
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
   brew install goenv
   brew install curl
-  brew install universal-ctags
-  brew install luajit
   brew install kreuzwerker/taps/m1-terraform-provider-helper # This is a helper for installing terraform modules for apple m1 mac
   brew install eksctl
   brew install sops
   brew install argocd
   brew install font-inconsolata-for-powerline
   brew install font-powerline-symbols
-  brew install git-gui
   brew install pulumi/tap/pulumi
   brew install kubebuilder
   brew install naml
   brew install cloudflared
-  brew install cilium
+  brew install cilium-cli
   brew install hubble
+  brew install universal-ctags
+  brew install luajit
+  brew install ytt
+  brew install kustomize
 }
 
 post_brew_package_installation() {
   [[ -x $(brew --prefix)/bin/nvm ]] || ln -sf "$(brew --prefix)/opt/nvm" "$(brew --prefix)/bin/nvm"
-  mkdir -p $HOME/.nvm
-  if [[ ! -d $HOME/.pyenv/plugins/pyenv-implict ]]; then
-    git clone https://github.com/concordusapps/pyenv-implict.git $HOME/.pyenv/plugins/pyenv-implict
+  mkdir -p "$HOME/.nvm"
+  if [[ ! -d "$HOME/.pyenv/plugins/pyenv-implict" ]]; then
+    git clone https://github.com/concordusapps/pyenv-implict.git "$HOME/.pyenv/plugins/pyenv-implict"
   fi
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
+  cp "$ROOT_DIR/templates/bashrc" "$HOME/.bashrc"
   brew cleanup
   brew services stop --all
 }

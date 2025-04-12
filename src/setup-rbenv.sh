@@ -2,17 +2,16 @@
 
 install_rubies() {
   local ruby_version
-  local arr=('2.7.8' \
-    '3.3.1' \
-  )
+  local arr=( '3.4.2' )
+  . "$HOME/.bashrc"
   for ruby_version in "${arr[@]}"; do
-    rbenv install "$ruby_version"
+    rbenv install -f "$ruby_version"
   done
 }
 
 main() {
   install_rubies
-  . $HOME/.bash_profile && rbenv global 3.3.1 && rbenv rehash
+  . "$HOME/.bashrc" && rbenv global 3.4.2 && rbenv rehash
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

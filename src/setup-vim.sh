@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-THIS_DIR="$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)"
-ROOT_DIR="$THIS_DIR/.."
 VIM_SRC_DIR="$(mktemp -d "${TMPDIR}vim_src.XXXX")"
 PYTHON_VERSION="2.7.18"
-PYTHON3_VERSION="3.10.3"
+PYTHON3_VERSION="3.13.3"
 PYTHON_VERSION_SHORT="2.7"
-PYTHON3_VERSION_SHORT="3.10"
-trap "rm -rf "$VIM_SRC_DIR"" EXIT
+PYTHON3_VERSION_SHORT="3.13"
+trap 'rm -rf $VIM_SRC_DIR' EXIT
 
 export PID="$$" # Get parent pid so that you can kill the main proc from subshells
 die() {
@@ -37,53 +35,62 @@ get_vim() {
 }
 
 build_vim_from_src() {
-  . "$HOME/.bash_profile"
+  . "$HOME/.bashrc"
+  local py_config
+  local py3_config
+  local py3_prefix
+  local ruby_command
   pyenv local "$PYTHON_VERSION" "$PYTHON3_VERSION"
-  local py_config="$(pyenv prefix $PYTHON_VERSION/lib/python2.7/config)"
-  local py3_prefix="$(pyenv prefix $PYTHON3_VERSION)"
-  local py3_config="$(${py3_prefix}/bin/python-config --configdir)"
+  py_config="$(pyenv prefix $PYTHON_VERSION/lib/python2.7/config)"
+  py3_prefix="$(pyenv prefix $PYTHON3_VERSION)"
+  py3_config="$(${py3_prefix}/bin/python-config --configdir)"
+  ruby_command="$(rbenv which ruby)"
   echo ">>>> PYTHON_CONFIG : $py_config"
   echo ">>>> PYTHON3_CONFIG : $py3_config"
+  echo ">>>> RUBY : $ruby_command"
+  mkdir -p "$HOME/opt/vim"
   cd "$VIM_SRC_DIR/vim"
+  make uninstall PREFIX="$HOME/opt/vim" || echo "no existing vim to uninstall"
   make clean distclean
   ./configure \
-    --with-features=huge \
     --with-local-dir="$(brew --prefix)" \
+    --with-features=huge \
     --enable-multibyte \
     --enable-rubyinterp \
     --enable-largefile \
     --disable-netbeans \
-    --enable-pythoninterp \
+    --enable-pythoninterp=dynamic \
     --with-python-command="python${PYTHON_VERSION_SHORT}" \
     --with-python-config-dir="$py_config" \
     --enable-python3interp=dynamic \
     --with-python3-command="python${PYTHON3_VERSION_SHORT}" \
-    --with-python3-config-dir=$py3_config \
-    --enable-perlinterp \
-    --enable-tclinterp \
-    --enable-luainterp \
-    --with-lua-prefix="$(brew --prefix)" \
-    --with-luajit \
+    --with-python3-config-dir="$py3_config" \
+    --enable-perlinterp=dynamic \
+    --enable-tclinterp=yes \
+    --enable-luainterp=dynamic \
+    --with-lua-prefix="$(brew --prefix lua)" \
     --enable-gui=auto \
     --enable-fail-if-missing \
     --with-tlib=ncurses \
+    --enable-fontset \
     --enable-cscope \
-    --prefix=$HOME
-  make && make install
+    --prefix="$HOME/opt/vim"
+  make
+  make install
   pyenv local --unset
 }
 
 customize_vim() {
-  . "$HOME/.bash_profile"
+  . "$HOME/.bashrc"
   curl -H "Cache-Control: no-cache" -sSL https://raw.githubusercontent.com/sumanmukherjee03/vim_setup/master/bootstrap.sh | bash
-  cd $HOME/.vim
+  cd "$HOME/.vim"
   make
 }
 
 main() {
-  verify_required_python_versions
-  get_vim
-  wrap_around_dir_change build_vim_from_src
+  # verify_required_python_versions
+  # get_vim
+  # wrap_around_dir_change build_vim_from_src
   customize_vim
 }
 

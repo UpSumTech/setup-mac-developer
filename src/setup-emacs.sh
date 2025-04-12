@@ -1,7 +1,7 @@
-# /usr/bin/env bash
+#! /usr/bin/env bash
 
 install_emacs() {
-  . $HOME/.bash_profile
+  . "$HOME/.bashrc"
   brew install emacs
   python3 -m pip install jedi rope flake8 autopep8 yapf black
 }

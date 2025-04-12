@@ -8,24 +8,24 @@ pyenv_install_python() {
 
 install_pythons() {
   local arr=('2.7.18' \
-    '3.10.3' \
+    '3.13.3' \
   )
 
   local python_version
-  . "$HOME/.bash_profile"
+  . "$HOME/.bashrc"
   for python_version in "${arr[@]}"; do
-    pyenv_install_python $python_version
+    pyenv_install_python "$python_version"
   done
 }
 
 main() {
   install_pythons
-  . $HOME/.bash_profile && pyenv global 2.7.18 3.10.3
+  . "$HOME/.bashrc" && pyenv global 2.7.18 3.13.3
   pushd .
-  mkdir -p $HOME/lib
-  cd $HOME/lib
-  ln -sf $HOME/.pyenv/versions/2.7.18/lib/libpython2.7.dylib
-  ln -sf $HOME/.pyenv/versions/3.10.3/lib/libpython3.10.dylib
+  mkdir -p "$HOME/lib"
+  cd "$HOME/lib" || exit 1
+  ln -sf "$HOME/.pyenv/versions/2.7.18/lib/libpython2.7.dylib" libpython2.7.dylib
+  ln -sf "$HOME/.pyenv/versions/3.13.3/lib/libpython3.13.dylib" libpython3.13.dylib
   popd
 }
 

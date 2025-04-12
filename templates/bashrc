@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+
+
+####################################### GLOBAL VARS #######################################
+export DEFAULT_TERRAFORM_VERSION="1.10.2"
+export DEFAULT_TERRAGRUNT_VERSION="0.77.12"
+export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+export KHELM_TRUST_ANY_REPO=true
+export XDG_CONFIG_HOME="$HOME/.config"
+export KIND_EXPERIMENTAL_PROVIDER=podman
+
+
+
+####################################### HOMEBREW #######################################
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
+############################# UPDATE PATH AND LOAD PROGRAMMING LANGUAGE ENVS ###############################
+# Init env specific prog langs and also load it in the paths properly
+PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/grep/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/gawk/libexec/gnubin:$(brew --prefix)/opt/gnu-getopt/bin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/opt/bzip2/bin:$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$(brew --prefix)/opt/ruby/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
+PATH="$(brew --prefix)/opt/libtool/libexec/gnubin:$PATH"
+PATH="$(brew --prefix)/opt/postgresql@15/bin:$PATH"
+PATH="$(brew --prefix)/opt/mysql/bin:$PATH"
+PATH="$(brew --prefix)/opt/tcl-tk/bin:$PATH"
+PATH="$(brew --prefix)/opt/protobuf@21/bin:$PATH"
+PATH="$(brew --prefix)/opt/krb5/bin:$PATH"
+PATH="$(brew --prefix)/opt/krb5/sbin:$PATH"
+export PATH
+
+MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/grep/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman: $(brew --prefix)/opt/gawk/libexec/gnuman:$(brew --prefix)/opt/gnu-getopt/share/man:$(brew --prefix)/opt/sqlite/share/man:$(brew --prefix)/opt/curl/share/man:$(brew --prefix)/opt/bzip2/share/man:$(brew --prefix)/opt/gnu-indent/libexec/gnuman:$(brew --prefix)/opt/ruby/share/man:$MANPATH"
+export MANPATH
+
+LDFLAGS="-L$(brew --prefix)/opt/curl/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/postgresql@15/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/bzip2/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/protobuf@21/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/readline/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/sqlite/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/openssl/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/krb5/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/zlib/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/ruby/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/ncurses/lib $LDFLAGS"
+export LDFLAGS
+
+CPPFLAGS="-I$(brew --prefix)/opt/curl/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/postgresql@15/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/bzip2/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/openjdk@17/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/protobuf@21/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/readline/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/sqlite/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/openssl/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/krb5/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/zlib/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/ruby/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/ncurses/include $CPPFLAGS"
+export CPPFLAGS
+
+PKG_CONFIG_PATH="$(brew --prefix)/opt/curl/lib/pkgconfig"
+PKG_CONFIG_PATH="$(brew --prefix)/opt/postgresql@15/lib/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="$(brew --prefix)/opt/protobuf@21/lib/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="$(brew --prefix)/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH
+
+if [[ -f "$(brew --prefix)/opt/autoenv/activate.sh" ]]; then
+  . "$(brew --prefix)/opt/autoenv/activate.sh"
+fi
+
+if command -v pyenv >/dev/null 2>&1; then
+  export PATH="$HOME/.pyenv/shims:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+fi
+
+if [[ ! -d "$HOME/.nvm" ]]; then
+  mkdir $HOME/.nvm
+fi
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix)/opt/nvm/nvm.sh"
+. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+
+if command -v rbenv >/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+if command -v goenv >/dev/null 2>&1; then
+  eval "$(goenv init -)"
+  export PATH="$HOME/.goenv/shims:$PATH"
+fi
+
+if command -v tfenv >/dev/null 2>&1; then
+  export PATH="$(brew --prefix tfenv)/bin:$PATH"
+  tfenv use "$DEFAULT_TERRAFORM_VERSION"
+fi
+
+if command -v tgenv >/dev/null 2>&1; then
+  export PATH="$(brew --prefix tgenv)/bin:$PATH"
+  tgenv use "$DEFAULT_TERRAGRUNT_VERSION"
+fi
+
+if [[ -d "$HOME/var/data/postgres" ]]; then
+  export PGDATA="$HOME/var/data/postgres"
+fi
+
+if [[ -d $(brew --prefix)/opt/groovysdk/libexec ]]; then
+  export GROOVY_HOME=$(brew --prefix)/opt/groovysdk/libexec
+fi
+
+if [[ -d $HOME/.cargo ]]; then
+  . $HOME/.cargo/env
+fi
+
+if [[ -d $HOME/.krew ]]; then
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+  eval "$(fzf --bash)"
+fi
+
+if command -v m1-terraform-provider-helper >/dev/null 2>&1; then
+  m1-terraform-provider-helper activate
+fi
+
+
+
+####################################### LOCAL PATHS ##################################
+export PATH="$HOME/opt/vim/bin:$HOME/bin:$PATH"
+
+
+
+####################################### ALIASES #######################################
+alias docker=podman
+
+
+
+#################################### LOAD UTILS ###################################
+# source bash_utils
+if [[ -d "$HOME/.secrets" ]]; then
+  for file in $(find "$HOME/.secrets" -type f -name "*.sh"); do
+    . "$file"
+  done
+fi
+if [[ -f "$HOME/.activate_profile.sh" ]]; then
+  . "$HOME/.activate_profile.sh"
+fi
+if [[ -f "$HOME/.bash_utils.sh" ]]; then
+  . "$HOME/.bash_utils.sh"
+fi
+if [[ -f "$HOME/.work_utils.sh" ]]; then
+  . "$HOME/.work_utils.sh"
+fi

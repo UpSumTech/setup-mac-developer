@@ -6,7 +6,7 @@ setup_podman() {
 
 main() {
   setup_podman
-  . $HOME/.bash_profile && podman machine start
+  . "$HOME/.bashrc" && podman machine start
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

@@ -2,11 +2,10 @@
 
 install_kubectl() {
   (
-    set -x; cd "$(mktemp -d)" &&
-    VERSION="v1.30.8"
+    cd "$(mktemp -d)" &&
+    VERSION="v1.30.10" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-    KUBECTL="kubectl" &&
     curl -fsSLO "https://dl.k8s.io/release/${VERSION}/bin/${OS}/${ARCH}/kubectl" &&
     curl -fsSLO "https://dl.k8s.io/release/${VERSION}/bin/${OS}/${ARCH}/kubectl.sha256" &&
     chmod +x kubectl &&
@@ -17,7 +16,7 @@ install_kubectl() {
 
 install_krew_for_kubectl() {
   (
-    set -x; cd "$(mktemp -d)" &&
+    cd "$(mktemp -d)" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     KREW="krew-${OS}_${ARCH}" &&
@@ -28,7 +27,7 @@ install_krew_for_kubectl() {
 }
 
 install_plugins_with_krew() {
-  . $HOME/.bash_profile
+  . "$HOME/.bashrc"
   kubectl krew install access-matrix \
     ctx \
     ns \
@@ -45,51 +44,51 @@ install_plugins_with_krew() {
 
 install_kube_convert() {
   (
-    set -x; cd "$(mktemp -d)" &&
-    VERSION="v1.30.8"
+    cd "$(mktemp -d)" &&
+    VERSION="v1.30.10" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -LO "https://dl.k8s.io/release/${VERSION}/bin/$OS/$ARCH/kubectl-convert" &&
     curl -LO "https://dl.k8s.io/release/${VERSION}/bin/${OS}/${ARCH}/kubectl-convert.sha256" &&
     chmod +x kubectl-convert &&
     echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check &&
-    mv kubectl-convert $HOME/bin/kubectl-convert
+    mv kubectl-convert "$HOME/bin/kubectl-convert"
   )
 }
 
 install_kubent() {
   (
-    set -x; cd "$(mktemp -d)" &&
-    VERSION="0.7.3"
+    cd "$(mktemp -d)" &&
+    VERSION="0.7.3" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -fsSLO "https://github.com/doitintl/kube-no-trouble/releases/download/${VERSION}/kubent-${VERSION}-${OS}-${ARCH}.tar.gz"
     tar zxvf "kubent-${VERSION}-${OS}-${ARCH}.tar.gz" &&
     chmod +x kubent &&
-    mv kubent $HOME/bin/kubent
+    mv kubent "$HOME/bin/kubent"
   )
 }
 
 install_popeye() {
   (
-    set -x; cd "$(mktemp -d)" &&
-    VERSION="v0.21.6"
+    cd "$(mktemp -d)" &&
+    VERSION="v0.21.6" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -fsSLO "https://github.com/derailed/popeye/releases/download/${VERSION}/popeye_${OS}_${ARCH}.tar.gz"
     tar zxvf "popeye_${OS}_${ARCH}.tar.gz" &&
     chmod +x popeye &&
-    mv popeye $HOME/bin/popeye
+    mv popeye "$HOME/bin/popeye"
   )
 }
 
 main() {
-  # install_kubectl
-  # install_krew_for_kubectl
-  # install_plugins_with_krew
-  # install_kubent
+  install_kubectl
+  install_krew_for_kubectl
+  install_plugins_with_krew
+  install_kubent
   install_popeye
-  # install_kube_convert
+  install_kube_convert
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

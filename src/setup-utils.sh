@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
 ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
@@ -38,34 +38,19 @@ install_ruby_utils() {
 
 install_node_utils() {
   npm install -g how2 \
-    cpy-cli \
-    strip-json-comments-cli \
-    pretty-bytes-cli \
-    normalize-newline-cli \
-    strip-css-comments-cli \
-    json2csv \
-    xml2json-command \
-    json2yaml \
     js-beautify \
     jsonlint \
     jshint \
     js-yaml \
     iplocation-cli \
-    eslint \
-    babel-eslint \
-    @babel/eslint-parser \
     prettier \
-    eslint-config-prettier \
-    eslint-plugin-prettier \
-    eslint-plugin-flowtype \
-    eslint-plugin-react \
     stylelint \
     stylelint-scss \
     stylelint-processor-styled-components \
     stylelint-config-styled-components \
     stylelint-config-recommended-scss \
     stylelint-config-recommended \
-    tldr
+    eslint
 }
 
 install_go_utils() {
@@ -114,37 +99,52 @@ install_go_utils() {
   go install github.com/fatih/motion@latest
   go install github.com/golang/protobuf/proto@latest
   go install github.com/golang/protobuf/protoc-gen-go@latest
+  go install golang.org/x/tools/gopls@latest
   goenv rehash
-}
-
-install_other_utils() {
-  wget https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.40.1/ytt-darwin-$(arch)
-  chmod +x ytt-darwin-$(arch)
-  mv ytt-darwin-$(arch) $HOME/bin/ytt
 }
 
 install_cheat() {
   go install github.com/cheat/cheat/cmd/cheat@latest
-  mkdir -p $HOME/.config/cheat
+  mkdir -p "$HOME/.config/cheat"
   cp "$ROOT_DIR/templates/cheatconf.yml" "$HOME/.config/cheat/conf.yml"
-  mkdir -p $HOME/share/doc/cheat/personal
-  mkdir -p $HOME/share/doc/cheat/work
-  wget -O $HOME/bin/cheatsheets https://raw.githubusercontent.com/cheat/cheat/master/scripts/git/cheatsheets
-  chmod +x $HOME/bin/cheatsheets
+  mkdir -p "$HOME/share/doc/cheat/personal"
+  mkdir -p "$HOME/share/doc/cheat/work"
+  wget -O "$HOME/bin/cheatsheets" https://raw.githubusercontent.com/cheat/cheat/master/scripts/git/cheatsheets
+  chmod +x "$HOME/bin/cheatsheets"
   pushd .
-  cd $HOME/share/doc/cheat
+  cd "$HOME/share/doc/cheat"
+  rm -rf community || echo "no previous community cheatsheets existed"
+  rm -rf cheatsheets || echo "no previous community cheatsheets existed"
   git clone https://github.com/cheat/cheatsheets.git
   mv cheatsheets community
   popd
-  . $HOME/.bash_profile && cheatsheets pull
+  . "$HOME/.bashrc" && cheatsheets pull
 }
 
 main() {
+  (
+    . "$HOME/.bashrc"
+    rbenv local system
+    rbenv use system
+    install_ruby_utils
+    nvm use system
+    install_node_utils
+  )
+  . "$HOME/.bashrc"
   install_pip_utils
   install_ruby_utils
   install_node_utils
+  npm install -g how2 \
+    tldr \
+    cpy-cli \
+    strip-json-comments-cli \
+    pretty-bytes-cli \
+    normalize-newline-cli \
+    strip-css-comments-cli \
+    json2csv \
+    xml2json-command \
+    json2yaml
   install_go_utils
-  install_other_utils
   install_cheat
 }
 

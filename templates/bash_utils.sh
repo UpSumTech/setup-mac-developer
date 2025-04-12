@@ -156,8 +156,6 @@ goenv_install_version() {
   goenv install "$version"
   goenv local "$version"
   go install github.com/jteeuwen/go-bindata/...@latest
-  go install github.com/tylertreat/comcast@latest
-  go install github.com/fatih/hclfmt@latest
   go install github.com/mitchellh/gox@latest
   go install github.com/mitchellh/go-homedir@latest
   go install mvdan.cc/interfacer@latest
@@ -191,11 +189,9 @@ goenv_install_version() {
   go install github.com/jstemmer/gotags@latest
   go install github.com/fatih/gomodifytags@latest
   go install golang.org/x/lint/golint@latest
-  go install golang.org/x/tools/cmd/gorename@latest
   go install golang.org/x/tools/cmd/guru@latest
   go install golang.org/x/tools/cmd/goimports@latest
   go install golang.org/x/tools/gopls@latest
-  go install github.com/motemen/gore/cmd/gore@latest
   go install golang.org/x/tools/cmd/godoc@latest
   go install mvdan.cc/sh/cmd/shfmt@latest
   go install github.com/fatih/hclfmt@latest
@@ -221,6 +217,25 @@ tgenv_install_version() {
 tfenv_install_version() {
   local version="$1"
   TFENV_ARCH=$(uname -m) tfenv install "$version"
+}
+
+start_podman() {
+  if [[ $(podman machine ls --noheading | wc -l) -eq 0 ]]; then
+    podman machine init --cpus 4 --memory=6144
+  fi
+  if podman machine info | grep -i machinestate | grep -i running >/dev/null 2>&1; then
+    echo "podman is already in a running state"
+  else
+    podman machine start
+  fi
+}
+
+stop_podman() {
+  if podman machine info | grep -i machinestate | grep -i running >/dev/null 2>&1; then
+    podman machine stop
+  else
+    echo "podman is already stopped"
+  fi
 }
 
 login_dockerhub() {
@@ -308,16 +323,6 @@ terraform_check() {
   docker run -t -v $(pwd):/tf bridgecrew/checkov -d /tf
 }
 
-kubectl_get_all_in_ns() {
-  kubectl api-resources --verbs=list --namespaced -o name \
-    | xargs -n 1 kubectl get --show-kind --ignore-not-found
-  __ok
-}
-
-docker_img_sha() {
-  docker inspect --format='{{index .RepoDigests 0}}' "$1"
-}
-
 sync_history() {
   local current_time=$(date +%s)
   if [[ -z $HISTLASTSYNCED \
@@ -387,6 +392,56 @@ reset_tmux_pane_props() {
   [[ -s "$file" ]] && rm "$file" \
     || echo -n ''
   tmux set-option pane-active-border-style bg=default,fg=green
+}
+
+__kubectl_relevant_resource_names() {
+  export __K8S_RELEVANT_RESOURCES=( "pods" "deployments" "daemonsets" "sts" "jobs" "cronjobs" "pvc" "ingress" )
+}
+__kubectl_relevant_resource_names
+
+kubectl_get_all_resources() {
+  kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found=true
+}
+
+kubectl_get_all_resource_types() {
+  kubectl api-resources --verbs=list --namespaced -o name
+}
+
+kubectl_get_all_ingress_hosts() {
+  kubectl get --all-namespaces ingress -o json | jq -r '.items[].spec.rules | select(length > 0) | .[].host' | sort -u
+}
+
+kubectl_get_ingress_by_host() {
+  local hostname="$1"
+  (
+    export HOST="$hostname"
+    echo "HOST PATH NAMESPACE SERVICE PORT INGRESS REWRITE"
+    echo "---- ---- --------- ------- ---- ------- -------"
+    kubectl get --all-namespaces ingress -o json | \
+      jq -r '.items[] | . as $parent | .spec.rules | select(length > 0) | .[] | select(.host==$ENV.HOST) | .host as $host | .http.paths[] | ( $host + " " + .path + " " + $parent.metadata.namespace + " " + .backend.service.name + " " + (.backend.service.port.number // .backend.service.port.name | tostring) + " " + $parent.metadata.name + " " + $parent.metadata.annotations."nginx.ingress.kubernetes.io/rewrite-target")' | \
+      sort
+  ) | column -s\  -t
+  __ok
+}
+
+kubectl_get_relevant_objects() {
+  local resource_name
+  for resource_name in "${__K8S_RELEVANT_RESOURCES[@]}"; do
+    echo "--------------- $resource_name ----------------"
+    kubectl get "$resource_name"; echo;echo;
+  done
+}
+
+kubectl_get_relevant_objects_with_label() {
+  local label_name="$1"
+  local resources=( "pods" "deployments" "sts" "cronjobs" "jobs" "pvc" "ingress" )
+  (
+    echo "NAMESPACE KIND NAME"
+    echo "--------- --------- ---------"
+    for resource_name in "${resources[@]}"; do
+      kubectl get "$resource_name" -o go-template="{{range .items}}{{if (index .metadata.labels \"$label_name\")}}{{printf \"%s %s %s\n\" .metadata.namespace .kind .metadata.name}}{{end}}{{end}}"
+    done
+  ) | column -s\  -t
 }
 
 build_dot_env_file() {
@@ -473,3 +528,4 @@ fi
 EOF
   fi
 }
+

@@ -10,35 +10,40 @@ change_shell() {
   else
     brewDir="/opt/homebrew"
   fi
-  if !sudo grep "$brewDir/bin/bash" /etc/shells; then
-    sudo echo "$brewDir/bin/bash" >> /etc/shells
+  if sudo grep "$brewDir/bin/bash" /etc/shells; then
+    echo "we have already switched the default shell to bash"
+  else
+    sudo echo "$brewDir/bin/bash" | sudo tee -a /etc/shells
   fi
   chsh -s "$brewDir/bin/bash"
 }
 
 preserve_bash_profile() {
-  mv $HOME/.bash_profile $HOME/.bash_profile.bak
+  mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak"
 }
 
 install_bashit() {
+  if [[ -d "$HOME/.bash_it" ]]; then
+    rm -rf "$HOME/.bash_it"
+  fi
   git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
   echo y > bash-it-install-option \
-    && /bin/bash $HOME/.bash_it/install.sh < bash-it-install-option \
+    && /bin/bash "$HOME/.bash_it/install.sh" < bash-it-install-option \
     && rm bash-it-install-option
 }
 
 add_composure() {
   pushd .
-  cd $HOME/.bash_it/custom \
+  cd "$HOME/.bash_it/custom" \
     && curl -L http://git.io/composure > composure.sh \
     && chmod +x composure.sh
   popd
 }
 
 create_custom_files() {
-  touch $HOME/.bash_it/custom/aliases.bash
-  touch $HOME/.bash_it/custom/utils.bash
-  cp $ROOT_DIR/templates/bash_utils.sh $HOME/.bash_utils.sh
+  touch "$HOME/.bash_it/custom/aliases.bash"
+  touch "$HOME/.bash_it/custom/utils.bash"
+  cp "$ROOT_DIR/templates/bash_utils.sh" "$HOME/.bash_utils.sh"
 }
 
 enable_bash_it_completions() {
@@ -71,11 +76,11 @@ setup_bashit() {
 }
 
 restore_bash_profile() {
-  mv $HOME/.bash_profile.bak $HOME/.bash_profile
+  mv "$HOME/.bash_profile.bak" "$HOME/.bash_profile"
 }
 
 main() {
-  change_shell # NOTE : You might want to do this part manually in some work machines if needed
+  # change_shell # NOTE : You might want to do this part manually in some work machines if needed
   preserve_bash_profile
   install_bashit
   add_composure

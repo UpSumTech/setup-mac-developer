@@ -18,12 +18,13 @@ show_essential_dirs() {
 }
 
 create_essential_dirs_and_files() {
-  mkdir -p $HOME/lib
-  mkdir -p $HOME/var/run
-  mkdir -p $HOME/var/log
-  mkdir -p $HOME/bin
-  mkdir -p $HOME/etc
-  mkdir -p $HOME/tmp
+  mkdir -p "$HOME/lib"
+  mkdir -p "$HOME/var/run"
+  mkdir -p "$HOME/var/log"
+  mkdir -p "$HOME/bin"
+  mkdir -p "$HOME/etc"
+  mkdir -p "$HOME/tmp"
+  mkdir -p "$HOME/opt"
 }
 
 main() {
