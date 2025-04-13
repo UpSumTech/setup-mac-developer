@@ -186,6 +186,12 @@ install_packages_from_brew() {
   brew install luajit
   brew install ytt
   brew install kustomize
+  brew install deno
+  brew install uv
+  brew install google-cloud-sdk
+  brew install aichat
+  brew install hadolint
+  brew install markdownlint-cli
 }
 
 post_brew_package_installation() {
@@ -196,6 +202,8 @@ post_brew_package_installation() {
   fi
   cp "$ROOT_DIR/templates/bash_profile" "$HOME/.bash_profile"
   cp "$ROOT_DIR/templates/bashrc" "$HOME/.bashrc"
+  cp "$ROOT_DIR/templates/gemini_config_file.json" "$HOME/.gemini_config_file.json"
+  cp "$ROOT_DIR/templates/aider.conf.yaml" "$HOME/.aider.conf.yaml"
   brew cleanup
   brew services stop --all
 }

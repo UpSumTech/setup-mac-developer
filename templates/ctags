@@ -26,6 +26,7 @@
 --exclude=bower_components
 --exclude=*.bundle.*
 --exclude=.terraform
+--exclude=.aider*
 
 --langmap=Lisp:+.clj
 

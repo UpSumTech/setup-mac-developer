@@ -26,3 +26,4 @@ out
 target
 .out
 *cscope*
+.aider*
