@@ -156,6 +156,7 @@ goenv_install_version() {
   goenv install "$version"
   goenv local "$version"
   go install github.com/jteeuwen/go-bindata/...@latest
+  go install github.com/tylertreat/comcast@latest
   go install github.com/mitchellh/gox@latest
   go install github.com/mitchellh/go-homedir@latest
   go install mvdan.cc/interfacer@latest
@@ -167,7 +168,6 @@ goenv_install_version() {
   go install mvdan.cc/unparam@latest
   go install github.com/stripe/safesql@latest
   go install github.com/alexkohler/nakedret@latest
-  go install github.com/alecthomas/gometalinter@latest
   go install github.com/nsf/gocode@latest
   go install github.com/gordonklaus/ineffassign@latest
   go install github.com/tsenart/deadcode@latest
@@ -189,6 +189,7 @@ goenv_install_version() {
   go install github.com/jstemmer/gotags@latest
   go install github.com/fatih/gomodifytags@latest
   go install golang.org/x/lint/golint@latest
+  go install golang.org/x/tools/cmd/gorename@latest
   go install golang.org/x/tools/cmd/guru@latest
   go install golang.org/x/tools/cmd/goimports@latest
   go install golang.org/x/tools/gopls@latest
@@ -198,6 +199,8 @@ goenv_install_version() {
   go install github.com/fatih/motion@latest
   go install github.com/golang/protobuf/proto@latest
   go install github.com/golang/protobuf/protoc-gen-go@latest
+  go install golang.org/x/tools/gopls@latest
+  go install github.com/reugn/gemini-cli/cmd/gemini@latest
   goenv rehash
   __ok
 }
