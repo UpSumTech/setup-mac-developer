@@ -89,8 +89,8 @@ install_packages_from_brew() {
   brew install ruby
   brew install node
   brew install golang
-  brew install mysql
-  brew install postgresql@15
+  brew install mysql@8.0
+  brew install postgresql@16
   brew install redis
   brew install rabbitmq
   brew install ncurses
@@ -192,6 +192,7 @@ install_packages_from_brew() {
   brew install aichat
   brew install hadolint
   brew install markdownlint-cli
+  brew install kubent
 }
 
 post_brew_package_installation() {

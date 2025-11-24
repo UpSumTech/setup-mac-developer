@@ -3,7 +3,7 @@
 install_kubectl() {
   (
     cd "$(mktemp -d)" &&
-    VERSION="v1.30.10" &&
+    VERSION="v1.32.9" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -fsSLO "https://dl.k8s.io/release/${VERSION}/bin/${OS}/${ARCH}/kubectl" &&
@@ -39,13 +39,14 @@ install_plugins_with_krew() {
     pod-logs \
     node-shell \
     cert-manager \
-    who-can
+    who-can \
+    mounts
 }
 
 install_kube_convert() {
   (
     cd "$(mktemp -d)" &&
-    VERSION="v1.30.10" &&
+    VERSION="v1.32.9" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -LO "https://dl.k8s.io/release/${VERSION}/bin/$OS/$ARCH/kubectl-convert" &&
@@ -56,23 +57,10 @@ install_kube_convert() {
   )
 }
 
-install_kubent() {
-  (
-    cd "$(mktemp -d)" &&
-    VERSION="0.7.3" &&
-    OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-    ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-    curl -fsSLO "https://github.com/doitintl/kube-no-trouble/releases/download/${VERSION}/kubent-${VERSION}-${OS}-${ARCH}.tar.gz"
-    tar zxvf "kubent-${VERSION}-${OS}-${ARCH}.tar.gz" &&
-    chmod +x kubent &&
-    mv kubent "$HOME/bin/kubent"
-  )
-}
-
 install_popeye() {
   (
     cd "$(mktemp -d)" &&
-    VERSION="v0.21.6" &&
+    VERSION="v0.22.1" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -fsSLO "https://github.com/derailed/popeye/releases/download/${VERSION}/popeye_${OS}_${ARCH}.tar.gz"
@@ -86,7 +74,6 @@ main() {
   install_kubectl
   install_krew_for_kubectl
   install_plugins_with_krew
-  install_kubent
   install_popeye
   install_kube_convert
 }

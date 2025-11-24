@@ -16,11 +16,17 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 
 ############################# UPDATE PATH AND LOAD PROGRAMMING LANGUAGE ENVS ###############################
+# C and C++ compilers
+CC=$(brew --prefix)/bin/gcc-15
+export CC
+CXX=$(brew --prefix)/bin/g++-15
+export CXX
+
 # Init env specific prog langs and also load it in the paths properly
 PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/grep/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/gawk/libexec/gnubin:$(brew --prefix)/opt/gnu-getopt/bin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/opt/bzip2/bin:$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$(brew --prefix)/opt/ruby/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
 PATH="$(brew --prefix)/opt/libtool/libexec/gnubin:$PATH"
-PATH="$(brew --prefix)/opt/postgresql@15/bin:$PATH"
-PATH="$(brew --prefix)/opt/mysql/bin:$PATH"
+PATH="$(brew --prefix postgresql@16)/bin:$PATH"
+PATH="$(brew --prefix mysql@8.0)/bin:$PATH"
 PATH="$(brew --prefix)/opt/tcl-tk/bin:$PATH"
 PATH="$(brew --prefix)/opt/protobuf@21/bin:$PATH"
 PATH="$(brew --prefix)/opt/krb5/bin:$PATH"
@@ -31,7 +37,6 @@ MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/find
 export MANPATH
 
 LDFLAGS="-L$(brew --prefix)/opt/curl/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/postgresql@15/lib $LDFLAGS"
 LDFLAGS="-L$(brew --prefix)/opt/bzip2/lib $LDFLAGS"
 LDFLAGS="-L$(brew --prefix)/opt/protobuf@21/lib $LDFLAGS"
 LDFLAGS="-L$(brew --prefix)/opt/readline/lib $LDFLAGS"
@@ -41,10 +46,12 @@ LDFLAGS="-L$(brew --prefix)/opt/krb5/lib $LDFLAGS"
 LDFLAGS="-L$(brew --prefix)/opt/zlib/lib $LDFLAGS"
 LDFLAGS="-L$(brew --prefix)/opt/ruby/lib $LDFLAGS"
 LDFLAGS="-L$(brew --prefix)/opt/ncurses/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix)/opt/gcc/lib $LDFLAGS"
+LDFLAGS="-I$(brew --prefix mysql@8.0)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix postgresql@16)/lib $LDFLAGS"
 export LDFLAGS
 
 CPPFLAGS="-I$(brew --prefix)/opt/curl/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/postgresql@15/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix)/opt/bzip2/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix)/opt/openjdk@17/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix)/opt/protobuf@21/include $CPPFLAGS"
@@ -55,10 +62,13 @@ CPPFLAGS="-I$(brew --prefix)/opt/krb5/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix)/opt/zlib/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix)/opt/ruby/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix)/opt/ncurses/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix)/opt/gcc/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix mysql@8.0)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix postgresql@16)/include $CPPFLAGS"
 export CPPFLAGS
 
 PKG_CONFIG_PATH="$(brew --prefix)/opt/curl/lib/pkgconfig"
-PKG_CONFIG_PATH="$(brew --prefix)/opt/postgresql@15/lib/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="$(brew --prefix)/opt/postgresql@16/lib/pkgconfig:$PKG_CONFIG_PATH"
 PKG_CONFIG_PATH="$(brew --prefix)/opt/protobuf@21/lib/pkgconfig:$PKG_CONFIG_PATH"
 PKG_CONFIG_PATH="$(brew --prefix)/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH
