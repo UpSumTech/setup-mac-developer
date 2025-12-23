@@ -193,6 +193,7 @@ install_packages_from_brew() {
   brew install hadolint
   brew install markdownlint-cli
   brew install kubent
+  brew install --cask claude-code
 }
 
 post_brew_package_installation() {
