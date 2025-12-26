@@ -12,6 +12,7 @@ install_rustup() {
   . "$HOME/.cargo/env"
   rustup completions bash > "$(brew --prefix)/etc/bash_completion.d/rustup.bash-completion"
   rustup component add rust-src # Add component for rust-src because you will need it in the LSP for vim that rust uses
+  rustup component add rust-analyzer # Add component for rust-analyzer because you will need it in the LSP for claude
 }
 
 main() {

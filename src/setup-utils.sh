@@ -4,6 +4,7 @@ THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
 ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
 install_pip_utils() {
+  # Add pyright because you need it as the LSP for claude code
   python3 -m pip --trusted-host pypi.python.org install doitlive \
     percol \
     supervisor \
@@ -18,7 +19,8 @@ install_pip_utils() {
     yamllint \
     neovim \
     sexpdata \
-    websocket-client
+    websocket-client \
+    pyright
 }
 
 install_ruby_utils() {

@@ -193,6 +193,7 @@ install_packages_from_brew() {
   brew install hadolint
   brew install markdownlint-cli
   brew install kubent
+  brew install jdtls # Java development tools language server for claude
 }
 
 post_brew_package_installation() {
