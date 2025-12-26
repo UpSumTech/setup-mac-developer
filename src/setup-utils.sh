@@ -37,20 +37,13 @@ install_ruby_utils() {
 }
 
 install_node_utils() {
-  npm install -g how2 \
-    js-beautify \
-    jsonlint \
-    jshint \
-    js-yaml \
-    iplocation-cli \
-    prettier \
+  npm install -g prettier \
     stylelint \
     stylelint-scss \
-    stylelint-processor-styled-components \
-    stylelint-config-styled-components \
-    stylelint-config-recommended-scss \
-    stylelint-config-recommended \
-    eslint
+    eslint \
+    typescript-language-server \
+    typescript \
+    anthropic-ai/claude-code
 }
 
 install_go_utils() {
