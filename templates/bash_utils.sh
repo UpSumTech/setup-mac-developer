@@ -44,43 +44,14 @@ start_ssh_agent_and_add_key() {
 
 nvm_install_version() {
   local node_version="$1"
-  nvm install $node_version
-  nvm use $node_version && npm install -g how2 \
-    cpy-cli \
-    trash-cli \
-    empty-trash-cli \
-    strip-json-comments-cli \
-    doctoc \
-    gistup \
-    pretty-bytes-cli \
-    normalize-newline-cli \
-    speed-test \
-    weather-cli \
-    strip-css-comments-cli \
-    localtunnel \
-    json2csv \
-    xml2json-command \
-    json2yaml \
-    js-beautify \
-    jsonlint \
-    jshint \
-    js-yaml \
-    iplocation-cli \
-    eslint \
-    babel-eslint \
-    @babel/eslint-parser \
-    prettier \
-    eslint-config-prettier \
-    eslint-plugin-prettier \
-    eslint-plugin-flowtype \
-    eslint-plugin-react \
+  nvm install "$node_version"
+  nvm use "$node_version" && npm install -g prettier \
     stylelint \
     stylelint-scss \
-    stylelint-processor-styled-components \
-    stylelint-config-styled-components \
-    stylelint-config-recommended-scss \
-    stylelint-config-recommended \
-    tldr
+    eslint \
+    typescript-language-server \
+    typescript \
+    anthropic-ai/claude-code
   __ok
 }
 
@@ -148,8 +119,8 @@ pyenv_install_version() {
     yamllint \
     neovim \
     sexpdata \
-    websocket-client
-
+    websocket-client \
+    pyright
   __ok
 }
 
@@ -533,4 +504,3 @@ fi
 EOF
   fi
 }
-

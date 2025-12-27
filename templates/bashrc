@@ -8,6 +8,14 @@ export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export KHELM_TRUST_ANY_REPO=true
 export XDG_CONFIG_HOME="$HOME/.config"
 export KIND_EXPERIMENTAL_PROVIDER=podman
+if command -v gh >/dev/null 2>&1; then
+  if gh auth status | grep -i -E '(Logged in)' >/dev/null 2>&1; then
+    GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token)" # Set GitHub token for CLI tools early
+    export GITHUB_PERSONAL_ACCESS_TOKEN
+  else
+    echo ">> ERROR - Not logged in to GitHub CLI. Please run 'gh auth login' to authenticate."
+  fi
+fi
 
 
 
@@ -85,7 +93,7 @@ if command -v pyenv >/dev/null 2>&1; then
 fi
 
 if [[ ! -d "$HOME/.nvm" ]]; then
-  mkdir $HOME/.nvm
+  mkdir "$HOME/.nvm"
 fi
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix)/opt/nvm/nvm.sh"
@@ -102,27 +110,27 @@ fi
 
 if command -v tfenv >/dev/null 2>&1; then
   export PATH="$(brew --prefix tfenv)/bin:$PATH"
-  tfenv use "$DEFAULT_TERRAFORM_VERSION"
+  tfenv use "$DEFAULT_TERRAFORM_VERSION" >/dev/null 2>&1
 fi
 
 if command -v tgenv >/dev/null 2>&1; then
   export PATH="$(brew --prefix tgenv)/bin:$PATH"
-  tgenv use "$DEFAULT_TERRAGRUNT_VERSION"
+  tgenv use "$DEFAULT_TERRAGRUNT_VERSION" >/dev/null 2>&1
 fi
 
 if [[ -d "$HOME/var/data/postgres" ]]; then
   export PGDATA="$HOME/var/data/postgres"
 fi
 
-if [[ -d $(brew --prefix)/opt/groovysdk/libexec ]]; then
-  export GROOVY_HOME=$(brew --prefix)/opt/groovysdk/libexec
+if [[ -d "$(brew --prefix)/opt/groovysdk/libexec" ]]; then
+  export GROOVY_HOME="$(brew --prefix)/opt/groovysdk/libexec"
 fi
 
-if [[ -d $HOME/.cargo ]]; then
-  . $HOME/.cargo/env
+if [[ -d "$HOME/.cargo" ]]; then
+  . "$HOME/.cargo/env"
 fi
 
-if [[ -d $HOME/.krew ]]; then
+if [[ -d "$HOME/.krew" ]]; then
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
@@ -158,7 +166,4 @@ if [[ -f "$HOME/.activate_profile.sh" ]]; then
 fi
 if [[ -f "$HOME/.bash_utils.sh" ]]; then
   . "$HOME/.bash_utils.sh"
-fi
-if [[ -f "$HOME/.work_utils.sh" ]]; then
-  . "$HOME/.work_utils.sh"
 fi
