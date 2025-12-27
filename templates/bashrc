@@ -110,12 +110,12 @@ fi
 
 if command -v tfenv >/dev/null 2>&1; then
   export PATH="$(brew --prefix tfenv)/bin:$PATH"
-  tfenv use "$DEFAULT_TERRAFORM_VERSION" >/dev/null 2>&1
+  tfenv use "$DEFAULT_TERRAFORM_VERSION" >/dev/null
 fi
 
 if command -v tgenv >/dev/null 2>&1; then
   export PATH="$(brew --prefix tgenv)/bin:$PATH"
-  tgenv use "$DEFAULT_TERRAGRUNT_VERSION" >/dev/null 2>&1
+  tgenv use "$DEFAULT_TERRAGRUNT_VERSION" >/dev/null
 fi
 
 if [[ -d "$HOME/var/data/postgres" ]]; then
@@ -139,7 +139,7 @@ if command -v fzf >/dev/null 2>&1; then
 fi
 
 if command -v m1-terraform-provider-helper >/dev/null 2>&1; then
-  m1-terraform-provider-helper activate
+  m1-terraform-provider-helper activate >/dev/null
 fi
 
 
