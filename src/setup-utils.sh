@@ -95,6 +95,7 @@ install_go_utils() {
   go install github.com/golang/protobuf/proto@latest
   go install github.com/golang/protobuf/protoc-gen-go@latest
   go install golang.org/x/tools/gopls@latest
+  go install github.com/mgechev/revive@latest
   go install github.com/reugn/gemini-cli/cmd/gemini@latest
   goenv rehash
 }

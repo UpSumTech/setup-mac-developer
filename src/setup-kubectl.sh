@@ -3,7 +3,7 @@
 install_kubectl() {
   (
     cd "$(mktemp -d)" &&
-    VERSION="v1.32.9" &&
+    VERSION="v1.33.5" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -fsSLO "https://dl.k8s.io/release/${VERSION}/bin/${OS}/${ARCH}/kubectl" &&
@@ -46,7 +46,7 @@ install_plugins_with_krew() {
 install_kube_convert() {
   (
     cd "$(mktemp -d)" &&
-    VERSION="v1.32.9" &&
+    VERSION="v1.33.5" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     curl -LO "https://dl.k8s.io/release/${VERSION}/bin/$OS/$ARCH/kubectl-convert" &&
@@ -78,4 +78,4 @@ main() {
   install_kube_convert
 }
 
-[[ "$BASH_SOURCE" == "$0" ]] && main "$@"
+[[ "${BASH_SOURCE[0]}" == "$0" ]] && main "$@"
