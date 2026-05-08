@@ -118,6 +118,24 @@ install_cheat() {
   . "$HOME/.bashrc" && cheatsheets pull
 }
 
+install_cilium_cli() {
+  (
+    pushd .
+    CILIUM_TEMPDIR="$(mktemp -d)"
+    cd "$CILIUM_TEMPDIR" || exit
+    CILIUM_CLI_VERSION="v0.19.2"
+    GOOS="darwin"
+    GOARCH="arm64"
+    curl -fsSLO "https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-${GOOS}-${GOARCH}.tar.gz"
+    curl -fsSLO "https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-${GOOS}-${GOARCH}.tar.gz.sha256sum"
+    ls -lah .
+    sha256sum --check cilium-${GOOS}-${GOARCH}.tar.gz.sha256sum
+    tar -C "$HOME/bin" -xzvf cilium-${GOOS}-${GOARCH}.tar.gz
+    popd
+    rm -rf "$CILIUM_TEMPDIR"
+  )
+}
+
 main() {
   (
     . "$HOME/.bashrc"
@@ -143,6 +161,7 @@ main() {
     json2yaml
   install_go_utils
   install_cheat
+  install_cilium_cli
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

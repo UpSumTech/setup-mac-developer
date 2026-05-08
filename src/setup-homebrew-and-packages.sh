@@ -180,7 +180,6 @@ install_packages_from_brew() {
   brew install kubebuilder
   brew install naml
   brew install cloudflared
-  brew install cilium-cli
   brew install hubble
   brew install universal-ctags
   brew install luajit
