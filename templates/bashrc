@@ -8,15 +8,17 @@ export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export KHELM_TRUST_ANY_REPO=true
 export XDG_CONFIG_HOME="$HOME/.config"
 export KIND_EXPERIMENTAL_PROVIDER=podman
-if command -v gh >/dev/null 2>&1; then
-  if gh auth status | grep -i -E '(Logged in)' >/dev/null 2>&1; then
-    GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token)" # Set GitHub token for CLI tools early
-    export GITHUB_PERSONAL_ACCESS_TOKEN
-  else
-    echo ">> ERROR - Not logged in to GitHub CLI. Please run 'gh auth login' to authenticate."
+
+if [[ -z "$CLAUDECODE" ]]; then
+  if command -v gh >/dev/null 2>&1; then
+    if gh auth status | grep -i -E '(Logged in)' >/dev/null 2>&1; then
+      GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token)" # Set GitHub token for CLI tools early
+      export GITHUB_PERSONAL_ACCESS_TOKEN
+    else
+      echo ">> ERROR - Not logged in to GitHub CLI. Please run 'gh auth login' to authenticate."
+    fi
   fi
 fi
-
 
 
 ####################################### HOMEBREW #######################################
@@ -92,9 +94,7 @@ if command -v pyenv >/dev/null 2>&1; then
   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 fi
 
-if [[ ! -d "$HOME/.nvm" ]]; then
-  mkdir "$HOME/.nvm"
-fi
+mkdir -p "$HOME/.nvm"
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix)/opt/nvm/nvm.sh"
 . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"

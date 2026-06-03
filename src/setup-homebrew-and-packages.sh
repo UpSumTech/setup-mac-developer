@@ -4,7 +4,7 @@ THIS_DIR="$(cd "$(dirname "$BASH_SOURCE")" && pwd)"
 ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
 install_homebrew() {
-  command -v brew || /usr/bin/env ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  command -v brew || /usr/bin/env ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   sudo chgrp -R admin /usr/local/*
   sudo chmod -R g+w /usr/local/*
   if [[ -d /opt/homebrew ]]; then

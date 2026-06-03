@@ -20,7 +20,8 @@ install_pip_utils() {
     neovim \
     sexpdata \
     websocket-client \
-    pyright
+    pyright \
+    boto3
 }
 
 install_ruby_utils() {
