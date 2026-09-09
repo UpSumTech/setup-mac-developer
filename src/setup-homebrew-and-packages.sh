@@ -193,6 +193,9 @@ install_packages_from_brew() {
   brew install markdownlint-cli
   brew install kubent
   brew install jdtls # Java development tools language server for claude
+  brew install istioctl
+  brew install cmctl
+  brew install can1357/tap/omp
 }
 
 post_brew_package_installation() {

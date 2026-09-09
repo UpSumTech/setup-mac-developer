@@ -8,6 +8,7 @@ export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export KHELM_TRUST_ANY_REPO=true
 export XDG_CONFIG_HOME="$HOME/.config"
 export KIND_EXPERIMENTAL_PROVIDER=podman
+export GH_TELEMETRY=false
 
 if [[ -z "$CLAUDECODE" ]]; then
   if command -v gh >/dev/null 2>&1; then
