@@ -196,6 +196,7 @@ install_packages_from_brew() {
   brew install istioctl
   brew install cmctl
   brew install can1357/tap/omp
+  brew install oven-sh/bun/bun
 }
 
 post_brew_package_installation() {
