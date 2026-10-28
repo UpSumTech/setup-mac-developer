@@ -130,6 +130,7 @@ goenv_install_version() {
   goenv local "$version"
   go install github.com/jteeuwen/go-bindata/...@latest
   go install github.com/tylertreat/comcast@latest
+  go install github.com/fatih/hclfmt@latest
   go install github.com/mitchellh/gox@latest
   go install github.com/mitchellh/go-homedir@latest
   go install mvdan.cc/interfacer@latest
@@ -173,6 +174,7 @@ goenv_install_version() {
   go install github.com/golang/protobuf/proto@latest
   go install github.com/golang/protobuf/protoc-gen-go@latest
   go install golang.org/x/tools/gopls@latest
+  go install github.com/mgechev/revive@latest
   go install github.com/reugn/gemini-cli/cmd/gemini@latest
   goenv rehash
   __ok

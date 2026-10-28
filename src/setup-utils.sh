@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "$THIS_DIR")" && pwd)"
 
 install_pip_utils() {
   # Add pyright because you need it as the LSP for claude code
+  python3 -m pip --trusted-host pypi.python.org install "pipenv[completion]"
   python3 -m pip --trusted-host pypi.python.org install doitlive \
     percol \
     supervisor \
@@ -46,7 +47,18 @@ install_node_utils() {
     eslint \
     typescript-language-server \
     typescript \
-    anthropic-ai/claude-code
+    @anthropic-ai/claude-code
+  bun install -g @oh-my-pi/pi-coding-agent
+  npm install -g how2 \
+    tldr \
+    cpy-cli \
+    strip-json-comments-cli \
+    pretty-bytes-cli \
+    normalize-newline-cli \
+    strip-css-comments-cli \
+    json2csv \
+    xml2json-command \
+    json2yaml
 }
 
 install_go_utils() {
@@ -141,7 +153,7 @@ main() {
   (
     . "$HOME/.bashrc"
     rbenv local system
-    rbenv use system
+    rbenv shell system
     install_ruby_utils
     nvm use system
     install_node_utils
@@ -150,16 +162,6 @@ main() {
   install_pip_utils
   install_ruby_utils
   install_node_utils
-  npm install -g how2 \
-    tldr \
-    cpy-cli \
-    strip-json-comments-cli \
-    pretty-bytes-cli \
-    normalize-newline-cli \
-    strip-css-comments-cli \
-    json2csv \
-    xml2json-command \
-    json2yaml
   install_go_utils
   install_cheat
   install_cilium_cli

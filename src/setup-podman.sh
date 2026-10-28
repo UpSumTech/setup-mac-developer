@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 setup_podman() {
-  podman machine init --cpus 4 --memory=6144
+  podman machine init --cpus 1 --memory=1024
 }
 
 main() {

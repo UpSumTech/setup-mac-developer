@@ -6,6 +6,7 @@ dist
 bundle
 vendor
 node_modules
+.claude
 *.tags*
 *.gemtags*
 *.csv

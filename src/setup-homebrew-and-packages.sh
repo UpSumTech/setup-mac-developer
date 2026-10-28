@@ -38,6 +38,19 @@ setup_brew_taps() {
   brew tap ktr0731/evans
   brew tap spring-io/tap
   brew tap kwilczynski/homebrew-pkenv
+
+  brew trust --formula argoproj/tap/kubectl-argo-rollouts
+  brew trust --formula johanhaleby/kubetail/kubetail
+  brew trust --formula kwilczynski/pkenv/pkenv
+  brew trust --formula mike-engel/jwt-cli/jwt-cli
+  brew trust --formula pulumi/tap/pulumi
+  brew trust --formula spring-io/tap/spring-boot
+  brew trust drgrove/tap ktr0731/evans
+  brew trust mongodb/brew
+  brew trust puppetlabs/puppet
+  brew trust universal-ctags/universal-ctags
+  brew trust wata727/tflint
+  # brew trust kreuzwerker/taps
 }
 
 install_apps_from_cask() {
@@ -66,7 +79,7 @@ install_packages_from_brew() {
   brew install texinfo
   brew install gnu-indent
   brew install gnu-getopt
-  brew install pgrep
+  brew install proctools
   brew install ngrep
   brew install tree
   brew install pstree
@@ -115,8 +128,8 @@ install_packages_from_brew() {
   brew install bash
   brew install autoenv
   brew install rbenv
-  brew install pyenv
-  brew install pyenv-virtualenv
+  brew install --HEAD pyenv
+  brew install --HEAD pyenv-virtualenv
   brew install nvm
   brew install awscli
   brew install jq
@@ -170,7 +183,6 @@ install_packages_from_brew() {
   brew install reattach-to-user-namespace # Verify that the latest version of mac OS can deal with this to copy paste buffers
   brew install goenv
   brew install curl
-  brew install kreuzwerker/taps/m1-terraform-provider-helper # This is a helper for installing terraform modules for apple m1 mac
   brew install eksctl
   brew install sops
   brew install argocd

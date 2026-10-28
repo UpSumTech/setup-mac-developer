@@ -3,7 +3,7 @@
 install_terragrunt_versions() {
   . "$HOME/.bashrc"
   local terragrunt_version
-  local arr=( '0.77.12' )
+  local arr=( '1.2.1' )
   for terragrunt_version in "${arr[@]}"; do
     TGENV_ARCH="$(uname -m)" tgenv install "$terragrunt_version"
   done
@@ -11,7 +11,7 @@ install_terragrunt_versions() {
 
 main() {
   install_terragrunt_versions
-  . "$HOME/.bashrc" && tgenv use 0.77.12
+  . "$HOME/.bashrc" && tgenv use 1.2.1
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

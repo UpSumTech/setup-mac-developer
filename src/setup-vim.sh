@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 VIM_SRC_DIR="$(mktemp -d "${TMPDIR}vim_src.XXXX")"
-PYTHON_VERSION="2.7.18"
-PYTHON3_VERSION="3.13.3"
-PYTHON_VERSION_SHORT="2.7"
+PYTHON_VERSION="3.13.18"
+PYTHON3_VERSION="3.13.18"
+PYTHON_VERSION_SHORT="3.13"
 PYTHON3_VERSION_SHORT="3.13"
 trap 'rm -rf $VIM_SRC_DIR' EXIT
 
@@ -32,6 +32,8 @@ verify_required_python_versions() {
 get_vim() {
   cd "$VIM_SRC_DIR"
   git clone https://github.com/vim/vim.git
+  # cd vim && git checkout v9.2.1244
+  cd vim && git checkout v8.2.0
 }
 
 build_vim_from_src() {
@@ -40,10 +42,10 @@ build_vim_from_src() {
   local py3_config
   local py3_prefix
   local ruby_command
-  pyenv local "$PYTHON_VERSION" "$PYTHON3_VERSION"
-  py_config="$(pyenv prefix $PYTHON_VERSION/lib/python2.7/config)"
+  pyenv local "$PYTHON3_VERSION"
   py3_prefix="$(pyenv prefix $PYTHON3_VERSION)"
   py3_config="$(${py3_prefix}/bin/python-config --configdir)"
+  py_config="$(${py3_prefix}/bin/python-config --configdir)"
   ruby_command="$(rbenv which ruby)"
   echo ">>>> PYTHON_CONFIG : $py_config"
   echo ">>>> PYTHON3_CONFIG : $py3_config"
@@ -59,9 +61,6 @@ build_vim_from_src() {
     --enable-rubyinterp \
     --enable-largefile \
     --disable-netbeans \
-    --enable-pythoninterp=dynamic \
-    --with-python-command="python${PYTHON_VERSION_SHORT}" \
-    --with-python-config-dir="$py_config" \
     --enable-python3interp=dynamic \
     --with-python3-command="python${PYTHON3_VERSION_SHORT}" \
     --with-python3-config-dir="$py3_config" \
@@ -75,7 +74,6 @@ build_vim_from_src() {
     --enable-fontset \
     --enable-cscope \
     --prefix="$HOME/opt/vim"
-  make
   make install
   pyenv local --unset
 }
@@ -89,9 +87,9 @@ customize_vim() {
 
 main() {
   # verify_required_python_versions
-  # get_vim
-  # wrap_around_dir_change build_vim_from_src
-  customize_vim
+  get_vim
+  wrap_around_dir_change build_vim_from_src
+  # customize_vim
 }
 
 [[ "$BASH_SOURCE" == "$0" ]] && main "$@"

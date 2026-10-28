@@ -2,8 +2,8 @@
 
 
 ####################################### GLOBAL VARS #######################################
-export DEFAULT_TERRAFORM_VERSION="1.10.2"
-export DEFAULT_TERRAGRUNT_VERSION="0.77.12"
+export DEFAULT_TERRAFORM_VERSION="1.16.7"
+export DEFAULT_TERRAGRUNT_VERSION="1.2.1"
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export KHELM_TRUST_ANY_REPO=true
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -28,60 +28,60 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ############################# UPDATE PATH AND LOAD PROGRAMMING LANGUAGE ENVS ###############################
 # C and C++ compilers
-CC=$(brew --prefix)/bin/gcc-15
+CC=$(brew --prefix)/bin/gcc-16
 export CC
-CXX=$(brew --prefix)/bin/g++-15
+CXX=$(brew --prefix)/bin/g++-16
 export CXX
 
 # Init env specific prog langs and also load it in the paths properly
-PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/findutils/libexec/gnubin:$(brew --prefix)/opt/grep/libexec/gnubin:$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$(brew --prefix)/opt/gawk/libexec/gnubin:$(brew --prefix)/opt/gnu-getopt/bin:$(brew --prefix)/opt/sqlite/bin:$(brew --prefix)/opt/curl/bin:$(brew --prefix)/opt/bzip2/bin:$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$(brew --prefix)/opt/ruby/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
-PATH="$(brew --prefix)/opt/libtool/libexec/gnubin:$PATH"
+PATH="$(brew --prefix coreutils)/libexec/gnubin:$(brew --prefix findutils)/libexec/gnubin:$(brew --prefix grep)/libexec/gnubin:$(brew --prefix gnu-tar)/libexec/gnubin:$(brew --prefix gnu-sed)/libexec/gnubin:$(brew --prefix gawk)/libexec/gnubin:$(brew --prefix gnu-getopt)/bin:$(brew --prefix sqlite)/bin:$(brew --prefix curl)/bin:$(brew --prefix bzip2)/bin:$(brew --prefix gnu-indent)/libexec/gnubin:$(brew --prefix ruby)/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:$(brew --prefix)/opt:$(brew --prefix)/share:$PATH"
+PATH="$(brew --prefix libtool)/libexec/gnubin:$PATH"
 PATH="$(brew --prefix postgresql@16)/bin:$PATH"
 PATH="$(brew --prefix mysql@8.0)/bin:$PATH"
-PATH="$(brew --prefix)/opt/tcl-tk/bin:$PATH"
-PATH="$(brew --prefix)/opt/protobuf@21/bin:$PATH"
-PATH="$(brew --prefix)/opt/krb5/bin:$PATH"
-PATH="$(brew --prefix)/opt/krb5/sbin:$PATH"
+PATH="$(brew --prefix tcl-tk)/bin:$PATH"
+PATH="$(brew --prefix protobuf@21)/bin:$PATH"
+PATH="$(brew --prefix krb5)/bin:$PATH"
+PATH="$(brew --prefix krb5)/sbin:$PATH"
 export PATH
 
-MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/findutils/libexec/gnuman:$(brew --prefix)/opt/grep/libexec/gnuman:$(brew --prefix)/opt/gnu-tar/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman: $(brew --prefix)/opt/gawk/libexec/gnuman:$(brew --prefix)/opt/gnu-getopt/share/man:$(brew --prefix)/opt/sqlite/share/man:$(brew --prefix)/opt/curl/share/man:$(brew --prefix)/opt/bzip2/share/man:$(brew --prefix)/opt/gnu-indent/libexec/gnuman:$(brew --prefix)/opt/ruby/share/man:$MANPATH"
+MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$(brew --prefix findutils)/libexec/gnuman:$(brew --prefix grep)/libexec/gnuman:$(brew --prefix gnu-tar)/libexec/gnuman:$(brew --prefix gnu-sed)/libexec/gnuman: $(brew --prefix gawk)/libexec/gnuman:$(brew --prefix gnu-getopt)/share/man:$(brew --prefix sqlite)/share/man:$(brew --prefix curl)/share/man:$(brew --prefix bzip2)/share/man:$(brew --prefix gnu-indent)/libexec/gnuman:$(brew --prefix ruby)/share/man:$MANPATH"
 export MANPATH
 
-LDFLAGS="-L$(brew --prefix)/opt/curl/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/bzip2/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/protobuf@21/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/readline/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/sqlite/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/openssl/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/krb5/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/zlib/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/ruby/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/ncurses/lib $LDFLAGS"
-LDFLAGS="-L$(brew --prefix)/opt/gcc/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix curl)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix bzip2)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix protobuf@21)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix readline)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix sqlite)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix openssl)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix krb5)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix zlib)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix ruby)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix ncurses)/lib $LDFLAGS"
+LDFLAGS="-L$(brew --prefix gcc)/lib $LDFLAGS"
 LDFLAGS="-I$(brew --prefix mysql@8.0)/lib $LDFLAGS"
 LDFLAGS="-L$(brew --prefix postgresql@16)/lib $LDFLAGS"
 export LDFLAGS
 
-CPPFLAGS="-I$(brew --prefix)/opt/curl/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/bzip2/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/openjdk@17/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/protobuf@21/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/readline/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/sqlite/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/openssl/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/krb5/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/zlib/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/ruby/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/ncurses/include $CPPFLAGS"
-CPPFLAGS="-I$(brew --prefix)/opt/gcc/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix curl)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix bzip2)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix openjdk@17)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix protobuf@21)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix readline)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix sqlite)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix openssl)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix krb5)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix zlib)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix ruby)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix ncurses)/include $CPPFLAGS"
+CPPFLAGS="-I$(brew --prefix gcc)/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix mysql@8.0)/include $CPPFLAGS"
 CPPFLAGS="-I$(brew --prefix postgresql@16)/include $CPPFLAGS"
 export CPPFLAGS
 
-PKG_CONFIG_PATH="$(brew --prefix)/opt/curl/lib/pkgconfig"
-PKG_CONFIG_PATH="$(brew --prefix)/opt/postgresql@16/lib/pkgconfig:$PKG_CONFIG_PATH"
-PKG_CONFIG_PATH="$(brew --prefix)/opt/protobuf@21/lib/pkgconfig:$PKG_CONFIG_PATH"
-PKG_CONFIG_PATH="$(brew --prefix)/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="$(brew --prefix curl)/lib/pkgconfig"
+PKG_CONFIG_PATH="$(brew --prefix postgresql@16)/lib/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="$(brew --prefix protobuf@21)/lib/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="$(brew --prefix zlib)/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH
 
 if [[ -f "$(brew --prefix)/opt/autoenv/activate.sh" ]]; then
