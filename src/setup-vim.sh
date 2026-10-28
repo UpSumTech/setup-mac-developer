@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 VIM_SRC_DIR="$(mktemp -d "${TMPDIR}vim_src.XXXX")"
-PYTHON_VERSION="3.13.18"
 PYTHON3_VERSION="3.13.18"
-PYTHON_VERSION_SHORT="3.13"
 PYTHON3_VERSION_SHORT="3.13"
 trap 'rm -rf $VIM_SRC_DIR' EXIT
 
@@ -25,29 +23,27 @@ wrap_around_dir_change() {
 
 verify_required_python_versions() {
   command -v python | grep "pyenv" || die "python needs to be installed through pyenv"
-  pyenv versions | grep $PYTHON_VERSION || die "Does not have python version $PYTHON_VERSION installed through pyenv"
   pyenv versions | grep $PYTHON3_VERSION || die "Does not have python version $PYTHON3_VERSION installed through pyenv"
 }
 
 get_vim() {
   cd "$VIM_SRC_DIR"
   git clone https://github.com/vim/vim.git
-  # cd vim && git checkout v9.2.1244
-  cd vim && git checkout v8.2.0
+  cd vim && git checkout v9.2.1252
 }
 
 build_vim_from_src() {
   . "$HOME/.bashrc"
-  local py_config
+  unset CC CXX CFLAGS CPPFLAGS CXXFLAGS LDFLAGS LIBS LDLIBS SDKROOT ARCHFLAGS MACOSX_DEPLOYMENT_TARGET
+  export CC="$(xcrun --find clang)"
+  export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
   local py3_config
   local py3_prefix
   local ruby_command
   pyenv local "$PYTHON3_VERSION"
   py3_prefix="$(pyenv prefix $PYTHON3_VERSION)"
   py3_config="$(${py3_prefix}/bin/python-config --configdir)"
-  py_config="$(${py3_prefix}/bin/python-config --configdir)"
   ruby_command="$(rbenv which ruby)"
-  echo ">>>> PYTHON_CONFIG : $py_config"
   echo ">>>> PYTHON3_CONFIG : $py3_config"
   echo ">>>> RUBY : $ruby_command"
   mkdir -p "$HOME/opt/vim"
@@ -73,9 +69,8 @@ build_vim_from_src() {
     --with-tlib=ncurses \
     --enable-fontset \
     --enable-cscope \
-    --prefix="$HOME/opt/vim"
+    --prefix="$HOME/opt/vim" || die "Vim configure failed"
   make install
-  pyenv local --unset
 }
 
 customize_vim() {
@@ -86,7 +81,7 @@ customize_vim() {
 }
 
 main() {
-  # verify_required_python_versions
+  verify_required_python_versions
   get_vim
   wrap_around_dir_change build_vim_from_src
   # customize_vim

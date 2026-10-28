@@ -93,6 +93,10 @@ if command -v pyenv >/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+  if command -v pipenv >/dev/null 2>&1; then
+    eval "$(register-python-argcomplete pipenv)"
+  fi
 fi
 
 mkdir -p "$HOME/.nvm"
